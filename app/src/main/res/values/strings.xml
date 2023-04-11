@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Spotiminder</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="authenticate">Authenticate</string>
+    <string name="spotiminder">Spotiminder</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="profile_photo_as_a_small_icon_in_the_top_left">Profile photo as a small icon in the top left</string>
+    <string name="album_art">Album art</string>
+    <string name="reminders">Reminders</string>
+    <string name="settings_icon_in_the_top_right">Settings icon in the top right</string>
+    <string name="settings">Settings</string>
 </resources>
