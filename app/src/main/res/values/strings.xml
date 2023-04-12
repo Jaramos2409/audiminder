@@ -26,4 +26,8 @@
     <string name="art_for_the_album_that_was_chosen">Art for the album that was chosen.</string>
     <string name="play_button_that_will_start_playing_this_album_from_track_one_in_the_spotify_application">Starts playing this album from track one in the Spotify application.</string>
     <string name="starts_playing_this_track_on_the_spotify_application">Starts playing this track on the Spotify application.</string>
+    <string name="export_collections">Export Collections</string>
+    <string name="import_collections">Import Collections</string>
+    <string name="delete_all_collections">Delete All Collections</string>
+    <string name="unauthenticate_spotify">Unauthenticate Spotify</string>
 </resources>

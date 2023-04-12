@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".settings.presentation.SettingsScreenFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/collection_screen_top_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/collection_top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/baseline_arrow_back_24"
+                app:title="@string/settings"
+                app:titleCentered="true">
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/collection_screen_top_bar_layout">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/export_collections_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/export_collections" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/import_collections_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/import_collections" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/delete_all_collections_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_all_collections" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/unauthenticate_spotify_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/unauthenticate_spotify" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
