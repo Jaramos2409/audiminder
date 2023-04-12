@@ -1,3 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/routingFragment">
+    <fragment
+        android:id="@+id/routingFragment"
+        android:name="gg.jrg.spotiminder.core.presentation.RoutingFragment"
+        android:label="Routing Fragment">
+        <action
+            android:id="@+id/action_routingFragment_to_spotifyAuthenticationFragment"
+            app:destination="@id/spotifyAuthenticationFragment" />
+        <action
+            android:id="@+id/action_routingFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/spotifyAuthenticationFragment"
+        android:name="gg.jrg.spotiminder.authentication.presentation.SpotifyAuthenticationFragment"
+        android:label="fragment_spotify_authentication"
+        tools:layout="@layout/fragment_spotify_authentication" />
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="gg.jrg.spotiminder.home.presentation.HomeScreenFragment"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen">
+        <action
+            android:id="@+id/action_homeScreenFragment_to_searchScreenFragment"
+            app:destination="@id/searchScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_collectionsScreenFragment"
+            app:destination="@id/collectionsScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_collectionScreenFragment"
+            app:destination="@id/collectionScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_settingsScreenFragment"
+            app:destination="@id/settingsScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_reminderScreenFragment"
+            app:destination="@id/reminderScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchScreenFragment"
+        android:name="gg.jrg.spotiminder.search.presentation.SearchScreenFragment"
+        android:label="fragment_search_screen"
+        tools:layout="@layout/fragment_search_screen">
+        <action
+            android:id="@+id/action_searchScreenFragment_to_collectionsScreenFragment"
+            app:destination="@id/collectionsScreenFragment" />
+        <action
+            android:id="@+id/action_searchScreenFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_searchScreenFragment_to_collectionsScreenFragment2"
+            app:destination="@id/collectionsScreenFragment" />
+        <action
+            android:id="@+id/action_searchScreenFragment_to_collectionsScreenFragment3"
+            app:destination="@id/collectionsScreenFragment" />
+        <action
+            android:id="@+id/action_searchScreenFragment_to_homeScreenFragment2"
+            app:destination="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_searchScreenFragment_to_addFromNearbySoundBottomSheetFragment"
+            app:destination="@id/addFromNearbySoundBottomSheetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/collectionsScreenFragment"
+        android:name="gg.jrg.spotiminder.collections.presentation.CollectionsScreenFragment"
+        android:label="fragment_collections_screen"
+        tools:layout="@layout/fragment_collections_screen">
+        <action
+            android:id="@+id/action_collectionsScreenFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_collectionsScreenFragment_to_searchScreenFragment"
+            app:destination="@id/searchScreenFragment" />
+        <action
+            android:id="@+id/action_collectionsScreenFragment_to_collectionScreenFragment"
+            app:destination="@id/collectionScreenFragment" />
+        <action
+            android:id="@+id/action_collectionsScreenFragment_to_reminderScreenFragment"
+            app:destination="@id/reminderScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/collectionScreenFragment"
+        android:name="gg.jrg.spotiminder.collections.presentation.CollectionScreenFragment"
+        android:label="fragment_collection_screen"
+        tools:layout="@layout/fragment_collection_screen">
+        <action
+            android:id="@+id/action_collectionScreenFragment_to_collectionsScreenFragment"
+            app:destination="@id/collectionsScreenFragment" />
+        <action
+            android:id="@+id/action_collectionScreenFragment_to_searchScreenFragment"
+            app:destination="@id/searchScreenFragment" />
+        <action
+            android:id="@+id/action_collectionScreenFragment_to_itemInCollectionBottomSheetFragment"
+            app:destination="@id/itemInCollectionBottomSheetFragment" />
+        <action
+            android:id="@+id/action_collectionScreenFragment_to_reminderScreenFragment"
+            app:destination="@id/reminderScreenFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/itemInCollectionBottomSheetFragment"
+        android:name="gg.jrg.spotiminder.collections.presentation.ItemInCollectionBottomSheetFragment"
+        android:label="ItemInCollectionBottomSheetFragment" />
+    <fragment
+        android:id="@+id/settingsScreenFragment"
+        android:name="gg.jrg.spotiminder.settings.presentation.SettingsScreenFragment"
+        android:label="fragment_settings_screen"
+        tools:layout="@layout/fragment_settings_screen" />
+    <dialog
+        android:id="@+id/addFromNearbySoundBottomSheetFragment"
+        android:name="gg.jrg.spotiminder.nearbysound.presentation.AddFromNearbySoundBottomSheetFragment"
+        android:label="fragment_add_from_nearby_sound_bottom_sheet"
+        tools:layout="@layout/fragment_add_from_nearby_sound_bottom_sheet" />
+    <fragment
+        android:id="@+id/reminderScreenFragment"
+        android:name="gg.jrg.spotiminder.reminder.presentation.ReminderScreenFragment"
+        android:label="fragment_reminder_screen"
+        tools:layout="@layout/fragment_reminder_screen" />
+</navigation>

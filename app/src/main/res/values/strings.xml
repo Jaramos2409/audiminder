@@ -36,4 +36,7 @@
     <string name="notes_optional">Notes (optional)</string>
     <string name="submit">Submit</string>
     <string name="save_reminder">Save Reminder</string>
+    <string name="home">Home</string>
+    <string name="search_spotify">Search Spotify</string>
+    <string name="collections_library">Collections Library</string>
 </resources>

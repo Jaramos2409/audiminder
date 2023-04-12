@@ -20,4 +20,7 @@
     <dimen name="settings_button_width">320dp</dimen>
     <dimen name="authentication_button_width">300dp</dimen>
     <dimen name="app_bar_search_margin_bottom">20dp</dimen>
+    <dimen name="material_button_corner_radius">50dp</dimen>
+    <dimen name="material_card_elevation">15dp</dimen>
+    <dimen name="material_card_corner_radius">8dp</dimen>
 </resources>
