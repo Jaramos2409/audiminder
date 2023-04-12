@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".collections.presentation.CollectionsScreenFragment">
+    tools:context=".collections.presentation.CollectionScreenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,31 +12,24 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/collections_screen_top_bar_layout"
+            android:id="@+id/collection_screen_top_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/collections_top_bar"
+                android:id="@+id/collection_top_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/collections_top_app_bar">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_margin="@dimen/profile_picture_app_bar_margin"
-                    android:contentDescription="@string/profile_photo_as_a_small_icon_in_the_top_left"
-                    tools:src="@drawable/account_circle_24" />
+                app:menu="@menu/collection_top_app_bar"
+                app:navigationIcon="@drawable/baseline_arrow_back_24">
 
                 <com.google.android.material.search.SearchBar
-                    android:id="@+id/search_collections_bar"
+                    android:id="@+id/search_in_collection_bar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/search_bar_height"
                     android:layout_gravity="center"
-                    android:contentDescription="@string/search_bar_used_to_filter_out_the_list_of_albums_in_your_collection"
+                    android:contentDescription="@string/search_for_specific_albums_in_your_collection"
                     android:hint="@string/what_are_you_looking_for"
                     tools:ignore="ContentDescription" />
 
@@ -50,17 +43,17 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/collections_screen_top_bar_layout"
+            app:layout_constraintTop_toBottomOf="@id/collection_screen_top_bar_layout"
             tools:itemCount="6"
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/item_collection_list_view"
             tools:spanCount="2" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_new_collection_fab"
+            android:id="@+id/add_album_to_this_collection_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/floating_action_button_margin"
+            android:layout_margin="16dp"
             android:contentDescription="@string/create_a_new_collection"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

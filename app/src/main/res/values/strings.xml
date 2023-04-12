@@ -21,4 +21,9 @@
     <string name="add">Add</string>
     <string name="collage_of_all_the_albums_in_this_collection">Collage of all the albums in this collection.</string>
     <string name="create_a_new_collection">Create a new collection</string>
+    <string name="search_bar_used_to_filter_out_the_list_of_albums_in_your_collection">Search bar used to filter out the list of albums in your collection.</string>
+    <string name="search_for_specific_albums_in_your_collection">Search for specific albums in your collection.</string>
+    <string name="art_for_the_album_that_was_chosen">Art for the album that was chosen.</string>
+    <string name="play_button_that_will_start_playing_this_album_from_track_one_in_the_spotify_application">Starts playing this album from track one in the Spotify application.</string>
+    <string name="starts_playing_this_track_on_the_spotify_application">Starts playing this track on the Spotify application.</string>
 </resources>
