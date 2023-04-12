@@ -21,6 +21,7 @@
                 android:id="@+id/collections_top_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginBottom="@dimen/app_bar_search_margin_bottom"
                 app:menu="@menu/collections_top_app_bar">
 
                 <ImageView

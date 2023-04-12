@@ -37,25 +37,29 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/export_collections_button"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/settings_button_width"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:text="@string/export_collections" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/import_collections_button"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/settings_button_width"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:text="@string/import_collections" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/delete_all_collections_button"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/settings_button_width"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:text="@string/delete_all_collections" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/unauthenticate_spotify_button"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/settings_button_width"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:text="@string/unauthenticate_spotify" />
 

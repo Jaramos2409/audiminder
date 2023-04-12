@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/item_collection_list_margin"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
     app:contentPadding="16dp">

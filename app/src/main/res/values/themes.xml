@@ -1,5 +1,5 @@
-<resources>
 
+<resources>
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
@@ -27,5 +27,40 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+        <item name="extendedFloatingActionButtonStyle">
+            @style/Widget.App.ExtendedFloatingActionButton
+        </item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
+        <item name="materialButtonStyle">@style/materialButtonStyle</item>
+        <item name="materialCardViewStyle">@style/materialCardViewStyle</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
     </style>
+
+    <style name="Widget.App.ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Icon.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton.Large" parent="Widget.Material3.FloatingActionButton.Large.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnContainer">@color/md_theme_dark_onSecondaryContainer</item>
+    </style>
+
+    <style name="materialButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/md_theme_light_onSecondary</item>
+        <item name="backgroundTint">@color/md_theme_light_secondary</item>
+    </style>
+
+    <style name="materialCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">15dp</item>
+        <item name="cardCornerRadius">8dp</item>
+    </style>
+
 </resources>
