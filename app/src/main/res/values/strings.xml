@@ -31,4 +31,8 @@
     <string name="delete_all_collections">Delete All Collections</string>
     <string name="unauthenticate_spotify">Unauthenticate Spotify</string>
     <string name="listening">Listening...</string>
+    <string name="name_your_reminder">Name your reminder...</string>
+    <string name="pick_a_time">Pick a time</string>
+    <string name="notes_optional">Notes (optional)</string>
+    <string name="submit">Submit</string>
 </resources>
