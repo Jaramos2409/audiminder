@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/home_screen_margin"
             android:text="@string/reminders"
-            android:textSize="@dimen/reminders_section_title_text_size"
+            android:textSize="@dimen/section_title_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recently_opened_collections_recycler_view" />

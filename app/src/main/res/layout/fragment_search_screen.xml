@@ -52,7 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_screen_top_bar_layout"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_search_spotify_view" />
+            tools:listitem="@layout/item_search_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

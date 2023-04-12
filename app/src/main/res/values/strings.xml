@@ -30,4 +30,5 @@
     <string name="import_collections">Import Collections</string>
     <string name="delete_all_collections">Delete All Collections</string>
     <string name="unauthenticate_spotify">Unauthenticate Spotify</string>
+    <string name="listening">Listening...</string>
 </resources>
