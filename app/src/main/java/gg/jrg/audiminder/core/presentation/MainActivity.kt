@@ -3,38 +3,38 @@ package gg.jrg.audiminder.core.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import gg.jrg.audiminder.R
+import gg.jrg.audiminder.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var navController: NavController
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-        val bottomNav: BottomNavigationView = findViewById(R.id.bottom_nav_view)
-        bottomNav.setupWithNavController(navController)
+        navHostFragment =
+            binding.navHostFragment.getFragment() as NavHostFragment
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        binding.bottomNavView.setupWithNavController(navHostFragment.navController)
+
+        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.homeScreenFragment ||
                 destination.id == R.id.searchScreenFragment ||
                 destination.id == R.id.collectionsScreenFragment
             ) {
-                bottomNav.visibility = View.VISIBLE
+                binding.bottomNavView.visibility = View.VISIBLE
             } else {
-                bottomNav.visibility = View.GONE
+                binding.bottomNavView.visibility = View.GONE
             }
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        return navHostFragment.navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
