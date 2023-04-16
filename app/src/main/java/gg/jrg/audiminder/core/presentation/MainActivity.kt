@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import gg.jrg.audiminder.R
@@ -16,18 +16,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navController = this.findNavController(R.id.nav_host_fragment)
-        val navView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
-        navView.setupWithNavController(navController)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        val bottomNav: BottomNavigationView = findViewById(R.id.bottom_nav_view)
+        bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.homeScreenFragment ||
                 destination.id == R.id.searchScreenFragment ||
                 destination.id == R.id.collectionsScreenFragment
             ) {
-                navView.visibility = View.VISIBLE
+                bottomNav.visibility = View.VISIBLE
             } else {
-                navView.visibility = View.GONE
+                bottomNav.visibility = View.GONE
             }
         }
     }
