@@ -3,27 +3,32 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
-
 }
 
 android {
-    namespace 'gg.jrg.spotiminder'
+    namespace 'gg.jrg.audiminder'
     compileSdk 33
 
     defaultConfig {
-        applicationId "gg.jrg.spotiminder"
+        applicationId "gg.jrg.audiminder"
         minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "gg.jrg.spotiminder.HiltTestRunner"
-        manifestPlaceholders = [redirectSchemeName: "spotiminder", redirectHostName: "spotiminder-auth"]
+        testInstrumentationRunner "gg.jrg.audiminder.HiltTestRunner"
+        manifestPlaceholders = [redirectSchemeName: "audiminder", redirectHostName: "audiminder-auth"]
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        buildConfigField "String", "SPOTIFY_CLIENT_ID", "\"${properties.getProperty("SPOTIFY_CLIENT_ID")}\""
+        buildConfigField "String", "SPOTIFY_REDIRECT_URI", "\"${properties.getProperty("SPOTIFY_REDIRECT_URI")}\""
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -52,10 +57,11 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
-    implementation 'androidx.test.ext:junit-ktx:1.1.5'
-    implementation 'androidx.test:runner:1.5.2'
-    implementation 'androidx.lifecycle:lifecycle-runtime-testing:2.6.1'
-    implementation 'androidx.navigation:navigation-testing:2.5.3'
+    implementation "androidx.test.ext:junit-ktx:1.1.5"
+    implementation "androidx.test:runner:1.5.2"
+    implementation "androidx.lifecycle:lifecycle-runtime-testing:2.6.1"
+    implementation "androidx.navigation:navigation-testing:2.5.3"
+    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha03'
     testImplementation "junit:junit:4.13.2"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
     androidTestImplementation "androidx.test.ext:junit:1.1.5"
@@ -70,17 +76,25 @@ dependencies {
     testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
     debugImplementation "androidx.fragment:fragment-testing:1.6.0-alpha09"
     androidTestImplementation "org.mockito:mockito-android:5.2.0"
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44'
-    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.44'
+    implementation "com.google.dagger:hilt-android:2.45"
+    kapt "com.google.dagger:hilt-compiler:2.45"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:2.45"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.45"
     androidTestImplementation "androidx.test:core:1.5.0"
     androidTestImplementation "androidx.test:runner:1.5.2"
     androidTestImplementation "androidx.test:rules:1.5.0"
     androidTestImplementation "androidx.test.ext:junit:1.1.5"
     androidTestImplementation "androidx.test.ext:truth:1.5.0"
+    implementation "androidx.browser:browser:1.5.0"
+    implementation "androidx.appcompat:appcompat:1.6.1"
 }
 
 kapt {
     correctErrorTypes true
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
 }
