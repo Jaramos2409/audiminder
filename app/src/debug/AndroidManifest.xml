@@ -1,7 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="gg.jrg.audiminder">
 
     <application android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".NavigationObserverTestActivity"
+            android:exported="false" />
         <activity
             android:name=".HiltTestActivity"
             android:exported="false" />

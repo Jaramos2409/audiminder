@@ -9,14 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.core.presentation.NavigationObserver
-import gg.jrg.audiminder.databinding.FragmentTestBinding
+import gg.jrg.audiminder.databinding.FragmentNavigationObserverTestFragmentBinding
 
 @AndroidEntryPoint
 class NavigationObserverTestFragment : Fragment() {
 
     private val viewModel: TestViewModel by viewModels()
     private val navObserver by lazy { NavigationObserver(viewModel) }
-    private lateinit var binding: FragmentTestBinding
+    private lateinit var binding: FragmentNavigationObserverTestFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,12 @@ class NavigationObserverTestFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_test, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_navigation_observer_test_fragment,
+            container,
+            false
+        )
 
         binding.navigateToButton.setOnClickListener {
             viewModel.navigateTo()

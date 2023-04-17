@@ -27,7 +27,7 @@ import org.mockito.Mockito
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-class NavigationObserverTest {
+class NavigationObserverFragmentTest {
 
     private val dataBindingIdlingResource = DataBindingIdlingResource()
     private val navController = Mockito.mock(NavController::class.java)

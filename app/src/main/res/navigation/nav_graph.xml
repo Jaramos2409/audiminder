@@ -37,15 +37,6 @@
             android:id="@+id/action_searchScreenFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
         <action
-            android:id="@+id/action_searchScreenFragment_to_collectionsScreenFragment2"
-            app:destination="@id/collectionsScreenFragment" />
-        <action
-            android:id="@+id/action_searchScreenFragment_to_collectionsScreenFragment3"
-            app:destination="@id/collectionsScreenFragment" />
-        <action
-            android:id="@+id/action_searchScreenFragment_to_homeScreenFragment2"
-            app:destination="@id/homeScreenFragment" />
-        <action
             android:id="@+id/action_searchScreenFragment_to_addFromNearbySoundBottomSheetFragment"
             app:destination="@id/addFromNearbySoundBottomSheetFragment" />
     </fragment>
@@ -103,5 +94,9 @@
         android:id="@+id/reminderScreenFragment"
         android:name="gg.jrg.audiminder.reminder.presentation.ReminderScreenFragment"
         android:label="fragment_reminder_screen"
-        tools:layout="@layout/fragment_reminder_screen" />
+        tools:layout="@layout/fragment_reminder_screen">
+        <action
+            android:id="@+id/action_reminderScreenFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
+    </fragment>
 </navigation>
