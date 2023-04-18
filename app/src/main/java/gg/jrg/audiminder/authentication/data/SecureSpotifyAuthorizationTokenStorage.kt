@@ -1,6 +1,5 @@
 package gg.jrg.audiminder.authentication.data
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
@@ -10,18 +9,16 @@ import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.spec.GCMParameterSpec
+import javax.inject.Inject
+import javax.inject.Named
 
-class SecureSpotifyAuthorizationTokenStorage(context: Context) {
+class SecureSpotifyAuthorizationTokenStorage @Inject constructor(
+    @Named("secure_spotify_authorization_token_storage_shared_preferences") private val sharedPreferences: SharedPreferences
+) {
 
     private val keystore: KeyStore = KeyStore.getInstance("AndroidKeyStore").apply {
         load(null)
     }
-
-    private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(
-            "secure_spotify_authorization_token_storage",
-            Context.MODE_PRIVATE
-        )
 
     init {
         if (!keystore.containsAlias(KEY_ALIAS)) {

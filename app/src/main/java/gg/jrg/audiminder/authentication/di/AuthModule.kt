@@ -1,6 +1,7 @@
 package gg.jrg.audiminder.authentication.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +13,7 @@ import gg.jrg.audiminder.authentication.data.repositories.AuthorizationRepositor
 import gg.jrg.audiminder.authentication.data.services.AuthorizationService
 import gg.jrg.audiminder.authentication.data.services.SpotifyAuthorizationService
 import gg.jrg.audiminder.authentication.domain.usecase.AuthorizationUseCases
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -35,8 +37,19 @@ object AuthModule {
     }
 
     @Provides
-    fun provideSecureSpotifyAuthorizationTokenStorage(@ApplicationContext context: Context): SecureSpotifyAuthorizationTokenStorage {
-        return SecureSpotifyAuthorizationTokenStorage(context)
+    @Named("secure_spotify_authorization_token_storage_shared_preferences")
+    fun provideSecureSpotifyAuthorizationTokenStorageSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences(
+            "secure_spotify_authorization_token_storage",
+            Context.MODE_PRIVATE
+        )
+    }
+
+    @Provides
+    fun provideSecureSpotifyAuthorizationTokenStorage(
+        @Named("secure_spotify_authorization_token_storage_shared_preferences") sharedPreferences: SharedPreferences
+    ): SecureSpotifyAuthorizationTokenStorage {
+        return SecureSpotifyAuthorizationTokenStorage(sharedPreferences)
     }
 
     @Provides

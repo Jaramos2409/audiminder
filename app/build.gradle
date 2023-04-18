@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -51,47 +52,103 @@ android {
     }
 }
 
+ext {
+    androidxCoreVersion = '1.10.0'
+    appCompatVersion = '1.6.1'
+    materialVersion = '1.8.0'
+    constraintLayoutVersion = '2.1.4'
+    navigationVersion = '2.5.3'
+    junitExtVersion = '1.1.5'
+    testRunnerVersion = '1.5.2'
+    lifecycleVersion = '2.6.1'
+    securityCryptoVersion = '1.1.0-alpha05'
+    junitVersion = '4.13.2'
+    coroutinesVersion = '1.6.0'
+    espressoVersion = '3.5.1'
+    spotifyAuthVersion = '2.0.2'
+    timberVersion = '5.0.1'
+    recyclerviewVersion = '1.3.0'
+    coroutinesAndroidVersion = '1.6.4'
+    turbineVersion = '0.12.3'
+    mockitoCoreVersion = '5.2.0'
+    mockitoKotlinVersion = '4.1.0'
+    fragmentTestingVersion = '1.6.0-alpha09'
+    hiltVersion = '2.45'
+    testCoreVersion = '1.5.0'
+    testRulesVersion = '1.5.0'
+    truthVersion = '1.5.0'
+    browserVersion = '1.5.0'
+    roomVersion = '2.5.1'
+}
+
 dependencies {
-    implementation "androidx.core:core-ktx:1.10.0"
-    implementation "androidx.appcompat:appcompat:1.6.1"
-    implementation "com.google.android.material:material:1.8.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
-    implementation "androidx.test.ext:junit-ktx:1.1.5"
-    implementation "androidx.test:runner:1.5.2"
-    implementation "androidx.lifecycle:lifecycle-runtime-testing:2.6.1"
-    implementation "androidx.navigation:navigation-testing:2.5.3"
-    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha05'
-    testImplementation "junit:junit:4.13.2"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
-    androidTestImplementation "androidx.test.ext:junit:1.1.5"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
-    implementation "com.google.android.material:material:1.8.0"
-    implementation "com.spotify.android:auth:2.0.2"
-    implementation "com.jakewharton.timber:timber:5.0.1"
-    implementation "androidx.recyclerview:recyclerview:1.3.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
-    testImplementation "app.cash.turbine:turbine:0.12.3"
-    testImplementation "org.mockito:mockito-core:5.2.0"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
-    debugImplementation "androidx.fragment:fragment-testing:1.6.0-alpha09"
-    androidTestImplementation "org.mockito:mockito-android:5.2.0"
-    implementation "com.google.dagger:hilt-android:2.45"
-    kapt "com.google.dagger:hilt-compiler:2.45"
-    androidTestImplementation "com.google.dagger:hilt-android-testing:2.45"
-    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.45"
-    androidTestImplementation "androidx.test:core:1.5.0"
-    androidTestImplementation "androidx.test:runner:1.5.2"
-    androidTestImplementation "androidx.test:rules:1.5.0"
-    androidTestImplementation "androidx.test.ext:junit:1.1.5"
-    androidTestImplementation "androidx.test.ext:truth:1.5.0"
-    implementation "androidx.browser:browser:1.5.0"
-    implementation "androidx.appcompat:appcompat:1.6.1"
+    // AndroidX
+    implementation "androidx.core:core-ktx:$androidxCoreVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerviewVersion"
+    implementation "androidx.browser:browser:$browserVersion"
+
+    // Material
+    implementation "com.google.android.material:material:$materialVersion"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-testing:$navigationVersion"
+
+    // Unit Testing
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    testImplementation "app.cash.turbine:turbine:$turbineVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
+    testImplementation "androidx.room:room-testing:$roomVersion"
+    debugImplementation "androidx.fragment:fragment-testing:$fragmentTestingVersion"
+
+    // Instrumented Testing
+    androidTestImplementation "androidx.test.ext:junit:$junitExtVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoCoreVersion"
+    androidTestImplementation "androidx.test:core:$testCoreVersion"
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test:rules:$testRulesVersion"
+    androidTestImplementation "androidx.test.ext:junit:$junitExtVersion"
+    androidTestImplementation "androidx.test.ext:truth:$truthVersion"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    androidTestImplementation "androidx.test.ext:truth:$truthVersion"
+
+    // Security
+    implementation "androidx.security:security-crypto-ktx:$securityCryptoVersion"
+
+    // Spotify
+    implementation "com.spotify.android:auth:$spotifyAuthVersion"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroidVersion"
+
+    // Hilt (Dagger)
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    ksp "androidx.room:room-compiler:$roomVersion"
+    testImplementation "androidx.room:room-testing:$roomVersion"
 }
 
 kapt {
     correctErrorTypes true
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 allprojects {
