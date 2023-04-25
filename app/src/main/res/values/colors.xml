@@ -60,4 +60,5 @@
     <color name="md_theme_dark_surfaceTint">#FAACF9</color>
     <color name="md_theme_dark_outlineVariant">#4D444C</color>
     <color name="md_theme_dark_scrim">#000000</color>
+    <color name="spotify_green">#19A34A</color>
 </resources>

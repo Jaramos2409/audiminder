@@ -12,9 +12,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
 import gg.jrg.audiminder.authentication.presentation.AuthorizationViewModel
 import gg.jrg.audiminder.collections.presentation.CollectionsScreenFragmentDirections
+import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
+import gg.jrg.audiminder.core.util.NavEvent
+import gg.jrg.audiminder.core.util.NavigationObserver
 import gg.jrg.audiminder.databinding.ActivityMainBinding
 import gg.jrg.audiminder.home.presentation.HomeScreenFragmentDirections
 import gg.jrg.audiminder.search.presentation.SearchScreenFragmentDirections
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,8 +27,13 @@ class MainActivity : AppCompatActivity() {
     private val authorizationViewModel by viewModels<AuthorizationViewModel>()
     private val navObserver by lazy { NavigationObserver(authorizationViewModel) }
 
+    @Inject
+    lateinit var activityStateFlowWrapper: ActivityStateFlowWrapper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activityStateFlowWrapper.stateFlow.value = this
+
         navObserver.register(this)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -79,6 +88,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        activityStateFlowWrapper.stateFlow.value = null
+        super.onDestroy()
     }
 
     override fun onSupportNavigateUp(): Boolean {

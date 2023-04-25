@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.core.presentation
+package gg.jrg.audiminder.core.util
 
 import android.os.Bundle
 import android.view.View
@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import gg.jrg.audiminder.R
-import gg.jrg.audiminder.util.collectLifecycleFlow
+import gg.jrg.audiminder.core.presentation.BaseViewModel
 
 class NavigationObserver(
     private val viewModel: BaseViewModel,

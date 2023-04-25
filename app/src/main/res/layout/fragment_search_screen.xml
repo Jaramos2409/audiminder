@@ -1,62 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".search.presentation.SearchScreenFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        tools:context=".search.presentation.SearchScreenFragment">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/search_screen_top_bar_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/search_top_bar"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/search_screen_top_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_marginBottom="@dimen/app_bar_search_margin_bottom"
-                app:menu="@menu/search_top_bar">
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_margin="@dimen/profile_picture_app_bar_margin"
-                    android:contentDescription="@string/profile_photo_as_a_small_icon_in_the_top_left"
-                    tools:src="@drawable/account_circle_24" />
-
-                <com.google.android.material.search.SearchBar
-                    android:id="@+id/search_spotify_bar"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/search_top_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/search_bar_height"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/search_through_spotify"
-                    android:hint="@string/search_through_spotify"
-                    tools:ignore="ContentDescription" />
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginBottom="@dimen/app_bar_search_margin_bottom"
+                    app:menu="@menu/search_top_bar">
 
-            </com.google.android.material.appbar.MaterialToolbar>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="@dimen/profile_picture_app_bar_margin"
+                        android:contentDescription="@string/profile_photo_as_a_small_icon_in_the_top_left"
+                        tools:src="@drawable/account_circle_24" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+                    <com.google.android.material.search.SearchBar
+                        android:id="@+id/search_service_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/search_bar_height"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/search_bar_that_allows_searching_though_a_service_you_have_authorized_with"
+                        android:hint="@string/what_are_you_looking_for"
+                        tools:ignore="ContentDescription" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/home_screen_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_screen_top_bar_layout"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_search_view" />
+                </com.google.android.material.appbar.MaterialToolbar>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-</FrameLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/home_screen_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_screen_top_bar_layout"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_search_view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

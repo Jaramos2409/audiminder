@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import gg.jrg.audiminder.core.presentation.NavigationObserver
+import gg.jrg.audiminder.core.util.NavigationObserver
 import gg.jrg.audiminder.databinding.FragmentNavigationObserverTestFragmentBinding
 
 @AndroidEntryPoint

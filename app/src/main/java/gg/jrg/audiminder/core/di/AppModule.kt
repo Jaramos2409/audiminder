@@ -3,7 +3,6 @@ package gg.jrg.audiminder.core.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +14,10 @@ import gg.jrg.audiminder.collections.data.source.AlbumCollectionDao
 import gg.jrg.audiminder.collections.data.source.AlbumDao
 import gg.jrg.audiminder.collections.data.source.TrackDao
 import gg.jrg.audiminder.core.data.source.AppDatabase
+import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
 import gg.jrg.audiminder.reminder.data.source.ReminderDao
 import gg.jrg.audiminder.search.data.source.SearchHistoryDao
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -35,14 +36,13 @@ object AppModule {
     @Provides
     @Singleton
     fun provideAppDatabase(
-        @ApplicationContext context: Context,
-        databaseInitializer: RoomDatabase.Callback
+        @ApplicationContext context: Context
     ): AppDatabase {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
             "app_database"
-        ).addCallback(databaseInitializer).build()
+        ).createFromAsset("database/audiminderdb.db").build()
     }
 
     @Provides
@@ -80,5 +80,10 @@ object AppModule {
         return appDatabase.supportedAuthorizationServiceDao()
     }
 
+    @Provides
+    @Singleton
+    fun provideActivityStateFlow(): ActivityStateFlowWrapper {
+        return ActivityStateFlowWrapper(MutableStateFlow(null))
+    }
 
 }

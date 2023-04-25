@@ -5,7 +5,7 @@ package gg.jrg.audiminder.authentication.data
  * for now only Spotify is being implemented as a proof of concept.
  */
 enum class AuthServiceType(val serviceAsString: String) {
-    SPOTIFY("Spotify"),
-    TIDAL("Tidal"),
-    APPLE_MUSIC("Apple Music")
+    SPOTIFY("SPOTIFY"),
+    TIDAL("TIDAL"),
+    APPLE("APPLE")
 }

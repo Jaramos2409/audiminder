@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.navigation.NavDirections
 import dagger.hilt.android.lifecycle.HiltViewModel
 import gg.jrg.audiminder.core.presentation.BaseViewModel
-import gg.jrg.audiminder.core.presentation.NavEvent
+import gg.jrg.audiminder.core.util.NavEvent
 import javax.inject.Inject
 
 @HiltViewModel

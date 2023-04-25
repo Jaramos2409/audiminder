@@ -1,15 +1,17 @@
 package gg.jrg.audiminder.authentication.domain.usecase
 
 import gg.jrg.audiminder.authentication.data.repositories.AuthorizationRepository
+import javax.inject.Inject
 
-data class AuthorizationUseCases(
-    val getAuthorizationState: GetAuthorizationState,
-    val authorizeService: AuthorizeService,
-    val getAuthorizationService: GetAuthorizationService
+
+class AuthorizationUseCases @Inject constructor(
+    authorizationRepository: AuthorizationRepository
 ) {
-    constructor(authorizationRepository: AuthorizationRepository) : this(
-        getAuthorizationService = GetAuthorizationService(authorizationRepository),
-        getAuthorizationState = GetAuthorizationState(authorizationRepository),
-        authorizeService = AuthorizeService(authorizationRepository)
-    )
+    val authorizeUseCase = AuthorizeUseCase(authorizationRepository)
+    val getAuthorizationServiceUseCase = GetAuthorizationServiceUseCase(authorizationRepository)
+    val getAuthorizationStateUseCase = GetAuthorizationStateUseCase(authorizationRepository)
+    val refreshAuthorizationStateUseCase = RefreshAuthorizationStateUseCase(authorizationRepository)
+    val areAuthorizationServicesInitializedUseCase =
+        AreAuthorizationServicesInitializedUseCase(authorizationRepository)
 }
+

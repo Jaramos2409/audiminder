@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.util
+package gg.jrg.audiminder.core.util
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

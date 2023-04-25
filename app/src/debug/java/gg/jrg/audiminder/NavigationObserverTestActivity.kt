@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import gg.jrg.audiminder.core.presentation.NavigationObserver
+import gg.jrg.audiminder.core.util.NavigationObserver
 import gg.jrg.audiminder.databinding.ActivityNavigationObserverTestBinding
 import gg.jrg.audiminder.databinding.FragmentNavigationObserverTestFragmentBinding
 

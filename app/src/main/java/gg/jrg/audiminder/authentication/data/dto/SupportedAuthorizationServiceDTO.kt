@@ -7,7 +7,7 @@ import gg.jrg.audiminder.core.data.DomainMappable
 
 @Entity(tableName = "supported_auth_services")
 data class SupportedAuthorizationServiceDTO(
-    @PrimaryKey(autoGenerate = true) val serviceId: Int,
+    @PrimaryKey(autoGenerate = true) val serviceId: Int = 0,
     val serviceName: String
 ) : DomainMappable<SupportedAuthorizationService> {
     override fun asDomainModel(): SupportedAuthorizationService = SupportedAuthorizationService(

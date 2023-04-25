@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.core.presentation
+package gg.jrg.audiminder.core.util
 
 import androidx.navigation.NavDirections
 

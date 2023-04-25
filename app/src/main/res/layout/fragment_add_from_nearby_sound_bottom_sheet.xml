@@ -12,7 +12,7 @@
         android:layout_margin="@dimen/add_nearby_sound_bottom_sheet_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/listening_section_title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

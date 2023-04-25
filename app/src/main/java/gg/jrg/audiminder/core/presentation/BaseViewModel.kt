@@ -1,6 +1,7 @@
 package gg.jrg.audiminder.core.presentation
 
 import androidx.lifecycle.ViewModel
+import gg.jrg.audiminder.core.util.NavEvent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Audiminder</string>
     <string name="title_activity_main">MainActivity</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="authenticate">Authenticate</string>
     <string name="audiminder">Audiminder</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -30,8 +29,8 @@
     <string name="import_collections">Import Collections</string>
     <string name="delete_all_collections">Delete All Collections</string>
     <string name="unauthenticate_spotify">Unauthenticate Spotify</string>
-    <string name="listening">Listening...</string>
-    <string name="name_your_reminder">Name your reminder...</string>
+    <string name="listening">Listening…</string>
+    <string name="name_your_reminder">Name your reminder…</string>
     <string name="pick_a_time">Pick a time</string>
     <string name="notes_optional">Notes (optional)</string>
     <string name="submit">Submit</string>
@@ -39,4 +38,8 @@
     <string name="home">Home</string>
     <string name="search_spotify">Search Spotify</string>
     <string name="collections_library">Collections Library</string>
+    <string name="search_bar_that_allows_searching_though_a_service_you_have_authorized_with">Search bar that allows searching though a service you have authorized with.</string>
+    <string name="you_must_authorize_to_continue">You must authorize to continue…</string>
+    <string name="tap_the_button_below_to_authorize_the_app_to_access_your_spotify_account">Tap the button below to authorize the app to access your Spotify account.</string>
+    <string name="authorize_spotify">AUTHORIZE SPOTIFY</string>
 </resources>

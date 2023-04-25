@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".authentication.presentation.AuthorizationBottomSheetFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/add_nearby_sound_bottom_sheet_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/authorization_bottom_sheet_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/you_must_authorize_to_continue"
+                android:textSize="@dimen/section_title_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/spotify_auth_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/authorize_slide_up_margin_top"
+                android:backgroundTint="@color/spotify_green"
+                android:padding="20dp"
+                android:text="@string/authorize_spotify"
+                android:textColor="@color/md_theme_light_onPrimary"
+                android:textSize="@dimen/authorize_spotify_text_size"
+                android:textStyle="bold"
+                app:cornerRadius="80dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/authorization_bottom_sheet_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

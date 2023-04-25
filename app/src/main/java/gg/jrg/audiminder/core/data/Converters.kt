@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.util.data
+package gg.jrg.audiminder.core.data
 
 import androidx.room.TypeConverter
 import java.util.*

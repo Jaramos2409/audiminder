@@ -1,10 +1,11 @@
 package gg.jrg.audiminder.authentication.data.services
 
 import gg.jrg.audiminder.authentication.data.AuthorizationState
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 
 interface AuthorizationService {
-    val authorizationState: SharedFlow<AuthorizationState>
+    val authorizationState: StateFlow<AuthorizationState>
+
     suspend fun authorize()
-    fun checkAuthorization(): Boolean
+    fun refreshAuthorizationState()
 }

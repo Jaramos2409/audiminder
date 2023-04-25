@@ -1,61 +1,40 @@
 package gg.jrg.audiminder.authentication.data.services
 
-import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import com.spotify.sdk.android.auth.AuthorizationClient
-import com.spotify.sdk.android.auth.AuthorizationRequest
-import com.spotify.sdk.android.auth.AuthorizationResponse
-import gg.jrg.audiminder.BuildConfig
+import com.adamratzman.spotify.auth.SpotifyDefaultCredentialStore
+import com.adamratzman.spotify.auth.pkce.startSpotifyClientPkceLoginActivity
 import gg.jrg.audiminder.authentication.data.AuthorizationState
-import gg.jrg.audiminder.authentication.data.SecureSpotifyAuthorizationTokenStorage
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import gg.jrg.audiminder.authentication.presentation.SpotifyPkceLoginActivityImpl
+import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
+import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class SpotifyAuthorizationService(
-    private val context: Context,
-    private val secureSpotifyAuthorizationTokenStorage: SecureSpotifyAuthorizationTokenStorage
+class SpotifyAuthorizationService @Inject constructor(
+    activityStateFlowWrapper: ActivityStateFlowWrapper,
+    private val spotifyDefaultCredentialStore: SpotifyDefaultCredentialStore,
 ) : AuthorizationService {
-    private val _authorizationState = MutableSharedFlow<AuthorizationState>()
-    override val authorizationState: SharedFlow<AuthorizationState>
-        get() = _authorizationState
 
-    override suspend fun authorize() {
-        val request = AuthorizationRequest.Builder(
-            BuildConfig.SPOTIFY_CLIENT_ID,
-            AuthorizationResponse.Type.TOKEN,
-            BuildConfig.SPOTIFY_REDIRECT_URI
-        )
-            .setScopes(arrayOf("user-read-email"))
-            .build()
+    override val authorizationState =
+        MutableStateFlow<AuthorizationState>(AuthorizationState.Unauthorized)
 
-        AuthorizationClient.openLoginActivity(
-            context as AppCompatActivity,
-            REQUEST_CODE_SPOTIFY_LOGIN,
-            request
-        )
+    private val activityStateFlow = activityStateFlowWrapper.stateFlow
+
+
+    init {
+        refreshAuthorizationState()
     }
 
-    override fun checkAuthorization(): Boolean =
-        !(secureSpotifyAuthorizationTokenStorage.getAuthToken().isNullOrEmpty())
+    override suspend fun authorize() {
+        val activity = activityStateFlow.value
+            ?: throw IllegalStateException("Activity is not available")
+        activity.startSpotifyClientPkceLoginActivity(SpotifyPkceLoginActivityImpl::class.java)
+    }
 
-    fun onAuthorizationResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE_SPOTIFY_LOGIN) {
-            val response = AuthorizationClient.getResponse(resultCode, data)
-            when (response.type) {
-                AuthorizationResponse.Type.TOKEN -> {
-                    secureSpotifyAuthorizationTokenStorage.storeAuthToken(response.accessToken)
-                    _authorizationState.tryEmit(AuthorizationState.Authorized)
-                }
-                else -> {
-                    _authorizationState.tryEmit(AuthorizationState.Unauthorized)
-                    throw java.lang.Exception(response.error)
-                }
-            }
+    override fun refreshAuthorizationState() {
+        if (!(spotifyDefaultCredentialStore.spotifyAccessToken.isNullOrEmpty())) {
+            authorizationState.value = AuthorizationState.Authorized
+        } else {
+            authorizationState.value = AuthorizationState.Unauthorized
         }
     }
 
-    companion object {
-        const val REQUEST_CODE_SPOTIFY_LOGIN = 1337
-    }
 }

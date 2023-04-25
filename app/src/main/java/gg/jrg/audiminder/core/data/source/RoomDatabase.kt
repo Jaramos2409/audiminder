@@ -13,11 +13,11 @@ import gg.jrg.audiminder.collections.data.source.AlbumCollectionCrossRefDao
 import gg.jrg.audiminder.collections.data.source.AlbumCollectionDao
 import gg.jrg.audiminder.collections.data.source.AlbumDao
 import gg.jrg.audiminder.collections.data.source.TrackDao
+import gg.jrg.audiminder.core.data.Converters
 import gg.jrg.audiminder.reminder.data.dto.ReminderDTO
 import gg.jrg.audiminder.reminder.data.source.ReminderDao
 import gg.jrg.audiminder.search.data.dto.SearchHistoryDTO
 import gg.jrg.audiminder.search.data.source.SearchHistoryDao
-import gg.jrg.audiminder.util.data.Converters
 
 @Database(
     entities = [
