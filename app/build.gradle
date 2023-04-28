@@ -76,7 +76,7 @@ ext {
     turbineVersion = '0.12.3'
     mockitoCoreVersion = '5.2.0'
     mockitoKotlinVersion = '4.1.0'
-    fragmentTestingVersion = '1.6.0-alpha09'
+    fragmentTestingVersion = '1.6.0-beta01'
     hiltVersion = '2.45'
     testCoreVersion = '1.5.0'
     testRulesVersion = '1.5.0'

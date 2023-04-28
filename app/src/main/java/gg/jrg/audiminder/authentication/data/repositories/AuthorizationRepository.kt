@@ -10,7 +10,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -21,6 +20,8 @@ interface AuthorizationRepository {
     fun getAuthorizationState(type: AuthServiceType): StateFlow<AuthorizationState>
 
     suspend fun authorize(type: AuthServiceType)
+
+    suspend fun unauthorize(type: AuthServiceType)
 
     val areTheAuthorizationServicesInitialized: StateFlow<Boolean>
 }
@@ -39,17 +40,6 @@ class AuthorizationRepositoryImpl @Inject constructor(
         }.stateIn(CoroutineScope(Dispatchers.IO), SharingStarted.WhileSubscribed(), false)
 
     init {
-        val stackTrace = Thread.currentThread().stackTrace
-        val callerIndex =
-            stackTrace.indexOfFirst { it.className == AuthorizationRepositoryImpl::class.java.name } + 2
-        val callerStackTraceElement = stackTrace.getOrNull(callerIndex)
-
-        if (callerStackTraceElement != null) {
-            Timber.d("Called from: $callerStackTraceElement")
-        } else {
-            Timber.d("Caller not found")
-        }
-
         initAuthorizationServices()
     }
 
@@ -88,6 +78,10 @@ class AuthorizationRepositoryImpl @Inject constructor(
 
     override suspend fun authorize(type: AuthServiceType) {
         getAuthorizationService(type).authorize()
+    }
+
+    override suspend fun unauthorize(type: AuthServiceType) {
+        getAuthorizationService(type).unauthorize()
     }
 
 }

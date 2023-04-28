@@ -23,7 +23,6 @@ import javax.inject.Singleton
 object AuthModule {
 
     @Provides
-    @Singleton
     fun provideAuthorizationUseCases(
         authorizationRepository: AuthorizationRepository
     ): AuthorizationUseCases {

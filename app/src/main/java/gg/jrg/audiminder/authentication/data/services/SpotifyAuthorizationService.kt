@@ -18,7 +18,6 @@ class SpotifyAuthorizationService @Inject constructor(
 
     private val activityStateFlow = activityStateFlowWrapper.stateFlow
 
-
     init {
         refreshAuthorizationState()
     }
@@ -27,6 +26,10 @@ class SpotifyAuthorizationService @Inject constructor(
         val activity = activityStateFlow.value
             ?: throw IllegalStateException("Activity is not available")
         activity.startSpotifyClientPkceLoginActivity(SpotifyPkceLoginActivityImpl::class.java)
+    }
+
+    override suspend fun unauthorize() {
+        spotifyDefaultCredentialStore.spotifyAccessToken = null
     }
 
     override fun refreshAuthorizationState() {

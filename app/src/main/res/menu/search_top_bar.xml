@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/nearby_sound_option"
         android:contentDescription="@string/microphone_icon_in_the_top_left_that_triggers_add_from_nearby_sound_functionality"
         android:icon="@drawable/baseline_mic_24"
         android:title="@string/settings"

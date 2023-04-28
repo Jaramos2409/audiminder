@@ -4,9 +4,6 @@
 
     <application android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".NavigationObserverTestActivity"
-            android:exported="false" />
-        <activity
             android:name=".HiltTestActivity"
             android:exported="false" />
     </application>

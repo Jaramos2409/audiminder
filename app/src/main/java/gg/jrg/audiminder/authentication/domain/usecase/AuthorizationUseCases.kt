@@ -13,5 +13,6 @@ class AuthorizationUseCases @Inject constructor(
     val refreshAuthorizationStateUseCase = RefreshAuthorizationStateUseCase(authorizationRepository)
     val areAuthorizationServicesInitializedUseCase =
         AreAuthorizationServicesInitializedUseCase(authorizationRepository)
+    val unauthorizeUseCase = UnauthorizeUseCase(authorizationRepository)
 }
 

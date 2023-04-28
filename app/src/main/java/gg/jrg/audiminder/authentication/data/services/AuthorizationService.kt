@@ -7,5 +7,7 @@ interface AuthorizationService {
     val authorizationState: StateFlow<AuthorizationState>
 
     suspend fun authorize()
+
+    suspend fun unauthorize()
     fun refreshAuthorizationState()
 }

@@ -1,11 +1,11 @@
 package gg.jrg.audiminder.authentication.presentation
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import gg.jrg.audiminder.authentication.data.AuthServiceType
 import gg.jrg.audiminder.authentication.data.AuthorizationState
 import gg.jrg.audiminder.authentication.domain.usecase.AuthorizationUseCases
-import gg.jrg.audiminder.core.presentation.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthorizationViewModel @Inject constructor(
     private val authorizationUseCases: AuthorizationUseCases
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val _spotifyAuthorizationState =
         MutableStateFlow<AuthorizationState>(AuthorizationState.Unauthorized)
@@ -24,23 +24,27 @@ class AuthorizationViewModel @Inject constructor(
                 authorizationUseCases.areAuthorizationServicesInitializedUseCase()
 
             if (areAuthorizationServicesInitialized.value) {
-                fetchAuthorizationStateOfThisService(AuthServiceType.SPOTIFY)
+                fetchAndUpdateAuthorizationStateOfThisService(AuthServiceType.SPOTIFY)
             } else {
                 areAuthorizationServicesInitialized.collect { isInitialized ->
                     if (isInitialized) {
-                        fetchAuthorizationStateOfThisService(AuthServiceType.SPOTIFY)
+                        fetchAndUpdateAuthorizationStateOfThisService(AuthServiceType.SPOTIFY)
                     }
                 }
             }
         }
     }
 
-    private fun fetchAuthorizationStateOfThisService(type: AuthServiceType) {
+    private fun fetchAndUpdateAuthorizationStateOfThisService(type: AuthServiceType) {
         viewModelScope.launch {
             refreshAuthorizationStateForThisService(type)
 
             authorizationUseCases.getAuthorizationStateUseCase(type)
-                .collect { state -> _spotifyAuthorizationState.value = state }
+                .collect { state ->
+                    run {
+                        returnAuthorizationStateFlowBasedOnType(type).value = state
+                    }
+                }
         }
     }
 
@@ -56,11 +60,20 @@ class AuthorizationViewModel @Inject constructor(
         }
     }
 
-    fun getAuthorizationStateOfThisService(type: AuthServiceType): AuthorizationState {
-        return when (type) {
-            AuthServiceType.SPOTIFY -> _spotifyAuthorizationState.value
-            else -> throw IllegalArgumentException("Unknown AuthServiceType: $type")
+    fun isThisServiceAuthorized(type: AuthServiceType): Boolean {
+        return returnAuthorizationStateFlowBasedOnType(type).value == AuthorizationState.Authorized
+    }
+
+    fun unauthorizeThisService(type: AuthServiceType) {
+        viewModelScope.launch {
+            authorizationUseCases.unauthorizeUseCase(type)
         }
     }
+
+    private fun returnAuthorizationStateFlowBasedOnType(type: AuthServiceType) =
+        when (type) {
+            AuthServiceType.SPOTIFY -> _spotifyAuthorizationState
+            else -> throw IllegalArgumentException("Unknown AuthServiceType: $type")
+        }
 
 }

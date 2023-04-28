@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.authentication.data.AuthServiceType
-import gg.jrg.audiminder.authentication.data.AuthorizationState
 import gg.jrg.audiminder.authentication.presentation.AuthorizationBottomSheetFragment
 import gg.jrg.audiminder.authentication.presentation.AuthorizationViewModel
 import gg.jrg.audiminder.databinding.FragmentSearchScreenBinding
@@ -16,18 +15,18 @@ import gg.jrg.audiminder.databinding.FragmentSearchScreenBinding
 @AndroidEntryPoint
 class SearchScreenFragment : Fragment() {
 
-    private val authorizationViewModel: AuthorizationViewModel by viewModels()
-
     private lateinit var binding: FragmentSearchScreenBinding
+    private val authorizationViewModel by viewModels<AuthorizationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchScreenBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.searchServiceBar.setOnClickListener {
-            if (authorizationViewModel.getAuthorizationStateOfThisService(AuthServiceType.SPOTIFY) == AuthorizationState.Unauthorized) {
+            if (!authorizationViewModel.isThisServiceAuthorized(AuthServiceType.SPOTIFY)) {
                 AuthorizationBottomSheetFragment().show(
                     parentFragmentManager,
                     AuthorizationBottomSheetFragment.TAG

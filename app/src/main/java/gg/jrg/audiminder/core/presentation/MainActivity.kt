@@ -10,11 +10,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
-import gg.jrg.audiminder.authentication.presentation.AuthorizationViewModel
 import gg.jrg.audiminder.collections.presentation.CollectionsScreenFragmentDirections
 import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
 import gg.jrg.audiminder.core.util.NavEvent
-import gg.jrg.audiminder.core.util.NavigationObserver
+import gg.jrg.audiminder.core.util.collectLifecycleFlow
 import gg.jrg.audiminder.databinding.ActivityMainBinding
 import gg.jrg.audiminder.home.presentation.HomeScreenFragmentDirections
 import gg.jrg.audiminder.search.presentation.SearchScreenFragmentDirections
@@ -24,8 +23,8 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var binding: ActivityMainBinding
-    private val authorizationViewModel by viewModels<AuthorizationViewModel>()
-    private val navObserver by lazy { NavigationObserver(authorizationViewModel) }
+    private val navigationViewModel: NavigationViewModel by viewModels()
+    private val mainViewModel by viewModels<MainViewModel>()
 
     @Inject
     lateinit var activityStateFlowWrapper: ActivityStateFlowWrapper
@@ -34,14 +33,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activityStateFlowWrapper.stateFlow.value = this
 
-        navObserver.register(this)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         navHostFragment =
             binding.navHostFragment.getFragment() as NavHostFragment
 
         binding.bottomNavView.setupWithNavController(navHostFragment.navController)
+
+        collectLifecycleFlow(navigationViewModel.navigationEvent) { navEvent ->
+            when (navEvent) {
+                is NavEvent.To -> navHostFragment.navController.navigate(navEvent.directions)
+                NavEvent.Up -> navHostFragment.navController.navigateUp()
+                NavEvent.Back -> navHostFragment.navController.popBackStack()
+                is NavEvent.BackTo -> navHostFragment.navController.popBackStack(
+                    navEvent.destinationId,
+                    false
+                )
+            }
+        }
 
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.homeScreenFragment ||
@@ -60,27 +69,39 @@ class MainActivity : AppCompatActivity() {
 
             when (Pair(currentFragmentId, selectedIcon)) {
                 Pair(R.id.homeScreenFragment, R.id.search_navigation_icon) -> {
-                    authorizationViewModel.navigate(NavEvent.To(HomeScreenFragmentDirections.actionHomeScreenFragmentToSearchScreenFragment()))
+                    navigationViewModel.navigate(
+                        NavEvent.To(HomeScreenFragmentDirections.actionHomeScreenFragmentToSearchScreenFragment())
+                    )
                     true
                 }
                 Pair(R.id.homeScreenFragment, R.id.collections_navigation_icon) -> {
-                    authorizationViewModel.navigate(NavEvent.To(HomeScreenFragmentDirections.actionHomeScreenFragmentToCollectionsScreenFragment()))
+                    navigationViewModel.navigate(
+                        NavEvent.To(HomeScreenFragmentDirections.actionHomeScreenFragmentToCollectionsScreenFragment())
+                    )
                     true
                 }
                 Pair(R.id.searchScreenFragment, R.id.home_navigation_icon) -> {
-                    authorizationViewModel.navigate(NavEvent.To(SearchScreenFragmentDirections.actionSearchScreenFragmentToHomeScreenFragment()))
+                    navigationViewModel.navigate(
+                        NavEvent.To(SearchScreenFragmentDirections.actionSearchScreenFragmentToHomeScreenFragment())
+                    )
                     true
                 }
                 Pair(R.id.searchScreenFragment, R.id.collections_navigation_icon) -> {
-                    authorizationViewModel.navigate(NavEvent.To(SearchScreenFragmentDirections.actionSearchScreenFragmentToCollectionsScreenFragment()))
+                    navigationViewModel.navigate(
+                        NavEvent.To(SearchScreenFragmentDirections.actionSearchScreenFragmentToCollectionsScreenFragment())
+                    )
                     true
                 }
                 Pair(R.id.collectionsScreenFragment, R.id.home_navigation_icon) -> {
-                    authorizationViewModel.navigate(NavEvent.To(CollectionsScreenFragmentDirections.actionCollectionsScreenFragmentToHomeScreenFragment()))
+                    navigationViewModel.navigate(
+                        NavEvent.To(CollectionsScreenFragmentDirections.actionCollectionsScreenFragmentToHomeScreenFragment())
+                    )
                     true
                 }
                 Pair(R.id.collectionsScreenFragment, R.id.search_navigation_icon) -> {
-                    authorizationViewModel.navigate(NavEvent.To(CollectionsScreenFragmentDirections.actionCollectionsScreenFragmentToSearchScreenFragment()))
+                    navigationViewModel.navigate(
+                        NavEvent.To(CollectionsScreenFragmentDirections.actionCollectionsScreenFragmentToSearchScreenFragment())
+                    )
                     true
                 }
                 else -> {
@@ -98,4 +119,5 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navHostFragment.navController.navigateUp() || super.onSupportNavigateUp()
     }
+
 }
