@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import gg.jrg.audiminder.authentication.data.AuthServiceType
-import gg.jrg.audiminder.authentication.presentation.AuthorizationBottomSheetFragment
-import gg.jrg.audiminder.authentication.presentation.AuthorizationViewModel
 import gg.jrg.audiminder.databinding.FragmentSearchScreenBinding
+import gg.jrg.audiminder.music_services.data.MusicServiceType
+import gg.jrg.audiminder.music_services.presentation.AuthorizeMusicServiceBottomSheetFragment
+import gg.jrg.audiminder.music_services.presentation.MusicServiceAuthorizationViewModel
 
 @AndroidEntryPoint
 class SearchScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchScreenBinding
-    private val authorizationViewModel by viewModels<AuthorizationViewModel>()
+    private val musicServiceAuthorizationViewModel by viewModels<MusicServiceAuthorizationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,10 +26,10 @@ class SearchScreenFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.searchServiceBar.setOnClickListener {
-            if (!authorizationViewModel.isThisServiceAuthorized(AuthServiceType.SPOTIFY)) {
-                AuthorizationBottomSheetFragment().show(
+            if (!musicServiceAuthorizationViewModel.isThisServiceAuthorized(MusicServiceType.SPOTIFY)) {
+                AuthorizeMusicServiceBottomSheetFragment().show(
                     parentFragmentManager,
-                    AuthorizationBottomSheetFragment.TAG
+                    AuthorizeMusicServiceBottomSheetFragment.TAG
                 )
             }
         }

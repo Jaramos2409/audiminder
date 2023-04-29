@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="gg.jrg.audiminder.authentication.presentation.SpotifyPkceLoginActivityImpl"
+            android:name="gg.jrg.audiminder.music_services.presentation.SpotifyPkceLoginActivityImpl"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>

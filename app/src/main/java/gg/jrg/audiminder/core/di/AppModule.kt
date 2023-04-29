@@ -8,13 +8,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import gg.jrg.audiminder.authentication.data.source.SupportedAuthorizationServiceDao
 import gg.jrg.audiminder.collections.data.source.AlbumCollectionCrossRefDao
 import gg.jrg.audiminder.collections.data.source.AlbumCollectionDao
 import gg.jrg.audiminder.collections.data.source.AlbumDao
 import gg.jrg.audiminder.collections.data.source.TrackDao
 import gg.jrg.audiminder.core.data.source.AppDatabase
 import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
+import gg.jrg.audiminder.music_services.data.source.SupportedMusicServiceDao
 import gg.jrg.audiminder.reminder.data.source.ReminderDao
 import gg.jrg.audiminder.search.data.source.SearchHistoryDao
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -76,7 +76,7 @@ object AppModule {
     }
 
     @Provides
-    fun provideSupportedAuthorizationServiceDao(appDatabase: AppDatabase): SupportedAuthorizationServiceDao {
+    fun provideSupportedAuthorizationServiceDao(appDatabase: AppDatabase): SupportedMusicServiceDao {
         return appDatabase.supportedAuthorizationServiceDao()
     }
 

@@ -10,18 +10,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
-import gg.jrg.audiminder.authentication.data.AuthServiceType
-import gg.jrg.audiminder.authentication.presentation.AuthorizationViewModel
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
 import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.databinding.FragmentSettingsScreenBinding
+import gg.jrg.audiminder.music_services.data.MusicServiceType
+import gg.jrg.audiminder.music_services.presentation.MusicServiceAuthorizationViewModel
 
 @AndroidEntryPoint
 class SettingsScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsScreenBinding
     private val settingsViewModel: SettingsViewModel by viewModels()
-    private val authorizationViewModel: AuthorizationViewModel by viewModels()
+    private val musicServiceAuthorizationViewModel: MusicServiceAuthorizationViewModel by viewModels()
     private val navigationViewModel by activityViewModels<NavigationViewModel>()
 
     override fun onCreateView(
@@ -36,14 +36,14 @@ class SettingsScreenFragment : Fragment() {
         }
 
         binding.unauthenticateSpotifyButton.visibility =
-            if (authorizationViewModel.isThisServiceAuthorized(AuthServiceType.SPOTIFY)) {
+            if (musicServiceAuthorizationViewModel.isThisServiceAuthorized(MusicServiceType.SPOTIFY)) {
                 View.VISIBLE
             } else {
                 View.GONE
             }
 
         binding.unauthenticateSpotifyButton.setOnClickListener {
-            authorizationViewModel.unauthorizeThisService(AuthServiceType.SPOTIFY)
+            musicServiceAuthorizationViewModel.unauthorizeThisService(MusicServiceType.SPOTIFY)
             Toast.makeText(
                 requireContext(),
                 getString(R.string.unauthenticated_spotify),
