@@ -13,7 +13,7 @@ interface SupportedMusicServiceDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(vararg supportedMusicServiceDTO: SupportedMusicServiceDTO)
 
-    @Query("SELECT * FROM supported_auth_services")
+    @Query("SELECT * FROM supported_music_services")
     fun getAllSupportedMusicServices(): Flow<List<SupportedMusicServiceDTO>>
 
 }

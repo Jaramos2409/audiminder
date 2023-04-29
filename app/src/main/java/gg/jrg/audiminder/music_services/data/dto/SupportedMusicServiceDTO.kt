@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import gg.jrg.audiminder.core.data.DomainMappable
 import gg.jrg.audiminder.music_services.domain.model.SupportedMusicService
 
-@Entity(tableName = "supported_auth_services")
+@Entity(tableName = "supported_music_services")
 data class SupportedMusicServiceDTO(
     @PrimaryKey(autoGenerate = true) val serviceId: Int = 0,
     val serviceName: String
