@@ -31,7 +31,7 @@ class SettingsScreenFragment : Fragment() {
         binding = FragmentSettingsScreenBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.settingsTopBar.setOnClickListener {
+        binding.settingsTopBar.setNavigationOnClickListener {
             navigationViewModel.navigateBack()
         }
 
