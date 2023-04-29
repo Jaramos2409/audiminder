@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MusicServiceAuthorizationViewModel @Inject constructor(
+class MusicServiceViewModel @Inject constructor(
     private val musicServiceUseCases: MusicServiceUseCases
 ) : ViewModel() {
 

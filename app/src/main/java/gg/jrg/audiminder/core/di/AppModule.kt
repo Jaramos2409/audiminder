@@ -15,6 +15,7 @@ import gg.jrg.audiminder.collections.data.source.TrackDao
 import gg.jrg.audiminder.core.data.source.AppDatabase
 import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
 import gg.jrg.audiminder.music_services.data.source.SupportedMusicServiceDao
+import gg.jrg.audiminder.music_services.data.source.SupportedMusicServiceDetailsDao
 import gg.jrg.audiminder.reminder.data.source.ReminderDao
 import gg.jrg.audiminder.search.data.source.SearchHistoryDao
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -76,8 +77,13 @@ object AppModule {
     }
 
     @Provides
-    fun provideSupportedAuthorizationServiceDao(appDatabase: AppDatabase): SupportedMusicServiceDao {
-        return appDatabase.supportedAuthorizationServiceDao()
+    fun provideSupportedMusicServiceDao(appDatabase: AppDatabase): SupportedMusicServiceDao {
+        return appDatabase.supportedMusicServiceDao()
+    }
+
+    @Provides
+    fun provideSupportedMusicServiceDetailsDao(appDatabase: AppDatabase): SupportedMusicServiceDetailsDao {
+        return appDatabase.supportedMusicServiceDetailsDao()
     }
 
     @Provides

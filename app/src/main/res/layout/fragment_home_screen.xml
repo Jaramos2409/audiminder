@@ -38,6 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textSize="22sp"
+                        android:text="@string/welcome"
                         tools:text="Welcome Jesus!" />
 
                 </com.google.android.material.appbar.MaterialToolbar>

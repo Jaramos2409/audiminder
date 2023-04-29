@@ -13,6 +13,7 @@ import gg.jrg.audiminder.collections.data.source.AlbumDao
 import gg.jrg.audiminder.collections.data.source.TrackDao
 import gg.jrg.audiminder.core.data.Converters
 import gg.jrg.audiminder.music_services.data.dto.SupportedMusicServiceDTO
+import gg.jrg.audiminder.music_services.data.dto.SupportedMusicServiceDetailsDTO
 import gg.jrg.audiminder.music_services.data.source.SupportedMusicServiceDao
 import gg.jrg.audiminder.music_services.data.source.SupportedMusicServiceDetailsDao
 import gg.jrg.audiminder.reminder.data.dto.ReminderDTO
@@ -28,7 +29,8 @@ import gg.jrg.audiminder.search.data.source.SearchHistoryDao
         ReminderDTO::class,
         AlbumCollectionCrossRefDTO::class,
         SearchHistoryDTO::class,
-        SupportedMusicServiceDTO::class
+        SupportedMusicServiceDTO::class,
+        SupportedMusicServiceDetailsDTO::class
     ],
     version = 1
 )
@@ -40,6 +42,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun reminderDao(): ReminderDao
     abstract fun albumCollectionCrossRefDao(): AlbumCollectionCrossRefDao
     abstract fun searchHistoryDao(): SearchHistoryDao
-    abstract fun supportedAuthorizationServiceDao(): SupportedMusicServiceDao
+    abstract fun supportedMusicServiceDao(): SupportedMusicServiceDao
     abstract fun supportedMusicServiceDetailsDao(): SupportedMusicServiceDetailsDao
 }

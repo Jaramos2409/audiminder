@@ -14,14 +14,14 @@ import gg.jrg.audiminder.core.presentation.NavigationViewModel
 import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.databinding.FragmentSettingsScreenBinding
 import gg.jrg.audiminder.music_services.data.MusicServiceType
-import gg.jrg.audiminder.music_services.presentation.MusicServiceAuthorizationViewModel
+import gg.jrg.audiminder.music_services.presentation.MusicServiceViewModel
 
 @AndroidEntryPoint
 class SettingsScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsScreenBinding
     private val settingsViewModel: SettingsViewModel by viewModels()
-    private val musicServiceAuthorizationViewModel: MusicServiceAuthorizationViewModel by viewModels()
+    private val musicServiceViewModel by activityViewModels<MusicServiceViewModel>()
     private val navigationViewModel by activityViewModels<NavigationViewModel>()
 
     override fun onCreateView(
@@ -36,14 +36,14 @@ class SettingsScreenFragment : Fragment() {
         }
 
         binding.unauthenticateSpotifyButton.visibility =
-            if (musicServiceAuthorizationViewModel.isThisServiceAuthorized(MusicServiceType.SPOTIFY)) {
+            if (musicServiceViewModel.isThisServiceAuthorized(MusicServiceType.SPOTIFY)) {
                 View.VISIBLE
             } else {
                 View.GONE
             }
 
         binding.unauthenticateSpotifyButton.setOnClickListener {
-            musicServiceAuthorizationViewModel.unauthorizeThisService(MusicServiceType.SPOTIFY)
+            musicServiceViewModel.unauthorizeThisService(MusicServiceType.SPOTIFY)
             Toast.makeText(
                 requireContext(),
                 getString(R.string.unauthenticated_spotify),
