@@ -42,4 +42,5 @@
     <string name="you_must_authorize_to_continue">You must authorize to continue…</string>
     <string name="tap_the_button_below_to_authorize_the_app_to_access_your_spotify_account">Tap the button below to authorize the app to access your Spotify account.</string>
     <string name="authorize_spotify">AUTHORIZE SPOTIFY</string>
+    <string name="unauthenticated_spotify">Unauthenticated Spotify</string>
 </resources>

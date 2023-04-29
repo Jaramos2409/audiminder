@@ -22,4 +22,10 @@ class NavigationViewModel : ViewModel() {
             _navigationEvent.emit(NavEvent.Back)
         }
     }
+
+    fun navigateBackTo(event: NavEvent) {
+        viewModelScope.launch {
+            _navigationEvent.emit(event)
+        }
+    }
 }
