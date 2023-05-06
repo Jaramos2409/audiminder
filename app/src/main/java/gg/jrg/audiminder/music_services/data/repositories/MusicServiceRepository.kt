@@ -3,65 +3,34 @@ package gg.jrg.audiminder.music_services.data.repositories
 import gg.jrg.audiminder.core.util.logChanges
 import gg.jrg.audiminder.music_services.data.MusicServiceAuthorizationState
 import gg.jrg.audiminder.music_services.data.MusicServiceType
-import gg.jrg.audiminder.music_services.data.services.MusicServiceProvider
-import gg.jrg.audiminder.music_services.data.source.SupportedMusicServiceDao
+import gg.jrg.audiminder.music_services.data.providers.MusicServiceProvider
 import gg.jrg.audiminder.music_services.di.MusicServiceProviderMap
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 
 interface MusicServiceRepository {
     fun getMusicServiceProvider(type: MusicServiceType): MusicServiceProvider
+
     fun refreshAuthorizationState(type: MusicServiceType)
 
-    fun getAuthorizationState(type: MusicServiceType): StateFlow<MusicServiceAuthorizationState>
+    fun getAuthorizationState(type: MusicServiceType): MutableStateFlow<MusicServiceAuthorizationState>
 
-    suspend fun authorize(type: MusicServiceType)
+    fun authorize(type: MusicServiceType)
 
-    suspend fun unauthorize(type: MusicServiceType)
-
-    val areMusicServicesInitialized: StateFlow<Boolean>
+    fun unauthorize(type: MusicServiceType)
 }
 
 class MusicServiceRepositoryImpl @Inject constructor(
-    private val supportedMusicServiceDao: SupportedMusicServiceDao,
-    @MusicServiceProviderMap private val providersMap: Map<String, @JvmSuppressWildcards MusicServiceProvider>
+    @MusicServiceProviderMap private val providersMap: Map<MusicServiceType, @JvmSuppressWildcards MusicServiceProvider>
 ) : MusicServiceRepository {
 
     private val _musicServiceProviders =
-        MutableStateFlow<Map<MusicServiceType, MusicServiceProvider>>(emptyMap()).apply { logChanges() }
-
-    override val areMusicServicesInitialized: StateFlow<Boolean> =
-        _musicServiceProviders.map { musicServiceProvider ->
-            musicServiceProvider.isNotEmpty()
-        }.stateIn(CoroutineScope(Dispatchers.IO), SharingStarted.WhileSubscribed(), false)
-
-    init {
-        initMusicServices()
-    }
-
-    private fun initMusicServices() {
-        CoroutineScope(Dispatchers.IO).launch {
-            supportedMusicServiceDao.getAllSupportedMusicServices()
-                .map { supportedServices ->
-                    supportedServices.mapNotNull { dto ->
-                        val musicServiceType =
-                            MusicServiceType.values().find { it.serviceAsString == dto.serviceName }
-
-                        musicServiceType?.let { type ->
-                            val service = providersMap[type.serviceAsString]
-                            service?.let { type to service }
-                        }
-                    }.toMap()
-                }
-                .collect { serviceProvidersMap ->
-                    _musicServiceProviders.value = serviceProvidersMap
-                }
+        MutableStateFlow(providersMap).apply {
+            logChanges(
+                "_musicServiceProviders"
+            )
         }
-    }
 
     override fun getMusicServiceProvider(type: MusicServiceType): MusicServiceProvider {
         return _musicServiceProviders.value[type]
@@ -72,15 +41,15 @@ class MusicServiceRepositoryImpl @Inject constructor(
         return getMusicServiceProvider(type).refreshAuthorizationState()
     }
 
-    override fun getAuthorizationState(type: MusicServiceType): StateFlow<MusicServiceAuthorizationState> {
+    override fun getAuthorizationState(type: MusicServiceType): MutableStateFlow<MusicServiceAuthorizationState> {
         return getMusicServiceProvider(type).authorizationState
     }
 
-    override suspend fun authorize(type: MusicServiceType) {
+    override fun authorize(type: MusicServiceType) {
         getMusicServiceProvider(type).authorize()
     }
 
-    override suspend fun unauthorize(type: MusicServiceType) {
+    override fun unauthorize(type: MusicServiceType) {
         getMusicServiceProvider(type).unauthorize()
     }
 

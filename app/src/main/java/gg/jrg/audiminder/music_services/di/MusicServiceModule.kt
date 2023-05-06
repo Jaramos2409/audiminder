@@ -8,14 +8,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
 import gg.jrg.audiminder.BuildConfig
 import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
 import gg.jrg.audiminder.music_services.data.MusicServiceType
+import gg.jrg.audiminder.music_services.data.providers.MusicServiceProvider
+import gg.jrg.audiminder.music_services.data.providers.SpotifyMusicServiceProvider
 import gg.jrg.audiminder.music_services.data.repositories.MusicServiceRepository
-import gg.jrg.audiminder.music_services.data.services.MusicServiceProvider
-import gg.jrg.audiminder.music_services.data.services.SpotifyMusicServiceProvider
 import gg.jrg.audiminder.music_services.domain.usecase.MusicServiceUseCases
+import gg.jrg.audiminder.music_services.util.clearSharedPreferences
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -30,20 +31,31 @@ object MusicServiceModule {
     }
 
     @Provides
+    @Singleton
     fun provideSpotifyCredentialStore(
         @ApplicationContext context: Context
     ): SpotifyDefaultCredentialStore {
-        return SpotifyDefaultCredentialStore(
-            clientId = BuildConfig.SPOTIFY_CLIENT_ID,
-            redirectUri = BuildConfig.SPOTIFY_REDIRECT_URI,
-            applicationContext = context
-        )
+        return try {
+            SpotifyDefaultCredentialStore(
+                clientId = BuildConfig.SPOTIFY_CLIENT_ID,
+                redirectUri = BuildConfig.SPOTIFY_REDIRECT_URI,
+                applicationContext = context
+            )
+        } catch (e: Exception) {
+            Timber.e(e)
+            context.clearSharedPreferences()
+            SpotifyDefaultCredentialStore(
+                clientId = BuildConfig.SPOTIFY_CLIENT_ID,
+                redirectUri = BuildConfig.SPOTIFY_REDIRECT_URI,
+                applicationContext = context
+            )
+        }
     }
 
     @Provides
-    @MusicServiceProviderMap
+//    @MusicServiceProviderMap
     @IntoMap
-    @StringKey("SPOTIFY")
+    @MusicServiceTypeKey(MusicServiceType.SPOTIFY)
     @Singleton
     fun provideSpotifyAuthorizationService(
         activityStateFlowWrapper: ActivityStateFlowWrapper,
@@ -54,11 +66,12 @@ object MusicServiceModule {
 
     @Provides
     @MusicServiceProviderMap
+    @Singleton
     fun provideMusicServiceProviders(
         spotifyMusicServiceProvider: SpotifyMusicServiceProvider
-    ): Map<String, MusicServiceProvider> {
+    ): Map<MusicServiceType, MusicServiceProvider> {
         return mapOf(
-            MusicServiceType.SPOTIFY.serviceAsString to spotifyMusicServiceProvider
+            MusicServiceType.SPOTIFY to spotifyMusicServiceProvider
         )
     }
 

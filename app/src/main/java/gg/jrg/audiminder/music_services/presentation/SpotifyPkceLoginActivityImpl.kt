@@ -10,7 +10,6 @@ import com.adamratzman.spotify.auth.pkce.AbstractSpotifyPkceLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.BuildConfig
 import gg.jrg.audiminder.core.presentation.MainActivity
-import gg.jrg.audiminder.music_services.data.MusicServiceType
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -18,7 +17,7 @@ class SpotifyPkceLoginActivityImpl : AbstractSpotifyPkceLoginActivity() {
 
     @Inject
     lateinit var spotifyDefaultCredentialStore: SpotifyDefaultCredentialStore
-    private val musicServiceViewModel: MusicServiceViewModel by viewModels()
+    private val spotifyPkceLoginViewModel by viewModels<SpotifyPkceLoginViewModel>()
 
     override val clientId = BuildConfig.SPOTIFY_CLIENT_ID
     override val redirectUri = BuildConfig.SPOTIFY_REDIRECT_URI
@@ -27,7 +26,7 @@ class SpotifyPkceLoginActivityImpl : AbstractSpotifyPkceLoginActivity() {
     override fun onSuccess(api: SpotifyClientApi) {
         spotifyDefaultCredentialStore.setSpotifyApi(api)
 
-        musicServiceViewModel.refreshAuthorizationStateForThisService(MusicServiceType.SPOTIFY)
+        spotifyPkceLoginViewModel.refreshAuthorizationStateForSpotify()
 
         val classBackTo = MainActivity::class.java
         Toast.makeText(

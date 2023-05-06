@@ -7,13 +7,12 @@ import javax.inject.Inject
 class MusicServiceUseCases @Inject constructor(
     musicServiceRepository: MusicServiceRepository
 ) {
-    val authorizeMusicServiceUseCase = AuthorizeMusicServiceUseCase(musicServiceRepository)
-    val getMusicServiceProviderUseCase = GetMusicServiceProviderUseCase(musicServiceRepository)
+    val authorizeMusicServiceUseCase = AuthorizeMusicServiceSuspendUseCase(musicServiceRepository)
+    val getMusicServiceProviderUseCase =
+        GetMusicServiceProviderSuspendUseCase(musicServiceRepository)
     val getMusicServiceStateUseCase = GetMusicServiceStateUseCase(musicServiceRepository)
     val refreshMusicServiceAuthorizationStateUseCase =
-        RefreshMusicServiceAuthorizationStateUseCase(musicServiceRepository)
-    val areMusicServicesInitializedUseCase =
-        AreMusicServicesInitializedUseCase(musicServiceRepository)
+        RefreshMusicServiceAuthorizationStateSuspendUseCase(musicServiceRepository)
     val unauthorizeMusicServiceUseCase = UnauthorizeMusicServiceUseCase(musicServiceRepository)
 }
 

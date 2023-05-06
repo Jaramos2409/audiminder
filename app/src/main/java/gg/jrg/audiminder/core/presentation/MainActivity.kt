@@ -16,7 +16,6 @@ import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.core.util.collectLifecycleFlow
 import gg.jrg.audiminder.databinding.ActivityMainBinding
 import gg.jrg.audiminder.home.presentation.HomeScreenFragmentDirections
-import gg.jrg.audiminder.music_services.presentation.MusicServiceViewModel
 import gg.jrg.audiminder.search.presentation.SearchScreenFragmentDirections
 import javax.inject.Inject
 
@@ -25,8 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var binding: ActivityMainBinding
     private val navigationViewModel: NavigationViewModel by viewModels()
-    private val musicServiceViewModel: MusicServiceViewModel by viewModels()
-    private val mainViewModel by viewModels<MainViewModel>()
 
     @Inject
     lateinit var activityStateFlowWrapper: ActivityStateFlowWrapper

@@ -38,11 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         dataBinding true
@@ -58,17 +58,16 @@ android {
 ext {
     androidxCoreVersion = '1.10.0'
     appCompatVersion = '1.6.1'
-    materialVersion = '1.8.0'
+    materialVersion = '1.9.0'
     constraintLayoutVersion = '2.1.4'
     navigationVersion = '2.5.3'
     junitExtVersion = '1.1.5'
     testRunnerVersion = '1.5.2'
     lifecycleVersion = '2.6.1'
-    securityCryptoVersion = '1.1.0-alpha05'
+    securityCryptoVersion = '1.1.0-alpha06'
     junitVersion = '4.13.2'
     coroutinesVersion = '1.6.0'
     espressoVersion = '3.5.1'
-    spotifyAuthVersion = '2.0.2'
     spotifyWebApiKotlinVersion = '3.8.8'
     timberVersion = '5.0.1'
     recyclerviewVersion = '1.3.0'
@@ -77,7 +76,7 @@ ext {
     mockitoCoreVersion = '5.2.0'
     mockitoKotlinVersion = '4.1.0'
     fragmentTestingVersion = '1.6.0-beta01'
-    hiltVersion = '2.45'
+    hiltVersion = '2.46'
     testCoreVersion = '1.5.0'
     testRulesVersion = '1.5.0'
     truthVersion = '1.5.0'
@@ -143,6 +142,12 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
     ksp "androidx.room:room-compiler:$roomVersion"
     testImplementation "androidx.room:room-testing:$roomVersion"
+}
+
+configurations.all {
+    resolutionStrategy {
+        force "androidx.security:security-crypto-ktx:$securityCryptoVersion"
+    }
 }
 
 kapt {

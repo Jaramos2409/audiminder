@@ -4,28 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.databinding.FragmentAuthorizationBottomSheetBinding
-import gg.jrg.audiminder.music_services.data.MusicServiceType
 
 @AndroidEntryPoint
 class AuthorizeMusicServiceBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private val musicServiceViewModel: MusicServiceViewModel by activityViewModels()
-
     private lateinit var binding: FragmentAuthorizationBottomSheetBinding
+    private val authorizeMusicServiceViewModel by viewModels<AuthorizeMusicServiceViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAuthorizationBottomSheetBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.spotifyAuthButton.setOnClickListener {
-            musicServiceViewModel.authorizeThisService(MusicServiceType.SPOTIFY)
+            authorizeMusicServiceViewModel.authorizeSpotify()
         }
 
         return binding.root

@@ -1,8 +1,9 @@
-package gg.jrg.audiminder.music_services.data.services
+package gg.jrg.audiminder.music_services.data.providers
 
 import com.adamratzman.spotify.auth.SpotifyDefaultCredentialStore
 import com.adamratzman.spotify.auth.pkce.startSpotifyClientPkceLoginActivity
 import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
+import gg.jrg.audiminder.core.util.logChanges
 import gg.jrg.audiminder.music_services.data.MusicServiceAuthorizationState
 import gg.jrg.audiminder.music_services.presentation.SpotifyPkceLoginActivityImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,11 @@ class SpotifyMusicServiceProvider @Inject constructor(
 ) : MusicServiceProvider {
 
     override val authorizationState =
-        MutableStateFlow<MusicServiceAuthorizationState>(MusicServiceAuthorizationState.Unauthorized)
+        MutableStateFlow<MusicServiceAuthorizationState>(MusicServiceAuthorizationState.Unauthorized).apply {
+            logChanges(
+                "SpotifyMusicServiceProvider authorizationState"
+            )
+        }
 
     private val activityStateFlow = activityStateFlowWrapper.stateFlow
 
@@ -22,14 +27,15 @@ class SpotifyMusicServiceProvider @Inject constructor(
         refreshAuthorizationState()
     }
 
-    override suspend fun authorize() {
+    override fun authorize() {
         val activity = activityStateFlow.value
             ?: throw IllegalStateException("Activity is not available")
         activity.startSpotifyClientPkceLoginActivity(SpotifyPkceLoginActivityImpl::class.java)
     }
 
-    override suspend fun unauthorize() {
+    override fun unauthorize() {
         spotifyDefaultCredentialStore.spotifyAccessToken = null
+        refreshAuthorizationState()
     }
 
     override fun refreshAuthorizationState() {
