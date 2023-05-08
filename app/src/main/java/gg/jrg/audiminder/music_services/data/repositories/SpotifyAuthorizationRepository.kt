@@ -21,7 +21,7 @@ interface SpotifyAuthorizationRepository {
 
 class SpotifyAuthorizationRepositoryImpl @Inject constructor(
     activityStateFlowWrapper: ActivityStateFlowWrapper,
-    private val spotifyDefaultCredentialStore: SpotifyDefaultCredentialStore,
+    private val spotifyDefaultCredentialStore: SpotifyDefaultCredentialStore
 ) : SpotifyAuthorizationRepository {
 
     override val authorizationState =

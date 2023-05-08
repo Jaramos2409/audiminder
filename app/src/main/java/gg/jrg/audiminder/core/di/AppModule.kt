@@ -13,6 +13,7 @@ import gg.jrg.audiminder.collections.data.source.AlbumCollectionDao
 import gg.jrg.audiminder.collections.data.source.AlbumDao
 import gg.jrg.audiminder.collections.data.source.TrackDao
 import gg.jrg.audiminder.core.data.source.AppDatabase
+import gg.jrg.audiminder.core.data.source.UserDetailsDao
 import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
 import gg.jrg.audiminder.reminder.data.source.ReminderDao
 import gg.jrg.audiminder.search.data.source.SearchHistoryDao
@@ -72,6 +73,11 @@ object AppModule {
     @Provides
     fun provideSearchHistoryDao(appDatabase: AppDatabase): SearchHistoryDao {
         return appDatabase.searchHistoryDao()
+    }
+
+    @Provides
+    fun provideUserDetailsDao(appDatabase: AppDatabase): UserDetailsDao {
+        return appDatabase.userDetailsDao()
     }
 
     @Provides

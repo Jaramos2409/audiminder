@@ -1,9 +1,11 @@
 package gg.jrg.audiminder.settings.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import gg.jrg.audiminder.music_services.domain.model.SpotifyAuthorizationManager
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyAuthorizationUseCases
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,6 +21,8 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun unauthorizeSpotify() {
-        _spotifyAuthorizationManager.unauthorize()
+        viewModelScope.launch {
+            _spotifyAuthorizationManager.unauthorize()
+        }
     }
 }

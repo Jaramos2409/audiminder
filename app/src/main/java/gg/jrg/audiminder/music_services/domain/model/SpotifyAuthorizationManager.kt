@@ -19,8 +19,8 @@ class SpotifyAuthorizationManager(
         spotifyAuthorizationUseCases.authorizeMusicServiceUseCase()
     }
 
-    fun unauthorize() {
-        spotifyAuthorizationUseCases.unauthorizeSpotifyUseCase()
+    suspend fun unauthorize() {
+        spotifyAuthorizationUseCases.unauthorizeSpotifySuspendUseCase()
     }
 
     fun refreshAuthorizationState() {

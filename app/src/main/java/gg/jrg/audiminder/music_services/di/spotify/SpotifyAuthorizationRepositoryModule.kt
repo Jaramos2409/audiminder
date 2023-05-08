@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.music_services.di
+package gg.jrg.audiminder.music_services.di.spotify
 
 import dagger.Binds
 import dagger.Module
@@ -14,7 +14,7 @@ abstract class SpotifyAuthorizationRepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindMusicServiceRepository(
+    abstract fun bindSpotifyAuthorizationRepository(
         spotifyAuthorizationRepositoryImpl: SpotifyAuthorizationRepositoryImpl
     ): SpotifyAuthorizationRepository
 
