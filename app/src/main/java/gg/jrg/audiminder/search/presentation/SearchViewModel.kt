@@ -2,20 +2,18 @@ package gg.jrg.audiminder.search.presentation
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import gg.jrg.audiminder.music_services.data.MusicServiceType
-import gg.jrg.audiminder.music_services.domain.model.MusicServiceAuthorizationManager
-import gg.jrg.audiminder.music_services.domain.usecase.MusicServiceUseCases
+import gg.jrg.audiminder.music_services.domain.model.SpotifyAuthorizationManager
+import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyAuthorizationUseCases
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    musicServiceUseCases: MusicServiceUseCases
+    spotifyAuthorizationUseCases: SpotifyAuthorizationUseCases
 ) : ViewModel() {
 
     private val _spotifyAuthorizationManager =
-        MusicServiceAuthorizationManager(
-            musicServiceUseCases,
-            MusicServiceType.SPOTIFY
+        SpotifyAuthorizationManager(
+            spotifyAuthorizationUseCases
         )
 
     fun isSpotifyAuthorized(): Boolean {

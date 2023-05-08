@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.music_services.data.providers
+package gg.jrg.audiminder.music_services.data.repositories
 
 import com.adamratzman.spotify.auth.SpotifyDefaultCredentialStore
 import com.adamratzman.spotify.auth.pkce.startSpotifyClientPkceLoginActivity
@@ -9,10 +9,20 @@ import gg.jrg.audiminder.music_services.presentation.SpotifyPkceLoginActivityImp
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class SpotifyMusicServiceProvider @Inject constructor(
+interface SpotifyAuthorizationRepository {
+    val authorizationState: MutableStateFlow<MusicServiceAuthorizationState>
+
+    fun authorize()
+
+    fun unauthorize()
+
+    fun refreshAuthorizationState()
+}
+
+class SpotifyAuthorizationRepositoryImpl @Inject constructor(
     activityStateFlowWrapper: ActivityStateFlowWrapper,
     private val spotifyDefaultCredentialStore: SpotifyDefaultCredentialStore,
-) : MusicServiceProvider {
+) : SpotifyAuthorizationRepository {
 
     override val authorizationState =
         MutableStateFlow<MusicServiceAuthorizationState>(MusicServiceAuthorizationState.Unauthorized).apply {

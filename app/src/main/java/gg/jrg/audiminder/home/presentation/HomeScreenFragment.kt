@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
 import gg.jrg.audiminder.core.util.NavEvent
+import gg.jrg.audiminder.core.util.collectLatestLifecycleFlow
 import gg.jrg.audiminder.databinding.FragmentHomeScreenBinding
 
 @AndroidEntryPoint
@@ -26,6 +27,10 @@ class HomeScreenFragment : Fragment() {
     ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        collectLatestLifecycleFlow(homeViewModel.welcomeText) {
+            binding.homeScreenWelcomeUserText.text = it
+        }
 
         binding.homeTopBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
