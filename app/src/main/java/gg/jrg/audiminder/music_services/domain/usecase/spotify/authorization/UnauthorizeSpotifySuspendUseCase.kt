@@ -13,5 +13,6 @@ class UnauthorizeSpotifySuspendUseCase(
     override suspend operator fun invoke(input: NoInput) {
         spotifyAuthorizationRepository.unauthorize()
         spotifyRepository.clearDisplayName()
+        spotifyRepository.clearProfileImageFilePath()
     }
 }

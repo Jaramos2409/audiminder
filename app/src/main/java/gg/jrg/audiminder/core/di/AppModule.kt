@@ -17,6 +17,8 @@ import gg.jrg.audiminder.core.data.source.UserDetailsDao
 import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
 import gg.jrg.audiminder.reminder.data.source.ReminderDao
 import gg.jrg.audiminder.search.data.source.SearchHistoryDao
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Named
 import javax.inject.Singleton
@@ -84,6 +86,11 @@ object AppModule {
     @Singleton
     fun provideActivityStateFlow(): ActivityStateFlowWrapper {
         return ActivityStateFlowWrapper(MutableStateFlow(null))
+    }
+
+    @Provides
+    fun provideCoroutineDispatcherIO(): CoroutineDispatcher {
+        return Dispatchers.IO
     }
 
 }

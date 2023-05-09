@@ -5,16 +5,20 @@ import com.adamratzman.spotify.SpotifyException
 import com.adamratzman.spotify.auth.SpotifyDefaultCredentialStore
 import com.adamratzman.spotify.models.SpotifyUserInformation
 import gg.jrg.audiminder.music_services.data.repositories.SpotifyAuthorizationRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface SpotifyApiService {
-    fun getUserData(): SpotifyUserInformation?
+    suspend fun getUserData(): SpotifyUserInformation?
 }
 
 class SpotifyApiServiceImpl @Inject constructor(
     private val spotifyDefaultCredentialStore: SpotifyDefaultCredentialStore,
-    private val spotifyAuthorizationRepository: SpotifyAuthorizationRepository
+    private val spotifyAuthorizationRepository: SpotifyAuthorizationRepository,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : SpotifyApiService {
 
     private fun <T> guardValidSpotifyApi(
@@ -53,8 +57,8 @@ class SpotifyApiServiceImpl @Inject constructor(
         }
     }
 
-    override fun getUserData(): SpotifyUserInformation? {
-        return guardValidSpotifyApi { api ->
+    override suspend fun getUserData(): SpotifyUserInformation? = withContext(ioDispatcher) {
+        return@withContext guardValidSpotifyApi { api ->
             return@guardValidSpotifyApi api.users.getClientProfile()
         }
     }

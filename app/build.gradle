@@ -82,6 +82,7 @@ ext {
     truthVersion = '1.5.0'
     browserVersion = '1.5.0'
     roomVersion = '2.5.1'
+    coilVersion = '2.3.0'
 }
 
 dependencies {
@@ -142,6 +143,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
     ksp "androidx.room:room-compiler:$roomVersion"
     testImplementation "androidx.room:room-testing:$roomVersion"
+
+    // Coil
+    implementation "io.coil-kt:coil:$coilVersion"
 }
 
 configurations.all {

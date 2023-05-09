@@ -4,9 +4,9 @@ import gg.jrg.audiminder.core.presentation.usecase.NoInput
 import gg.jrg.audiminder.core.presentation.usecase.SuspendUseCase
 import gg.jrg.audiminder.music_services.data.repositories.SpotifyRepository
 
-class RefreshDisplayNameSuspendUseCase(
+class RefreshUserDataSuspendUseCase(
     private val spotifyRepository: SpotifyRepository
 ) : SuspendUseCase<NoInput, Unit> {
     override suspend operator fun invoke(input: NoInput) =
-        spotifyRepository.refreshDisplayName()
+        spotifyRepository.refreshUserData()
 }

@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
-import gg.jrg.audiminder.core.util.NavEvent
+import gg.jrg.audiminder.core.util.collectLatestLifecycleFlow
 import gg.jrg.audiminder.databinding.FragmentSettingsScreenBinding
 
 @AndroidEntryPoint
@@ -32,12 +32,14 @@ class SettingsScreenFragment : Fragment() {
             navigationViewModel.navigateBack()
         }
 
-        binding.unauthenticateSpotifyButton.visibility =
-            if (settingsViewModel.isSpotifyAuthorized()) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+        collectLatestLifecycleFlow(settingsViewModel.shouldShowUnauthenticateButton) { shouldShowUnauthenticateButton ->
+            binding.unauthenticateSpotifyButton.visibility =
+                if (shouldShowUnauthenticateButton) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+        }
 
         binding.unauthenticateSpotifyButton.setOnClickListener {
             settingsViewModel.unauthorizeSpotify()
@@ -46,7 +48,6 @@ class SettingsScreenFragment : Fragment() {
                 getString(R.string.unauthenticated_spotify),
                 Toast.LENGTH_SHORT
             ).show()
-            navigationViewModel.navigateBackTo(NavEvent.BackTo(R.id.homeScreenFragment))
         }
 
         return binding.root

@@ -26,8 +26,9 @@
                     app:menu="@menu/home_top_app_bar">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/home_screen_profile_photo"
+                        android:layout_width="@dimen/profile_picture_size"
+                        android:layout_height="@dimen/profile_picture_size"
                         android:layout_gravity="start"
                         android:contentDescription="@string/profile_photo_as_a_small_icon_in_the_top_left"
                         tools:src="@drawable/account_circle_24" />
@@ -37,7 +38,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="22sp"
+                        android:textSize="16sp"
                         android:text="@string/welcome"
                         tools:text="Welcome Jesus!" />
 
