@@ -34,6 +34,7 @@
         <item name="materialButtonStyle">@style/materialButtonStyle</item>
         <item name="materialCardViewStyle">@style/materialCardViewStyle</item>
         <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="appBarLayoutStyle">@style/appBarLayoutStyle</item>
     </style>
 
     <style name="Widget.App.ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Icon.Primary">
@@ -62,6 +63,10 @@
     <style name="materialCardViewStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">@dimen/material_card_elevation</item>
         <item name="cardCornerRadius">@dimen/material_card_corner_radius</item>
+    </style>
+
+    <style name="appBarLayoutStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/md_theme_dark_background</item>
     </style>
 
 </resources>

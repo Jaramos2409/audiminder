@@ -16,6 +16,7 @@
                 android:id="@+id/settings_screen_top_bar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_bar_top_margin"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.appbar.MaterialToolbar
@@ -36,6 +37,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/settings_screen_top_bar_layout">
+
+                <include
+                    android:id="@+id/spotify_authenticated_view"
+                    layout="@layout/item_spotify_authenticated_view" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/export_collections_button"
@@ -58,12 +63,12 @@
                     android:layout_gravity="center"
                     android:text="@string/delete_all_collections" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/unauthenticate_spotify_button"
-                    android:layout_width="@dimen/settings_button_width"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/unauthenticate_spotify" />
+                <!--                <com.google.android.material.button.MaterialButton-->
+                <!--                    android:id="@+id/unauthenticate_spotify_button"-->
+                <!--                    android:layout_width="@dimen/settings_button_width"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:text="@string/unauthenticate_spotify" />-->
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

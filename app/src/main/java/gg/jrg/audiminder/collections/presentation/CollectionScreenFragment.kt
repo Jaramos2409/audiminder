@@ -5,15 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import gg.jrg.audiminder.R
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
+import gg.jrg.audiminder.databinding.FragmentCollectionScreenBinding
 
+@AndroidEntryPoint
 class CollectionScreenFragment : Fragment() {
+
+    private lateinit var binding: FragmentCollectionScreenBinding
+    private val collectionViewModel by viewModels<CollectionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_collection_screen, container, false)
+    ): View {
+        binding = FragmentCollectionScreenBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        return binding.root
     }
 
 }

@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import coil.load
-import coil.transform.CircleCropTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
@@ -31,17 +29,7 @@ class HomeScreenFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         collectLatestLifecycleFlow(homeViewModel.welcomeText) {
-            binding.homeScreenWelcomeUserText.text = it
-        }
-
-        collectLatestLifecycleFlow(homeViewModel.profileImageFilePath) { filePath ->
-            if (filePath.isNotEmpty()) {
-                binding.homeScreenProfilePhoto.load(filePath) {
-                    transformations(CircleCropTransformation())
-                }
-            } else {
-                binding.homeScreenProfilePhoto.setImageResource(R.drawable.account_circle_24)
-            }
+            binding.homeTopBar.title = it
         }
 
         binding.homeTopBar.setOnMenuItemClickListener { menuItem ->

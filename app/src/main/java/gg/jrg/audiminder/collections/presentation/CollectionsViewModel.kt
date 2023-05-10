@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.search.presentation
+package gg.jrg.audiminder.collections.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
+class CollectionsViewModel @Inject constructor(
     spotifyAuthorizationUseCases: SpotifyAuthorizationUseCases,
     spotifyUserDetailsUseCases: SpotifyUserDetailsUseCases
 ) : ViewModel() {

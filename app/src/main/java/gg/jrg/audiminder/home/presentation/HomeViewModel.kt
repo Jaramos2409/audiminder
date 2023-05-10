@@ -28,11 +28,6 @@ class HomeViewModel @Inject constructor(
     val welcomeText: StateFlow<String>
         get() = _welcomeText
 
-    private val _profileImageFilePath =
-        spotifyUserDetailsUseCases.getProfileImageFilePathUseCase()
-    val profileImageFilePath: StateFlow<String>
-        get() = _profileImageFilePath
-
     private val _spotifyAuthorizationManager =
         SpotifyAuthorizationManager(
             spotifyAuthorizationUseCases

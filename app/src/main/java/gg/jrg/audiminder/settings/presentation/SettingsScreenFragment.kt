@@ -8,10 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import coil.load
+import coil.transform.CircleCropTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
-import gg.jrg.audiminder.core.util.collectLatestLifecycleFlow
+import gg.jrg.audiminder.core.util.collectLifecycleFlow
 import gg.jrg.audiminder.databinding.FragmentSettingsScreenBinding
 
 @AndroidEntryPoint
@@ -32,16 +34,21 @@ class SettingsScreenFragment : Fragment() {
             navigationViewModel.navigateBack()
         }
 
-        collectLatestLifecycleFlow(settingsViewModel.shouldShowUnauthenticateButton) { shouldShowUnauthenticateButton ->
-            binding.unauthenticateSpotifyButton.visibility =
-                if (shouldShowUnauthenticateButton) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
+        collectLifecycleFlow(settingsViewModel.shouldShowSpotifyAuthenticatedCard) { (shouldShow, displayName, profilePath) ->
+            binding.spotifyAuthenticatedView.settingsSpotifyAuthenticatedCardview.visibility =
+                if (shouldShow) View.VISIBLE else View.GONE
+
+            if (shouldShow) {
+                binding.spotifyAuthenticatedView.spotifyDisplayName.text = displayName
+                binding.spotifyAuthenticatedView.settingsSpotifyAuthenticatedProfilePicture.load(
+                    profilePath
+                ) {
+                    transformations(CircleCropTransformation())
                 }
+            }
         }
 
-        binding.unauthenticateSpotifyButton.setOnClickListener {
+        binding.spotifyAuthenticatedView.unauthenticateSpotifyButton.setOnClickListener {
             settingsViewModel.unauthorizeSpotify()
             Toast.makeText(
                 requireContext(),
