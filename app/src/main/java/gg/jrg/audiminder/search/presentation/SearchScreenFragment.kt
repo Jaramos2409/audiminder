@@ -26,7 +26,6 @@ class SearchScreenFragment : Fragment() {
         binding = FragmentSearchScreenBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.searchView.setupWithSearchBar(binding.searchServiceBar)
         binding.searchResultsRecyclerViewList.adapter = albumAdapter
 
         binding.searchServiceBar.setOnClickListener {
