@@ -48,7 +48,16 @@
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/what_are_you_looking_for" />
+                android:hint="@string/what_are_you_looking_for">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/search_results_recycler_view_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_search_view" />
+
+            </com.google.android.material.search.SearchView>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/recommendations_section_title_text"

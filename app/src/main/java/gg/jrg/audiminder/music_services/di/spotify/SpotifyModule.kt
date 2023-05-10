@@ -14,6 +14,7 @@ import gg.jrg.audiminder.music_services.data.repositories.SpotifyRepository
 import gg.jrg.audiminder.music_services.data.source.local.SpotifyLocalDataSource
 import gg.jrg.audiminder.music_services.data.source.local.SpotifyLocalDataSourceImpl
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyAuthorizationUseCases
+import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifySearchUseCases
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyUserDetailsUseCases
 import gg.jrg.audiminder.music_services.util.clearSharedPreferences
 import timber.log.Timber
@@ -36,6 +37,13 @@ object SpotifyModule {
         spotifyRepository: SpotifyRepository
     ): SpotifyUserDetailsUseCases {
         return SpotifyUserDetailsUseCases(spotifyRepository)
+    }
+
+    @Provides
+    fun provideSpotifySearchUseCases(
+        spotifyRepository: SpotifyRepository
+    ): SpotifySearchUseCases {
+        return SpotifySearchUseCases(spotifyRepository)
     }
 
     @Provides

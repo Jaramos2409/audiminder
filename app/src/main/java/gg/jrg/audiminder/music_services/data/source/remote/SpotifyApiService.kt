@@ -3,8 +3,11 @@ package gg.jrg.audiminder.music_services.data.source.remote
 import com.adamratzman.spotify.SpotifyClientApi
 import com.adamratzman.spotify.SpotifyException
 import com.adamratzman.spotify.auth.SpotifyDefaultCredentialStore
+import com.adamratzman.spotify.endpoints.pub.SearchApi
 import com.adamratzman.spotify.models.RecommendationResponse
+import com.adamratzman.spotify.models.SpotifySearchResult
 import com.adamratzman.spotify.models.SpotifyUserInformation
+import com.adamratzman.spotify.utils.Market
 import gg.jrg.audiminder.music_services.data.repositories.SpotifyAuthorizationRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +18,7 @@ import javax.inject.Inject
 interface SpotifyApiService {
     suspend fun getUserData(): SpotifyUserInformation?
     suspend fun getRecommendations(): RecommendationResponse?
+    suspend fun searchForAlbumsAndReturnResult(query: String, market: Market): SpotifySearchResult?
 }
 
 class SpotifyApiServiceImpl @Inject constructor(
@@ -65,11 +69,23 @@ class SpotifyApiServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getRecommendations() = withContext(ioDispatcher) {
+    override suspend fun getRecommendations(): RecommendationResponse? = withContext(ioDispatcher) {
         return@withContext guardValidSpotifyApi { api ->
             return@guardValidSpotifyApi api.browse.getRecommendations()
         }
     }
 
+    override suspend fun searchForAlbumsAndReturnResult(
+        query: String,
+        market: Market
+    ): SpotifySearchResult? = withContext(ioDispatcher) {
+        return@withContext guardValidSpotifyApi { api ->
+            return@guardValidSpotifyApi api.search.search(
+                query = query,
+                searchTypes = arrayOf(SearchApi.SearchType.ALBUM),
+                market = market
+            )
+        }
+    }
 
 }

@@ -1,5 +1,6 @@
 package gg.jrg.audiminder.music_services.data.source.local
 
+import com.adamratzman.spotify.utils.Market
 import gg.jrg.audiminder.core.data.dto.UserDetailsDTO
 import gg.jrg.audiminder.core.data.source.UserDetailsDao
 import gg.jrg.audiminder.core.data.source.UserDetailsKey
@@ -15,6 +16,8 @@ interface SpotifyLocalDataSource {
     suspend fun setProfileImageFilePath(filePath: String): Result<Unit>
     suspend fun getProfileImageFilePath(): Result<String?>
     suspend fun clearProfileImageFilePath(): Result<Unit>
+    suspend fun getUserMarket(): Result<Market?>
+    suspend fun setUserMarket(market: Market): Result<Unit>
 }
 
 class SpotifyLocalDataSourceImpl @Inject constructor(
@@ -77,6 +80,25 @@ class SpotifyLocalDataSourceImpl @Inject constructor(
     override suspend fun clearProfileImageFilePath(): Result<Unit> = withContext(ioDispatcher) {
         return@withContext runCatching {
             userDetailsDao.deleteUserDetail(UserDetailsKey.USER_PROFILE_IMAGE)
+        }
+    }
+
+    override suspend fun getUserMarket(): Result<Market?> = withContext(ioDispatcher) {
+        return@withContext runCatching {
+            userDetailsDao.getUserDetail(UserDetailsKey.USER_MARKET)
+                ?.let<String, Market> { Market.valueOf(it) }
+                ?: throw IllegalArgumentException("Display name is empty or null")
+        }
+    }
+
+    override suspend fun setUserMarket(market: Market): Result<Unit> = withContext(ioDispatcher) {
+        return@withContext runCatching {
+            userDetailsDao.insertUserDetail(
+                UserDetailsDTO(
+                    key = UserDetailsKey.USER_MARKET,
+                    value = market.name
+                )
+            )
         }
     }
 
