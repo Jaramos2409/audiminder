@@ -16,50 +16,62 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/search_screen_top_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/app_bar_top_margin"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/search_top_bar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:layout_marginBottom="@dimen/app_bar_search_margin_bottom"
                     app:menu="@menu/search_top_bar"
-                    tools:navigationIcon="@drawable/account_circle_24"
-                    tools:title="Welcome, Jesus!">
-
-                    <com.google.android.material.search.SearchBar
-                        android:id="@+id/search_service_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/search_bar_height"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/search_bar_that_allows_searching_though_a_service_you_have_authorized_with"
-                        android:hint="@string/what_are_you_looking_for"
-                        tools:ignore="ContentDescription" />
+                    app:title="@string/search"
+                    app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6">
 
                 </com.google.android.material.appbar.MaterialToolbar>
 
             </com.google.android.material.appbar.AppBarLayout>
 
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/search_service_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/search_bar_height"
+                android:contentDescription="@string/search_bar_that_allows_searching_though_a_service_you_have_authorized_with"
+                android:hint="@string/what_are_you_looking_for"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_screen_top_bar_layout"
+                tools:ignore="ContentDescription" />
+
             <com.google.android.material.search.SearchView
+                android:id="@+id/search_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/what_are_you_looking_for"
+                android:hint="@string/what_are_you_looking_for" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/recommendations_section_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/home_screen_margin"
+                android:text="@string/recommendations"
+                android:textSize="@dimen/section_title_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_service_bar" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommendations_recycler_view_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/home_screen_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_screen_top_bar_layout">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_list"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="@dimen/home_screen_margin"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_search_view" />
-
-            </com.google.android.material.search.SearchView>
+                app:layout_constraintTop_toBottomOf="@id/recommendations_section_title_text"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_search_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

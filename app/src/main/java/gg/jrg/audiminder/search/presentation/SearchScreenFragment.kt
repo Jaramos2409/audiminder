@@ -23,12 +23,16 @@ class SearchScreenFragment : Fragment() {
         binding = FragmentSearchScreenBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.searchView.setupWithSearchBar(binding.searchServiceBar)
+
         binding.searchServiceBar.setOnClickListener {
             if (!searchViewModel.isSpotifyAuthorized()) {
                 AuthorizeMusicServiceBottomSheetFragment().show(
                     parentFragmentManager,
                     AuthorizeMusicServiceBottomSheetFragment.TAG
                 )
+            } else {
+                binding.searchView.show()
             }
         }
 

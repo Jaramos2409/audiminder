@@ -45,4 +45,5 @@
     <string name="unauthenticated_spotify">Unauthenticated Spotify</string>
     <string name="welcome">Welcome!</string>
     <string name="unauthenticate">Unauthenticate</string>
+    <string name="recommendations">Recommendations</string>
 </resources>

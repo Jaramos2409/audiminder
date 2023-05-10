@@ -3,6 +3,7 @@ package gg.jrg.audiminder.music_services.data.source.remote
 import com.adamratzman.spotify.SpotifyClientApi
 import com.adamratzman.spotify.SpotifyException
 import com.adamratzman.spotify.auth.SpotifyDefaultCredentialStore
+import com.adamratzman.spotify.models.RecommendationResponse
 import com.adamratzman.spotify.models.SpotifyUserInformation
 import gg.jrg.audiminder.music_services.data.repositories.SpotifyAuthorizationRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -13,6 +14,7 @@ import javax.inject.Inject
 
 interface SpotifyApiService {
     suspend fun getUserData(): SpotifyUserInformation?
+    suspend fun getRecommendations(): RecommendationResponse?
 }
 
 class SpotifyApiServiceImpl @Inject constructor(
@@ -62,5 +64,12 @@ class SpotifyApiServiceImpl @Inject constructor(
             return@guardValidSpotifyApi api.users.getClientProfile()
         }
     }
+
+    override suspend fun getRecommendations() = withContext(ioDispatcher) {
+        return@withContext guardValidSpotifyApi { api ->
+            return@guardValidSpotifyApi api.browse.getRecommendations()
+        }
+    }
+
 
 }
