@@ -12,7 +12,9 @@ import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyUserDetail
 import gg.jrg.audiminder.music_services.util.SpotifyApiStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.conflate
@@ -47,6 +49,10 @@ class SearchViewModel @Inject constructor(
     private val _searchResultsLoadingStatus = MutableStateFlow(SpotifyApiStatus.DONE)
     val searchResultsLoadingStatus: StateFlow<SpotifyApiStatus>
         get() = _searchResultsLoadingStatus
+
+    private val _shouldShowAuthorizationBottomSheet = MutableSharedFlow<Boolean>()
+    val showAuthorizationBottomSheet: SharedFlow<Boolean>
+        get() = _shouldShowAuthorizationBottomSheet
 
     init {
         viewModelScope.launch {
@@ -84,6 +90,12 @@ class SearchViewModel @Inject constructor(
     }
 
     fun setQuery(query: String) {
-        _query.value = query
+        if (isSpotifyAuthorized()) {
+            _query.value = query
+        } else {
+            viewModelScope.launch {
+                _shouldShowAuthorizationBottomSheet.emit(true)
+            }
+        }
     }
 }

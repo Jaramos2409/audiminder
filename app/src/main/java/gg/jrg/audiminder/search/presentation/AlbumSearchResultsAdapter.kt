@@ -33,7 +33,7 @@ class AlbumSearchResultsAdapter(private val parentFragmentManager: FragmentManag
             binding.collageOrAlbumArtInSearchSpotifyItemCardview.load(album.imageFilePath)
             binding.albumNameInSearchSpotifyCardview.text = album.name
             binding.artistNameInSearchSpotifyCardview.text = album.artist
-            binding.addAlbumToACollection.setOnClickListener {
+            binding.searchItemCardview.setOnClickListener {
                 AddSearchResultToCollectionBottomSheetFragment()
                     .apply {
                         arguments = Bundle().apply {

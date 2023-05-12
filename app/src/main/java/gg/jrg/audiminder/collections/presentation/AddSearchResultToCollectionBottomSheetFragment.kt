@@ -4,19 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.collections.domain.model.Album
+import gg.jrg.audiminder.core.presentation.NavigationViewModel
+import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.core.util.getParcelableCompat
 import gg.jrg.audiminder.databinding.FragmentAddSearchResultToCollectionBottomSheetBinding
+import gg.jrg.audiminder.search.presentation.SearchScreenFragmentDirections
 
 @AndroidEntryPoint
 class AddSearchResultToCollectionBottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentAddSearchResultToCollectionBottomSheetBinding
     private val addSearchResultToCollectionViewModel by viewModels<AddSearchResultToCollectionViewModel>()
+    private val navigationViewModel by activityViewModels<NavigationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,12 +42,23 @@ class AddSearchResultToCollectionBottomSheetFragment : BottomSheetDialogFragment
             addSearchResultToCollectionViewModel.setAlbum(album)
         }
 
+        binding.createNewCollectionMaterialCardView.setOnClickListener {
+            navigationViewModel.navigate(
+                NavEvent.To(
+                    SearchScreenFragmentDirections.actionSearchScreenFragmentToCreateNewCollectionFragment(
+                        addSearchResultToCollectionViewModel.getAlbum()
+                    )
+                )
+            )
+            dismiss()
+        }
+
         return binding.root
     }
 
     companion object {
         const val TAG = "AddSearchResultToCollectionBottomSheetFragment"
-        const val ALBUM_KEY = "album"
+        const val ALBUM_KEY = "AddSearchResultToCollectionBottomSheetFragment.album"
     }
 
 }

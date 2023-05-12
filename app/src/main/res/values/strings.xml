@@ -48,4 +48,7 @@
     <string name="recommendations">Recommendations</string>
     <string name="add_to_existing_collection">Add to Existing Collection</string>
     <string name="create_new_collection">Create New Collection</string>
+    <string name="give_your_collection_a_name">Give your collection a name</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 </resources>

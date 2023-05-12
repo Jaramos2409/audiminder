@@ -13,6 +13,7 @@ import coil.transform.CircleCropTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
+import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.core.util.collectLifecycleFlow
 import gg.jrg.audiminder.databinding.FragmentSettingsScreenBinding
 
@@ -31,7 +32,7 @@ class SettingsScreenFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.settingsTopBar.setNavigationOnClickListener {
-            navigationViewModel.navigateBack()
+            navigationViewModel.navigate(NavEvent.Back)
         }
 
         collectLifecycleFlow(settingsViewModel.shouldShowSpotifyAuthenticatedCard) { (shouldShow, displayName, profilePath) ->

@@ -31,14 +31,12 @@ class SearchScreenFragment : Fragment() {
 
         binding.searchResultsRecyclerViewList.adapter = albumAdapter
 
-        binding.searchServiceBar.setOnClickListener {
-            if (!searchViewModel.isSpotifyAuthorized()) {
+        collectLifecycleFlow(searchViewModel.showAuthorizationBottomSheet) { shouldShowAuthorizationBottomSheet ->
+            if (shouldShowAuthorizationBottomSheet) {
                 AuthorizeMusicServiceBottomSheetFragment().show(
                     parentFragmentManager,
                     AuthorizeMusicServiceBottomSheetFragment.TAG
                 )
-            } else {
-                binding.searchView.show()
             }
         }
 

@@ -17,15 +17,4 @@ class NavigationViewModel : ViewModel() {
         }
     }
 
-    fun navigateBack() {
-        viewModelScope.launch {
-            _navigationEvent.emit(NavEvent.Back)
-        }
-    }
-
-    fun navigateBackTo(event: NavEvent) {
-        viewModelScope.launch {
-            _navigationEvent.emit(event)
-        }
-    }
 }

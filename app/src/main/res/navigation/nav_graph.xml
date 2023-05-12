@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_searchScreenFragment_to_addFromNearbySoundBottomSheetFragment"
             app:destination="@id/addFromNearbySoundBottomSheetFragment" />
+        <action
+            android:id="@+id/action_searchScreenFragment_to_createNewCollectionFragment"
+            app:destination="@id/createNewCollectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/collectionsScreenFragment"
@@ -98,5 +101,18 @@
         <action
             android:id="@+id/action_reminderScreenFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addSearchResultToCollectionBottomSheetFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.AddSearchResultToCollectionBottomSheetFragment"
+        android:label="AddSearchResultToCollectionBottomSheetFragment" />
+    <fragment
+        android:id="@+id/createNewCollectionFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.CreateNewCollectionFragment"
+        android:label="CreateNewCollectionFragment">
+        <argument
+            android:name="album"
+            app:argType="gg.jrg.audiminder.collections.domain.model.Album"
+            app:nullable="true" />
     </fragment>
 </navigation>
