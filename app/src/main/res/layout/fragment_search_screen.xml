@@ -46,6 +46,14 @@
                 app:layout_anchor="@id/search_service_bar"
                 android:hint="@string/what_are_you_looking_for">
 
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/search_results_loading_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center_horizontal"
+                    android:indeterminate="true"
+                    android:visibility="gone" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/search_results_recycler_view_list"
                     android:layout_width="match_parent"

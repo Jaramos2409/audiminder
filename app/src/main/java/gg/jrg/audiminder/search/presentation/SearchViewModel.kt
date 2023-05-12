@@ -9,6 +9,7 @@ import gg.jrg.audiminder.music_services.domain.model.SpotifyAuthorizationManager
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyAuthorizationUseCases
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifySearchUseCases
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyUserDetailsUseCases
+import gg.jrg.audiminder.music_services.util.SpotifyApiStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,6 +44,10 @@ class SearchViewModel @Inject constructor(
     val albumSearchResults: StateFlow<List<Album>>
         get() = _albumSearchResults
 
+    private val _searchResultsLoadingStatus = MutableStateFlow(SpotifyApiStatus.DONE)
+    val searchResultsLoadingStatus: StateFlow<SpotifyApiStatus>
+        get() = _searchResultsLoadingStatus
+
     init {
         viewModelScope.launch {
             if (isSpotifyAuthorized()) {
@@ -56,10 +61,15 @@ class SearchViewModel @Inject constructor(
                         if (query.isBlank()) {
                             flow { emit(emptyList()) }
                         } else {
+                            _searchResultsLoadingStatus.value = SpotifyApiStatus.LOADING
                             spotifySearchUseCases.searchSpotifyAndFetchResultsSuspendUseCase(query)
+                                .apply {
+                                    _searchResultsLoadingStatus.value = SpotifyApiStatus.DONE
+                                }
                         }
                     }
                     .catch { e ->
+                        _searchResultsLoadingStatus.value = SpotifyApiStatus.ERROR
                         Timber.e(e)
                     }
                     .collect { results ->
