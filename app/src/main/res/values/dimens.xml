@@ -13,7 +13,7 @@
     <dimen name="list_item_spacing_half">8dp</dimen>
     <dimen name="bottom_sheet_big_play_button_size">80dp</dimen>
     <dimen name="bottom_sheet_track_margin">40dp</dimen>
-    <dimen name="add_nearby_sound_bottom_sheet_margin">40dp</dimen>
+    <dimen name="bottom_sheet_margin">40dp</dimen>
     <dimen name="reminders_input_layout_margin">20dp</dimen>
     <dimen name="reminders_text_input_layout_width">300dp</dimen>
     <dimen name="pick_a_time_button_width">200dp</dimen>
@@ -31,4 +31,5 @@
     <dimen name="profile_picture_size">40dp</dimen>
     <dimen name="toolbar_height">75dp</dimen>
     <dimen name="app_bar_top_margin">10dp</dimen>
+    <dimen name="search_result_option_dimension">53dp</dimen>
 </resources>

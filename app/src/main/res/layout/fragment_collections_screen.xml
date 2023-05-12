@@ -37,21 +37,21 @@
                         android:hint="@string/what_are_you_looking_for"
                         tools:ignore="ContentDescription" />
 
-            </com.google.android.material.appbar.MaterialToolbar>
+                </com.google.android.material.appbar.MaterialToolbar>
 
-        </com.google.android.material.appbar.AppBarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/collections_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/collections_screen_top_bar_layout"
-            tools:itemCount="6"
-            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_collection_list_view"
-            tools:spanCount="2" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/collections_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/collections_screen_top_bar_layout"
+                tools:itemCount="6"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_collection_list_view"
+                tools:spanCount="2" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/create_new_collection_fab"

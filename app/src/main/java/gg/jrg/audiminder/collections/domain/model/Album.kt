@@ -1,16 +1,19 @@
 package gg.jrg.audiminder.collections.domain.model
 
+import android.os.Parcelable
 import gg.jrg.audiminder.collections.data.dto.AlbumDTO
 import gg.jrg.audiminder.core.domain.DTOMappable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Album(
-    val albumId: Int,
-    val name: String,
-    val artist: String,
-    val imageFilePath: String,
-    val serviceId: Int,
-    val serviceSpecificURI: String
-) : DTOMappable<AlbumDTO> {
+    val albumId: Int = 0,
+    val name: String = "",
+    val artist: String = "",
+    val imageFilePath: String = "",
+    val serviceId: Int = 0,
+    val serviceSpecificURI: String = ""
+) : Parcelable, DTOMappable<AlbumDTO> {
     override fun asDatabaseModel(): AlbumDTO = AlbumDTO(
         albumId = this.albumId,
         name = this.name,

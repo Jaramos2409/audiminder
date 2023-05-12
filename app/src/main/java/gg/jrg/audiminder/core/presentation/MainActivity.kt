@@ -73,36 +73,42 @@ class MainActivity : AppCompatActivity() {
                     )
                     true
                 }
+
                 Pair(R.id.homeScreenFragment, R.id.collections_navigation_icon) -> {
                     navigationViewModel.navigate(
                         NavEvent.To(HomeScreenFragmentDirections.actionHomeScreenFragmentToCollectionsScreenFragment())
                     )
                     true
                 }
+
                 Pair(R.id.searchScreenFragment, R.id.home_navigation_icon) -> {
                     navigationViewModel.navigate(
                         NavEvent.To(SearchScreenFragmentDirections.actionSearchScreenFragmentToHomeScreenFragment())
                     )
                     true
                 }
+
                 Pair(R.id.searchScreenFragment, R.id.collections_navigation_icon) -> {
                     navigationViewModel.navigate(
                         NavEvent.To(SearchScreenFragmentDirections.actionSearchScreenFragmentToCollectionsScreenFragment())
                     )
                     true
                 }
+
                 Pair(R.id.collectionsScreenFragment, R.id.home_navigation_icon) -> {
                     navigationViewModel.navigate(
                         NavEvent.To(CollectionsScreenFragmentDirections.actionCollectionsScreenFragmentToHomeScreenFragment())
                     )
                     true
                 }
+
                 Pair(R.id.collectionsScreenFragment, R.id.search_navigation_icon) -> {
                     navigationViewModel.navigate(
                         NavEvent.To(CollectionsScreenFragmentDirections.actionCollectionsScreenFragmentToSearchScreenFragment())
                     )
                     true
                 }
+
                 else -> {
                     false
                 }

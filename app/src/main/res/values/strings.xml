@@ -46,4 +46,6 @@
     <string name="welcome">Welcome!</string>
     <string name="unauthenticate">Unauthenticate</string>
     <string name="recommendations">Recommendations</string>
+    <string name="add_to_existing_collection">Add to Existing Collection</string>
+    <string name="create_new_collection">Create New Collection</string>
 </resources>

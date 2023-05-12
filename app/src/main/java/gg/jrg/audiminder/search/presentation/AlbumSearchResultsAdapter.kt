@@ -1,15 +1,18 @@
 package gg.jrg.audiminder.search.presentation
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import gg.jrg.audiminder.collections.domain.model.Album
+import gg.jrg.audiminder.collections.presentation.AddSearchResultToCollectionBottomSheetFragment
 import gg.jrg.audiminder.databinding.ItemSearchViewBinding
 
-class AlbumSearchResultsAdapter :
+class AlbumSearchResultsAdapter(private val parentFragmentManager: FragmentManager) :
     ListAdapter<Album, AlbumSearchResultsAdapter.AlbumViewHolder>(AlbumDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
@@ -30,6 +33,20 @@ class AlbumSearchResultsAdapter :
             binding.collageOrAlbumArtInSearchSpotifyItemCardview.load(album.imageFilePath)
             binding.albumNameInSearchSpotifyCardview.text = album.name
             binding.artistNameInSearchSpotifyCardview.text = album.artist
+            binding.addAlbumToACollection.setOnClickListener {
+                AddSearchResultToCollectionBottomSheetFragment()
+                    .apply {
+                        arguments = Bundle().apply {
+                            putParcelable(
+                                AddSearchResultToCollectionBottomSheetFragment.ALBUM_KEY,
+                                album
+                            )
+                        }
+                    }.show(
+                        parentFragmentManager,
+                        AddSearchResultToCollectionBottomSheetFragment.TAG
+                    )
+            }
         }
     }
 

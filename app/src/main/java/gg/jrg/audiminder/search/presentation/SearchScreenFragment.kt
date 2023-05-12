@@ -17,7 +17,7 @@ class SearchScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchScreenBinding
     private val searchViewModel by viewModels<SearchViewModel>()
-    private val albumAdapter = AlbumSearchResultsAdapter()
+    private val albumAdapter by lazy { AlbumSearchResultsAdapter(parentFragmentManager) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
