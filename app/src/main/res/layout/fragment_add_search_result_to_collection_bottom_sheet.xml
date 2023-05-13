@@ -64,7 +64,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/add_search_result_to_existing_collection"
+                android:id="@+id/add_search_result_to_existing_collection_card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
@@ -112,7 +112,7 @@
                 app:cardCornerRadius="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_search_result_to_existing_collection">
+                app:layout_constraintTop_toBottomOf="@id/add_search_result_to_existing_collection_card_view">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

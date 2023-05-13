@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_searchScreenFragment_to_createNewCollectionFragment"
             app:destination="@id/createNewCollectionFragment" />
+        <action
+            android:id="@+id/action_searchScreenFragment_to_addToExistingCollectionFragment"
+            app:destination="@id/addToExistingCollectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/collectionsScreenFragment"
@@ -114,5 +117,13 @@
             android:name="album"
             app:argType="gg.jrg.audiminder.collections.domain.model.Album"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addToExistingCollectionFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.AddToExistingCollectionFragment"
+        android:label="AddToExistingCollectionFragment">
+        <argument
+            android:name="album"
+            app:argType="gg.jrg.audiminder.collections.domain.model.Album" />
     </fragment>
 </navigation>

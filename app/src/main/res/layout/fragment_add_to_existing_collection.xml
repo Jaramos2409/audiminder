@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".search.presentation.SearchScreenFragment">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/add_to_existing_collection_app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_bar_top_margin">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/add_to_existing_collection_top_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/baseline_arrow_back_24"
+                    app:title="@string/add_to_existing_collection"
+                    app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6">
+
+                </com.google.android.material.appbar.MaterialToolbar>
+
+                <com.google.android.material.search.SearchBar
+                    android:id="@+id/search_collections_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/search_bar_height"
+                    android:contentDescription="@string/search_bar_that_allows_you_to_search_for_a_collection"
+                    android:hint="@string/find_collection"
+                    tools:ignore="ContentDescription" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/collections_recycler_view_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_search_view" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <com.google.android.material.search.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="@string/what_are_you_looking_for"
+                app:layout_anchor="@id/search_collections_bar">
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/filter_results_loading_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center_horizontal"
+                    android:indeterminate="true"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@id/collections_recycler_view_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_search_view" />
+
+            </com.google.android.material.search.SearchView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </FrameLayout>
+
+
+</layout>
+

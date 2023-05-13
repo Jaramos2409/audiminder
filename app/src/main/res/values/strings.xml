@@ -51,4 +51,6 @@
     <string name="give_your_collection_a_name">Give your collection a name</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
+    <string name="find_collection">Find collection</string>
+    <string name="search_bar_that_allows_you_to_search_for_a_collection">Search bar that allows you to search for a collection</string>
 </resources>

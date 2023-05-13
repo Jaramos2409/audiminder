@@ -53,6 +53,17 @@ class AddSearchResultToCollectionBottomSheetFragment : BottomSheetDialogFragment
             dismiss()
         }
 
+        binding.addSearchResultToExistingCollectionCardView.setOnClickListener {
+            navigationViewModel.navigate(
+                NavEvent.To(
+                    SearchScreenFragmentDirections.actionSearchScreenFragmentToAddToExistingCollectionFragment(
+                        addSearchResultToCollectionViewModel.getAlbum()!!
+                    )
+                )
+            )
+            dismiss()
+        }
+
         return binding.root
     }
 
