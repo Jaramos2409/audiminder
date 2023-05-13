@@ -3,10 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/collections_add_new"
+        android:contentDescription="@string/add_a_new_collection"
+        android:icon="@drawable/baseline_add_24"
+        android:title="@string/add_new_collection"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/collections_sort"
         android:contentDescription="@string/sorting_button_that_allows_the_user_to_sort_alphabetically_or_by_size_of_the_collection"
         android:icon="@drawable/baseline_sort_24"
         android:title="@string/settings"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>

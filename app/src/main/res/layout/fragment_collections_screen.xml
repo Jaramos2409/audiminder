@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         tools:context=".collections.presentation.CollectionsScreenFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -16,53 +16,39 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/collections_screen_top_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height"
-                android:layout_marginTop="@dimen/app_bar_top_margin"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_bar_top_margin">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/collections_top_bar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginBottom="@dimen/app_bar_search_margin_bottom"
-                    app:menu="@menu/collections_top_app_bar">
+                    app:menu="@menu/collections_top_app_bar"
+                    app:title="@string/collections_library"
+                    app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
+                <com.google.android.material.search.SearchBar
+                    android:id="@+id/search_collections_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/search_bar_height"
+                    android:contentDescription="@string/search_bar_used_to_filter_out_the_list_of_albums_in_your_collection"
+                    android:hint="@string/what_are_you_looking_for"
+                    tools:ignore="ContentDescription" />
 
-                    <com.google.android.material.search.SearchBar
-                        android:id="@+id/search_collections_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/search_bar_height"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/search_bar_used_to_filter_out_the_list_of_albums_in_your_collection"
-                        android:hint="@string/what_are_you_looking_for"
-                        tools:ignore="ContentDescription" />
-
-                </com.google.android.material.appbar.MaterialToolbar>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/collections_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="6"
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/item_collection_list_view"
+                    tools:spanCount="2" />
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/collections_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/collections_screen_top_bar_layout"
-                tools:itemCount="6"
-                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                tools:listitem="@layout/item_collection_list_view"
-                tools:spanCount="2" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/create_new_collection_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/floating_action_button_margin"
-                android:contentDescription="@string/create_a_new_collection"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/baseline_add_24" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

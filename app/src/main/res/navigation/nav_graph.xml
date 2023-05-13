@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_collectionsScreenFragment_to_reminderScreenFragment"
             app:destination="@id/reminderScreenFragment" />
+        <action
+            android:id="@+id/action_collectionsScreenFragment_to_createNewCollectionFragment"
+            app:destination="@id/createNewCollectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/collectionScreenFragment"
