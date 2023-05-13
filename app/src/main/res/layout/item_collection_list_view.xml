@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/item_collection_list_margin"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="true"
-    app:contentPadding="16dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="@dimen/item_collection_list_margin"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="16dp">
 
-        <ImageView
-            android:id="@+id/collection_or_album_art"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/collage_of_all_the_albums_in_this_collection"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="1:1"
-            tools:src="@drawable/baseline_album_24" />
-
-        <TextView
-            android:id="@+id/title_text_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="24sp"
-            tools:text="Title" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/subtitle_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            tools:text="Subtitle" />
+            <ImageView
+                android:id="@+id/collection_or_album_art"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/collage_of_all_the_albums_in_this_collection"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_album_24"
+                app:layout_constraintDimensionRatio="1:1"
+                tools:src="@drawable/baseline_album_24" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/title_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="24sp"
+                tools:text="Title" />
 
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/subtitle_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                tools:text="Subtitle" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

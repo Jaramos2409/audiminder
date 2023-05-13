@@ -48,31 +48,31 @@ class SpotifyRepositoryImpl @Inject constructor(
         get() = _userMarket
 
     override suspend fun refreshUserData() {
-        val localDisplayName = spotifyLocalDataSource.getDisplayName()
-        if (localDisplayName.isSuccess) {
-            _displayName.value = localDisplayName.getOrNull()!!
+        val localDisplayNameResult = spotifyLocalDataSource.getDisplayName()
+        if (localDisplayNameResult.isSuccess) {
+            _displayName.value = localDisplayNameResult.getOrNull()!!
         }
 
-        val localProfileImageFilePath = spotifyLocalDataSource.getProfileImageFilePath()
-        if (localProfileImageFilePath.isSuccess) {
-            _profileImageFilePath.value = localProfileImageFilePath.getOrNull()!!
+        val localProfileImageFilePathResult = spotifyLocalDataSource.getProfileImageFilePath()
+        if (localProfileImageFilePathResult.isSuccess) {
+            _profileImageFilePath.value = localProfileImageFilePathResult.getOrNull()!!
         }
 
-        val localUserMarket = spotifyLocalDataSource.getUserMarket()
-        if (localUserMarket.isSuccess) {
-            _userMarket.value = localUserMarket.getOrNull()!!
+        val localUserMarketResult = spotifyLocalDataSource.getUserMarket()
+        if (localUserMarketResult.isSuccess) {
+            _userMarket.value = localUserMarketResult.getOrNull()!!
         }
 
-        if (localDisplayName.isSuccess
-            && localProfileImageFilePath.isSuccess
-            && localUserMarket.isSuccess
+        if (localDisplayNameResult.isSuccess
+            && localProfileImageFilePathResult.isSuccess
+            && localUserMarketResult.isSuccess
         ) {
             return
         }
 
         val userData = spotifyApiService.getUserData()
 
-        if (localDisplayName.isFailure) {
+        if (localDisplayNameResult.isFailure) {
             val remoteDisplayName = userData?.displayName
             if (remoteDisplayName != null) {
                 spotifyLocalDataSource.setDisplayName(remoteDisplayName).throwIfFailure()
@@ -82,7 +82,7 @@ class SpotifyRepositoryImpl @Inject constructor(
             }
         }
 
-        if (localProfileImageFilePath.isFailure) {
+        if (localProfileImageFilePathResult.isFailure) {
             userData?.images?.forEach { image ->
                 val bitmap = imageService.downloadImage(image.url)
                 if (bitmap != null) {
@@ -94,7 +94,7 @@ class SpotifyRepositoryImpl @Inject constructor(
             }
         }
 
-        if (localUserMarket.isFailure) {
+        if (localUserMarketResult.isFailure) {
             val remoteUserMarket = userData?.country?.let { Market.valueOf(it) }
             if (remoteUserMarket != null) {
                 spotifyLocalDataSource.setUserMarket(remoteUserMarket).throwIfFailure()

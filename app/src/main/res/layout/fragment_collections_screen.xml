@@ -37,9 +37,11 @@
                     tools:ignore="ContentDescription" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/collections_recycler_view"
+                    android:id="@+id/collections_screen_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
                     tools:itemCount="6"
                     tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:listitem="@layout/item_collection_list_view"

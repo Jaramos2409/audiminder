@@ -20,7 +20,6 @@ import gg.jrg.audiminder.search.data.source.SearchHistoryDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -30,7 +29,6 @@ object AppModule {
     private const val PREFS_NAME = "app_prefs"
 
     @Provides
-    @Named("app_shared_preferences")
     fun provideAppSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }

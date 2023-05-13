@@ -37,7 +37,7 @@
                     tools:ignore="ContentDescription" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/collections_recycler_view_list"
+                    android:id="@+id/add_to_existing_collection_collections_recycler_view_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -63,7 +63,7 @@
                     android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@id/collections_recycler_view_list"
+                    android:id="@id/add_to_existing_collection_collections_recycler_view_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
