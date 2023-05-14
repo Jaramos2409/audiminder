@@ -13,6 +13,7 @@ import javax.inject.Inject
 interface CollectionsLocalDataSource {
     suspend fun getAlbumCollections(): Result<List<AlbumCollectionDTO>?>
     suspend fun getLatestUpdate(): Result<Long?>
+    suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO): Result<Unit>
 }
 
 class CollectionsLocalDataSourceImpl @Inject constructor(
@@ -34,6 +35,13 @@ class CollectionsLocalDataSourceImpl @Inject constructor(
         withContext(ioDispatcher) {
             return@withContext runCatching {
                 albumCollectionDao.getLatestUpdate() ?: throw Exception("No latest update found")
+            }
+        }
+
+    override suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO): Result<Unit> =
+        withContext(ioDispatcher) {
+            return@withContext runCatching {
+                albumCollectionDao.insertAlbumCollection(albumCollectionDTO)
             }
         }
 

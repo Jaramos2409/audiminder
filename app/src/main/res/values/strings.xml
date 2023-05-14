@@ -55,4 +55,5 @@
     <string name="search_bar_that_allows_you_to_search_for_a_collection">Search bar that allows you to search for a collection</string>
     <string name="add_a_new_collection">Add a new collection</string>
     <string name="add_new_collection">Add New Collection</string>
+    <string name="give_your_collection_a_name_here">Give your collection a name here.</string>
 </resources>

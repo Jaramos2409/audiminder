@@ -10,4 +10,6 @@ class CollectionsUseCases @Inject constructor(
         RefreshListOfCollectionsSuspendUseCase(collectionsRepository)
     val getCollectionsStateFlowUseCase =
         GetCollectionsStateFlowUseCase(collectionsRepository)
+    val saveCollectionSuspendUseCase =
+        SaveCollectionSuspendUseCase(collectionsRepository)
 }

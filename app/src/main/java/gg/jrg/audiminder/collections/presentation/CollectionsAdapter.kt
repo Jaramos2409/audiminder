@@ -38,8 +38,12 @@ class CollectionsAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(albumCollection: AlbumCollection) {
-            binding.titleTextView.text = albumCollection.name
-            binding.subtitleTextView.text = ""
+            binding.titleTextView.apply {
+                text = albumCollection.name
+            }
+            binding.subtitleTextView.apply {
+                text = ""
+            }
         }
 
     }

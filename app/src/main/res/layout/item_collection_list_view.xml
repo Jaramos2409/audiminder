@@ -7,7 +7,7 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/item_collection_list_margin"
+        app:cardElevation="6dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         app:contentPadding="16dp">
@@ -34,7 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textSize="24sp"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                android:textSize="13sp"
                 tools:text="Title" />
 
             <TextView
@@ -42,7 +43,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textSize="11sp"
                 tools:text="Subtitle" />
 
         </LinearLayout>

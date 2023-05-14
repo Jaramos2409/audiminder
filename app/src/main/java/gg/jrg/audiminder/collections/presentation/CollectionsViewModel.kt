@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import gg.jrg.audiminder.collections.domain.model.AlbumCollection
 import gg.jrg.audiminder.collections.domain.usecase.CollectionsUseCases
+import gg.jrg.audiminder.core.util.logChanges
 import gg.jrg.audiminder.music_services.domain.model.SpotifyAuthorizationManager
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyAuthorizationUseCases
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyUserDetailsUseCases
@@ -16,7 +17,7 @@ import javax.inject.Inject
 class CollectionsViewModel @Inject constructor(
     spotifyAuthorizationUseCases: SpotifyAuthorizationUseCases,
     spotifyUserDetailsUseCases: SpotifyUserDetailsUseCases,
-    collectionsUseCases: CollectionsUseCases
+    private val collectionsUseCases: CollectionsUseCases
 ) : ViewModel() {
 
     private val _spotifyAuthorizationManager =
@@ -25,6 +26,7 @@ class CollectionsViewModel @Inject constructor(
         )
 
     private val _collectionsList = collectionsUseCases.getCollectionsStateFlowUseCase()
+        .apply { logChanges("CollectionsViewModel _collectionsList") }
     val collectionsList: StateFlow<List<AlbumCollection>>
         get() = _collectionsList
 
@@ -33,12 +35,18 @@ class CollectionsViewModel @Inject constructor(
             if (isSpotifyAuthorized()) {
                 spotifyUserDetailsUseCases.refreshUserDataSuspendUseCase()
             }
-            collectionsUseCases.refreshListOfCollectionsSuspendUseCase()
+            refreshListOfCollections()
         }
     }
 
     fun isSpotifyAuthorized(): Boolean {
         return _spotifyAuthorizationManager.isAuthorized()
+    }
+
+    fun refreshListOfCollections() {
+        viewModelScope.launch {
+            collectionsUseCases.refreshListOfCollectionsSuspendUseCase()
+        }
     }
 
 }

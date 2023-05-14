@@ -1,5 +1,6 @@
 package gg.jrg.audiminder.core.presentation
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -28,9 +29,13 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var activityStateFlowWrapper: ActivityStateFlowWrapper
 
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityStateFlowWrapper.stateFlow.value = this
+        sharedPreferences.edit().putLong("lastFetchTime", 0).apply()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 

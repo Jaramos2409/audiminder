@@ -22,6 +22,7 @@
             android:id="@+id/give_collection_a_name_text_input_layout"
             style="?attr/textInputFilledStyle"
             android:layout_width="match_parent"
+            android:maxWidth="488dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/give_collection_name_text_input_layout_margins"
             android:layout_marginEnd="@dimen/give_collection_name_text_input_layout_margins"
@@ -33,6 +34,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/give_collection_a_name_edit_text"
+                android:contentDescription="@string/give_your_collection_a_name_here"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -57,6 +59,7 @@
                 android:text="@string/cancel" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/create_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
