@@ -20,7 +20,7 @@ class CollectionsScreenFragment : Fragment() {
     private lateinit var binding: FragmentCollectionsScreenBinding
     private val collectionsViewModel by viewModels<CollectionsViewModel>()
     private val navigationViewModel by activityViewModels<NavigationViewModel>()
-    private val collectionsAdapter by lazy { CollectionsAdapter() }
+    private val collectionsScreenAdapter by lazy { CollectionsScreenAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,7 @@ class CollectionsScreenFragment : Fragment() {
         binding = FragmentCollectionsScreenBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.collectionsScreenRecyclerView.adapter = collectionsAdapter
+        binding.collectionsScreenRecyclerView.adapter = collectionsScreenAdapter
 
         binding.collectionsTopBar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -49,7 +49,7 @@ class CollectionsScreenFragment : Fragment() {
         }
 
         collectLatestLifecycleFlow(collectionsViewModel.collectionsList) { listOfCollections ->
-            collectionsAdapter.submitList(listOfCollections)
+            collectionsScreenAdapter.submitList(listOfCollections)
         }
 
         return binding.root

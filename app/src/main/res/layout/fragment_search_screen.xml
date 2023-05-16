@@ -16,7 +16,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/search_screen_top_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/app_bar_top_margin">
 
                 <com.google.android.material.appbar.MaterialToolbar

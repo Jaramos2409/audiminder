@@ -33,10 +33,10 @@ class AlbumSearchResultsAdapter(private val parentFragmentManager: FragmentManag
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(album: Album) {
-            binding.collageOrAlbumArtInSearchSpotifyItemCardview.load(album.imageFilePath)
-            binding.albumNameInSearchSpotifyCardview.text = album.name
-            binding.artistNameInSearchSpotifyCardview.text = album.artist
-            binding.searchItemCardview.setOnClickListener {
+            binding.collageOrAlbumArtInCardview.load(album.imageFilePath)
+            binding.titleInCardview.text = album.name
+            binding.subtitleInCardview.text = album.artist
+            binding.collageOrAlbumItemCardview.setOnClickListener {
                 AddSearchResultToCollectionBottomSheetFragment()
                     .apply {
                         arguments = Bundle().apply {

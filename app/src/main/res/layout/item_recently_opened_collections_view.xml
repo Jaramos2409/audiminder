@@ -13,7 +13,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/collage_or_album_art_in_search_spotify_item_cardview"
+            android:id="@+id/collage_or_album_art_in_cardview"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:contentDescription="@string/album_art"
@@ -24,13 +24,13 @@
             tools:src="@drawable/baseline_album_24" />
 
         <TextView
-            android:id="@+id/artist_name_in_search_spotify_cardview"
+            android:id="@+id/subtitle_in_cardview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/collage_or_album_art_in_search_spotify_item_cardview"
+            app:layout_constraintStart_toEndOf="@id/collage_or_album_art_in_cardview"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Collection Name" />
 

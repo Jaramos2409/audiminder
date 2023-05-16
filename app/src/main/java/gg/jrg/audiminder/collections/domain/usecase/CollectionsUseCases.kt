@@ -12,4 +12,6 @@ class CollectionsUseCases @Inject constructor(
         GetCollectionsStateFlowUseCase(collectionsRepository)
     val saveCollectionSuspendUseCase =
         SaveCollectionSuspendUseCase(collectionsRepository)
+    val addAlbumToAlbumCollectionSuspendUseCase =
+        AddAlbumToAlbumCollectionSuspendUseCase(collectionsRepository)
 }

@@ -7,7 +7,7 @@ import gg.jrg.audiminder.core.data.DomainMappable
 
 @Entity(tableName = "albums")
 data class AlbumDTO(
-    @PrimaryKey(autoGenerate = true) val albumId: Int,
+    @PrimaryKey val albumId: String,
     val name: String,
     val artist: String,
     val imageFilePath: String,

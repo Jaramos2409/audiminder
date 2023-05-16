@@ -63,7 +63,7 @@
                     android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@id/add_to_existing_collection_collections_recycler_view_list"
+                    android:id="@+id/add_to_existing_collection_collections_search_view_recycler_view_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

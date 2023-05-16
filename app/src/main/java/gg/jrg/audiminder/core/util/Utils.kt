@@ -9,10 +9,11 @@ fun logAndReturnEvaluation(expression: Boolean): Boolean {
     return expression
 }
 
-fun <T> Result<T>.throwIfFailure() {
+fun <T> Result<T>.throwIfFailure(): Result<T> {
     if (isFailure) {
         throw Exception(exceptionOrNull())
     }
+    return this
 }
 
 @Suppress("DEPRECATION")

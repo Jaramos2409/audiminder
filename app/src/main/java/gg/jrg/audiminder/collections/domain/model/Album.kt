@@ -7,10 +7,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Album(
-    val albumId: Int = 0,
+    val albumId: String = "",
     val name: String = "",
     val artist: String = "",
-    val imageFilePath: String = "",
+    var imageFilePath: String = "",
     val serviceId: Int = 0,
     val serviceSpecificURI: String = ""
 ) : Parcelable, DTOMappable<AlbumDTO> {

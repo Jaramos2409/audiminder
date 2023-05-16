@@ -84,10 +84,9 @@ class SpotifyRepositoryImpl @Inject constructor(
 
         if (localProfileImageFilePathResult.isFailure) {
             userData?.images?.forEach { image ->
-                val bitmap = imageService.downloadImage(image.url)
-                if (bitmap != null) {
-                    val fileName = UUID.randomUUID().toString()
-                    val filePath = imageService.saveImageToFile(bitmap, fileName)
+                imageService.downloadImage(image.url)?.let { bitmap ->
+                    val filePath =
+                        imageService.saveImageToFile(bitmap, UUID.randomUUID().toString())
                     spotifyLocalDataSource.setProfileImageFilePath(filePath).throwIfFailure()
                     _profileImageFilePath.value = filePath
                 }

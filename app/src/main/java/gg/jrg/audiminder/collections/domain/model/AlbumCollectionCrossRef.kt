@@ -5,7 +5,7 @@ import gg.jrg.audiminder.core.domain.DTOMappable
 
 data class AlbumCollectionCrossRef(
     val collectionId: Int,
-    val albumId: Int
+    val albumId: String
 ) : DTOMappable<AlbumCollectionCrossRefDTO> {
     override fun asDatabaseModel(): AlbumCollectionCrossRefDTO = AlbumCollectionCrossRefDTO(
         collectionId = this.collectionId,

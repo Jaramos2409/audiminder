@@ -10,7 +10,7 @@ import gg.jrg.audiminder.core.data.DomainMappable
 )
 data class AlbumCollectionCrossRefDTO(
     val collectionId: Int,
-    val albumId: Int
+    val albumId: String
 ) : DomainMappable<AlbumCollectionCrossRef> {
     override fun asDomainModel(): AlbumCollectionCrossRef = AlbumCollectionCrossRef(
         collectionId = this.collectionId,
