@@ -6,8 +6,8 @@ import gg.jrg.audiminder.core.presentation.usecase.SuspendUseCase
 
 class SaveCollectionSuspendUseCase(
     private val collectionsRepository: CollectionsRepository
-) : SuspendUseCase<AlbumCollection, Unit> {
-    override suspend fun invoke(input: AlbumCollection) {
+) : SuspendUseCase<AlbumCollection, AlbumCollection> {
+    override suspend fun invoke(input: AlbumCollection): AlbumCollection =
         collectionsRepository.insertCollection(input)
-    }
+
 }

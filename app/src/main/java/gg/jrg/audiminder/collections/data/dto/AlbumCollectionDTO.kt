@@ -11,7 +11,7 @@ import gg.jrg.audiminder.core.data.DomainMappable
     indices = [Index(value = ["lastUpdated"])]
 )
 data class AlbumCollectionDTO(
-    @PrimaryKey(autoGenerate = true) val collectionId: Int? = null,
+    @PrimaryKey(autoGenerate = true) var collectionId: Int? = null,
     val name: String,
     val lastOpened: Long = System.currentTimeMillis(),
     val lastUpdated: Long = System.currentTimeMillis()

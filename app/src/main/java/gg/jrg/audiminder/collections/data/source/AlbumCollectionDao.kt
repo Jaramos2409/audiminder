@@ -16,6 +16,6 @@ interface AlbumCollectionDao {
     suspend fun getLatestUpdate(): Long?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO)
+    suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO): Long
 
 }

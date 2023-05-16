@@ -15,7 +15,7 @@ import javax.inject.Inject
 interface CollectionsLocalDataSource {
     suspend fun getAlbumCollections(): Result<List<AlbumCollectionDTO>?>
     suspend fun getLatestUpdate(): Result<Long?>
-    suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO): Result<Unit>
+    suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO): Result<AlbumCollectionDTO>
     suspend fun doesAlbumExistInDatabase(id: String): Result<Boolean>
     suspend fun insertAlbum(albumDTO: AlbumDTO): Result<Unit>
     suspend fun addAlbumToAlbumCollectionInAlbumCollectionCrossRef(
@@ -45,10 +45,13 @@ class CollectionsLocalDataSourceImpl @Inject constructor(
             }
         }
 
-    override suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO): Result<Unit> =
+    override suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO): Result<AlbumCollectionDTO> =
         withContext(ioDispatcher) {
             return@withContext runCatching {
-                albumCollectionDao.insertAlbumCollection(albumCollectionDTO)
+                val id = albumCollectionDao.insertAlbumCollection(albumCollectionDTO).toInt()
+                return@runCatching albumCollectionDTO.apply {
+                    this.collectionId = id
+                }
             }
         }
 

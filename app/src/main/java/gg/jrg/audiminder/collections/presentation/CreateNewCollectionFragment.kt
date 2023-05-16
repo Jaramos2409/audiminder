@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -39,8 +40,10 @@ class CreateNewCollectionFragment : Fragment() {
         }
 
         binding.createButton.setOnClickListener {
-            createNewCollectionViewModel.saveNewCollection()
-            navigationViewModel.navigate(NavEvent.Back)
+            createNewCollectionViewModel.saveNewCollection().invokeOnCompletion {
+                navigationViewModel.navigate(NavEvent.Back)
+                Toast.makeText(requireContext(), "Collection created!", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.giveCollectionANameEditText.addTextChangedListener { changedText ->

@@ -16,7 +16,7 @@ import javax.inject.Inject
 interface CollectionsRepository {
     val collectionsList: StateFlow<List<AlbumCollection>>
     suspend fun refreshListOfCollections()
-    suspend fun insertCollection(albumCollection: AlbumCollection)
+    suspend fun insertCollection(albumCollection: AlbumCollection): AlbumCollection
     suspend fun addAlbumToCollection(album: Album, albumCollection: AlbumCollection)
 }
 
@@ -48,9 +48,11 @@ class CollectionsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun insertCollection(albumCollection: AlbumCollection) {
-        collectionsLocalDataSource.insertAlbumCollection(albumCollection.asDatabaseModel())
-            .throwIfFailure()
+    override suspend fun insertCollection(albumCollection: AlbumCollection): AlbumCollection {
+        return collectionsLocalDataSource
+            .insertAlbumCollection(albumCollection.asDatabaseModel())
+            .getOrThrow()
+            .asDomainModel()
     }
 
     override suspend fun addAlbumToCollection(album: Album, albumCollection: AlbumCollection) {
