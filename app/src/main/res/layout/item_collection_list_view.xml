@@ -21,25 +21,26 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/image_container"
                 android:layout_width="161dp"
-                android:layout_height="161dp"
-                tools:ignore="HardcodedText" />
+                android:layout_height="161dp" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                android:textSize="13sp"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textSize="14sp"
                 tools:text="Title" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/subtitle_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:ellipsize="end"
                 android:textSize="11sp"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 tools:text="Subtitle" />
 
         </LinearLayout>

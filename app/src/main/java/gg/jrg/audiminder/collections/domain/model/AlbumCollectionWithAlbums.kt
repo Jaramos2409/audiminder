@@ -12,4 +12,14 @@ data class AlbumCollectionWithAlbums(
         collection = this.collection.asDatabaseModel(),
         albums = this.albums.asDatabaseModelList()
     )
+
+    fun getArtists(): String {
+        return albums
+            .asSequence()
+            .shuffled()
+            .map { it.artist }
+            .distinct()
+            .take(5)
+            .joinToString(", ")
+    }
 }

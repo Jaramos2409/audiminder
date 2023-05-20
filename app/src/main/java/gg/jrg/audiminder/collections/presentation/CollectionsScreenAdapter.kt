@@ -45,7 +45,7 @@ class CollectionsScreenAdapter :
 
         fun bind(albumCollectionWithAlbums: AlbumCollectionWithAlbums) {
             binding.titleTextView.text = albumCollectionWithAlbums.collection.name
-            binding.subtitleTextView.text = ""
+            binding.subtitleTextView.text = albumCollectionWithAlbums.getArtists()
 
             binding.imageContainer.removeAllViews()
             binding.imageContainer.contentDescription =
