@@ -1,40 +1,22 @@
-package gg.jrg.audiminder.collections.presentation
+package gg.jrg.audiminder.core.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
 import gg.jrg.audiminder.collections.util.AlbumCollectionWithAlbumsDiffCallBack
 import gg.jrg.audiminder.databinding.ItemSearchViewBinding
 
-class AddToExistingCollectionAdapter(private val clickListener: OnAlbumCollectionClickListener) :
-    ListAdapter<AlbumCollectionWithAlbums, AddToExistingCollectionAdapter.AlbumCollectionAddToExistingCollectionViewHolder>(
-        AlbumCollectionWithAlbumsDiffCallBack()
+class LinearCollectionsAdapter(private val clickListener: (AlbumCollectionWithAlbums) -> Unit) :
+    FilterableListAdapter<AlbumCollectionWithAlbums, LinearCollectionsAdapter.AlbumCollectionAddToExistingCollectionViewHolder>(
+        AlbumCollectionWithAlbumsDiffCallBack(),
+        { it.collection.name }
     ) {
-
-    private var albumListFull: List<AlbumCollectionWithAlbums> = listOf()
-
-    fun setFullList(list: List<AlbumCollectionWithAlbums>) {
-        this.albumListFull = list
-        submitList(albumListFull)
-    }
-
-    fun filter(query: String) {
-        val filteredList = if (query.isEmpty()) {
-            albumListFull
-        } else {
-            albumListFull.filter {
-                it.collection.name.contains(query, ignoreCase = true)
-            }
-        }
-        submitList(filteredList)
-    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AddToExistingCollectionAdapter.AlbumCollectionAddToExistingCollectionViewHolder {
+    ): AlbumCollectionAddToExistingCollectionViewHolder {
         val binding =
             ItemSearchViewBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -52,10 +34,6 @@ class AddToExistingCollectionAdapter(private val clickListener: OnAlbumCollectio
         holder.bind(albumCollectionWithAlbums)
     }
 
-    interface OnAlbumCollectionClickListener {
-        fun onAlbumCollectionClick(albumCollectionWithAlbums: AlbumCollectionWithAlbums)
-    }
-
     inner class AlbumCollectionAddToExistingCollectionViewHolder(private val binding: ItemSearchViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -64,7 +42,7 @@ class AddToExistingCollectionAdapter(private val clickListener: OnAlbumCollectio
             binding.subtitleInCardview.text = ""
 
             binding.collageOrAlbumItemCardview.setOnClickListener {
-                clickListener.onAlbumCollectionClick(albumCollectionWithAlbums)
+                clickListener(albumCollectionWithAlbums)
             }
         }
 

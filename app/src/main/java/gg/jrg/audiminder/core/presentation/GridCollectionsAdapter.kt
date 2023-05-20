@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.collections.presentation
+package gg.jrg.audiminder.core.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import gg.jrg.audiminder.R
@@ -14,15 +13,16 @@ import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
 import gg.jrg.audiminder.collections.util.AlbumCollectionWithAlbumsDiffCallBack
 import gg.jrg.audiminder.databinding.ItemCollectionListViewBinding
 
-class CollectionsScreenAdapter :
-    ListAdapter<AlbumCollectionWithAlbums, CollectionsScreenAdapter.AlbumCollectionCollectionsScreenViewHolder>(
-        AlbumCollectionWithAlbumsDiffCallBack()
+class GridCollectionsAdapter(private val clickListener: (AlbumCollectionWithAlbums) -> Unit) :
+    FilterableListAdapter<AlbumCollectionWithAlbums, GridCollectionsAdapter.AlbumCollectionCollectionsScreenViewHolder>(
+        AlbumCollectionWithAlbumsDiffCallBack(),
+        { it.collection.name }
     ) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CollectionsScreenAdapter.AlbumCollectionCollectionsScreenViewHolder {
+    ): AlbumCollectionCollectionsScreenViewHolder {
         val binding =
             ItemCollectionListViewBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -33,7 +33,7 @@ class CollectionsScreenAdapter :
     }
 
     override fun onBindViewHolder(
-        holder: CollectionsScreenAdapter.AlbumCollectionCollectionsScreenViewHolder,
+        holder: AlbumCollectionCollectionsScreenViewHolder,
         position: Int
     ) {
         val albumCollectionWithAlbums = getItem(position)
@@ -44,6 +44,10 @@ class CollectionsScreenAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(albumCollectionWithAlbums: AlbumCollectionWithAlbums) {
+            binding.cardView.setOnClickListener {
+                clickListener(albumCollectionWithAlbums)
+            }
+
             binding.titleTextView.text = albumCollectionWithAlbums.collection.name
             binding.subtitleTextView.text = albumCollectionWithAlbums.getArtists()
 

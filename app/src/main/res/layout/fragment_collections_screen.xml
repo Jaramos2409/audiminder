@@ -37,6 +37,24 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
+            <com.google.android.material.search.SearchView
+                android:id="@+id/collections_screen_search_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="@string/what_are_you_looking_for"
+                app:layout_anchor="@id/search_collections_bar">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/collections_screen_collections_search_view_recycler_view_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_search_view" />
+
+            </com.google.android.material.search.SearchView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/collections_screen_recycler_view"
                 android:layout_width="match_parent"
@@ -49,8 +67,8 @@
                 tools:listitem="@layout/item_collection_list_view"
                 tools:spanCount="2" />
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </FrameLayout>
 </layout>

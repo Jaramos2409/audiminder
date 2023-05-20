@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
+import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
+import gg.jrg.audiminder.core.presentation.GridCollectionsAdapter
+import gg.jrg.audiminder.core.presentation.LinearCollectionsAdapter
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
 import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.core.util.collectLatestLifecycleFlow
@@ -20,7 +24,8 @@ class CollectionsScreenFragment : Fragment() {
     private lateinit var binding: FragmentCollectionsScreenBinding
     private val collectionsViewModel by viewModels<CollectionsViewModel>()
     private val navigationViewModel by activityViewModels<NavigationViewModel>()
-    private val collectionsScreenAdapter by lazy { CollectionsScreenAdapter() }
+    private val gridCollectionsAdapter by lazy { GridCollectionsAdapter(::onAlbumCollectionClick) }
+    private val collectionsScreenSearchViewAdapter by lazy { LinearCollectionsAdapter(::onAlbumCollectionClick) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +34,10 @@ class CollectionsScreenFragment : Fragment() {
         binding = FragmentCollectionsScreenBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.collectionsScreenRecyclerView.adapter = collectionsScreenAdapter
+        binding.collectionsScreenRecyclerView.adapter = gridCollectionsAdapter
+
+        binding.collectionsScreenCollectionsSearchViewRecyclerViewList.adapter =
+            collectionsScreenSearchViewAdapter
 
         binding.collectionsTopBar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -49,7 +57,12 @@ class CollectionsScreenFragment : Fragment() {
         }
 
         collectLatestLifecycleFlow(collectionsViewModel.collectionsList) { listOfCollections ->
-            collectionsScreenAdapter.submitList(listOfCollections)
+            gridCollectionsAdapter.setFullList(listOfCollections)
+            collectionsScreenSearchViewAdapter.setFullList(listOfCollections)
+        }
+
+        binding.collectionsScreenSearchView.editText.addTextChangedListener { changedText ->
+            collectionsScreenSearchViewAdapter.filter(changedText.toString())
         }
 
         return binding.root
@@ -58,6 +71,10 @@ class CollectionsScreenFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         collectionsViewModel.refreshListOfCollections()
+    }
+
+    private fun onAlbumCollectionClick(albumCollectionWithAlbums: AlbumCollectionWithAlbums) {
+
     }
 
 }

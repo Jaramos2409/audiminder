@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
+import gg.jrg.audiminder.core.presentation.LinearCollectionsAdapter
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
 import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.core.util.collectLatestLifecycleFlow
@@ -19,19 +20,14 @@ import gg.jrg.audiminder.databinding.FragmentAddToExistingCollectionBinding
 import timber.log.Timber
 
 @AndroidEntryPoint
-class AddToExistingCollectionFragment : Fragment(),
-    AddToExistingCollectionAdapter.OnAlbumCollectionClickListener {
+class AddToExistingCollectionFragment : Fragment() {
 
     private lateinit var binding: FragmentAddToExistingCollectionBinding
     private val navArgs by navArgs<AddToExistingCollectionFragmentArgs>()
     private val addToExistingCollectionViewModel by viewModels<AddToExistingCollectionViewModel>()
     private val navigationViewModel by activityViewModels<NavigationViewModel>()
-    private val addToExistingCollectionAdapter by lazy { AddToExistingCollectionAdapter(this) }
-    private val addToExistingCollectionSearchViewAdapter by lazy {
-        AddToExistingCollectionAdapter(
-            this
-        )
-    }
+    private val linearCollectionsAdapter by lazy { LinearCollectionsAdapter(::onAlbumCollectionClick) }
+    private val addToExistingCollectionSearchViewAdapter by lazy { LinearCollectionsAdapter(::onAlbumCollectionClick) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +38,7 @@ class AddToExistingCollectionFragment : Fragment(),
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.addToExistingCollectionCollectionsRecyclerViewList.adapter =
-            addToExistingCollectionAdapter
+            linearCollectionsAdapter
 
         binding.addToExistingCollectionCollectionsSearchViewRecyclerViewList.adapter =
             addToExistingCollectionSearchViewAdapter
@@ -52,7 +48,7 @@ class AddToExistingCollectionFragment : Fragment(),
         }
 
         collectLatestLifecycleFlow(addToExistingCollectionViewModel.collectionsList) { listOfCollections ->
-            addToExistingCollectionAdapter.setFullList(listOfCollections)
+            linearCollectionsAdapter.setFullList(listOfCollections)
             addToExistingCollectionSearchViewAdapter.setFullList(listOfCollections)
         }
 
@@ -63,7 +59,7 @@ class AddToExistingCollectionFragment : Fragment(),
         return binding.root
     }
 
-    override fun onAlbumCollectionClick(albumCollectionWithAlbums: AlbumCollectionWithAlbums) {
+    private fun onAlbumCollectionClick(albumCollectionWithAlbums: AlbumCollectionWithAlbums) {
         Timber.i("Album collection clicked: $albumCollectionWithAlbums")
         addToExistingCollectionViewModel.saveAlbumToAlbumCollection(
             navArgs.album,
