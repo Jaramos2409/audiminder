@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import gg.jrg.audiminder.collections.domain.model.CollectionsManager
 import gg.jrg.audiminder.collections.domain.usecase.CollectionsUseCases
+import gg.jrg.audiminder.core.util.ScreenKey
 import gg.jrg.audiminder.core.util.logChanges
 import gg.jrg.audiminder.music_services.domain.model.SpotifyAuthorizationManager
 import gg.jrg.audiminder.music_services.domain.usecase.spotify.SpotifyAuthorizationUseCases
@@ -25,7 +26,8 @@ class CollectionsViewModel @Inject constructor(
         )
 
     val collectionsList = CollectionsManager(
-        collectionsUseCases
+        collectionsUseCases,
+        ScreenKey.COLLECTIONS_SCREEN
     ).apply { logChanges("CollectionsViewModel _collectionsList") }
 
     init {

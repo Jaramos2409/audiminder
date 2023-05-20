@@ -21,6 +21,7 @@ data class AlbumCollectionDTO(
         collectionId = this.collectionId,
         name = this.name,
         lastOpened = this.lastOpened,
+        lastUpdated = this.lastUpdated,
         imageFilePath = this.imageFilePath
     )
 }

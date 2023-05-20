@@ -33,4 +33,5 @@
     <dimen name="app_bar_top_margin">10dp</dimen>
     <dimen name="search_result_option_dimension">53dp</dimen>
     <dimen name="give_collection_name_text_input_layout_margins">45dp</dimen>
+    <dimen name="checkmark_layout_width_height">40dp</dimen>
 </resources>

@@ -1,0 +1,205 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".collections.presentation.CollectionsBottomSheetFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/bottom_sheet_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/collections_sort_bottom_sheet_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sort_by"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textSize="@dimen/section_title_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout_alphabetical_a_z"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/collections_sort_bottom_sheet_title">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/alphabetical_a_z"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                <ImageView
+                    android:id="@+id/checkbox_alphabetical_a_z"
+                    android:layout_width="@dimen/checkmark_layout_width_height"
+                    android:layout_height="@dimen/checkmark_layout_width_height"
+                    android:contentDescription="@string/a_checkmark_will_be_displayed_here_if_this_option_is_selected"
+                    android:src="@drawable/baseline_check_24"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_alphabetical_z_a"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_alphabetical_a_z">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/alphabetical_z_a"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                <ImageView
+                    android:id="@+id/checkbox_alphabetical_z_a"
+                    android:layout_width="@dimen/checkmark_layout_width_height"
+                    android:layout_height="@dimen/checkmark_layout_width_height"
+                    android:contentDescription="@string/a_checkmark_will_be_displayed_here_if_this_option_is_selected"
+                    android:src="@drawable/baseline_check_24"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_last_updated_newest"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_alphabetical_z_a">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/recently_updated"
+
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                <ImageView
+                    android:id="@+id/checkbox_last_updated_newest"
+                    android:layout_width="@dimen/checkmark_layout_width_height"
+                    android:layout_height="@dimen/checkmark_layout_width_height"
+                    android:contentDescription="@string/a_checkmark_will_be_displayed_here_if_this_option_is_selected"
+                    android:src="@drawable/baseline_check_24"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_oldest"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_last_updated_newest">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:text="@string/oldest"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                <ImageView
+                    android:id="@+id/checkbox_oldest"
+                    android:layout_width="@dimen/checkmark_layout_width_height"
+                    android:layout_height="@dimen/checkmark_layout_width_height"
+                    android:contentDescription="@string/a_checkmark_will_be_displayed_here_if_this_option_is_selected"
+                    android:src="@drawable/baseline_check_24"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_largest"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_oldest">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:text="@string/largest"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                <ImageView
+                    android:id="@+id/checkbox_largest"
+                    android:layout_width="@dimen/checkmark_layout_width_height"
+                    android:layout_height="@dimen/checkmark_layout_width_height"
+                    android:contentDescription="@string/a_checkmark_will_be_displayed_here_if_this_option_is_selected"
+                    android:src="@drawable/baseline_check_24"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_smallest"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_largest">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/smallest"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                <ImageView
+                    android:id="@+id/checkbox_smallest"
+                    android:layout_width="@dimen/checkmark_layout_width_height"
+                    android:layout_height="@dimen/checkmark_layout_width_height"
+                    android:contentDescription="@string/a_checkmark_will_be_displayed_here_if_this_option_is_selected"
+                    android:src="@drawable/baseline_check_24"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/collections_sort_cancel_button"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_smallest" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

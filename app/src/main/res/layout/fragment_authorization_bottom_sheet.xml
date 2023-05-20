@@ -42,5 +42,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/authorization_bottom_sheet_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </FrameLayout>
 </layout>

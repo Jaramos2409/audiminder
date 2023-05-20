@@ -52,6 +52,14 @@ class CollectionsScreenFragment : Fragment() {
                     true
                 }
 
+                R.id.collections_sort -> {
+                    CollectionsBottomSheetFragment().show(
+                        parentFragmentManager,
+                        CollectionsBottomSheetFragment.TAG
+                    )
+                    true
+                }
+
                 else -> false
             }
         }

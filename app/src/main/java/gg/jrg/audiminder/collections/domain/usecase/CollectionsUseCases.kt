@@ -14,4 +14,8 @@ class CollectionsUseCases @Inject constructor(
         SaveCollectionSuspendUseCase(collectionsRepository)
     val addAlbumToAlbumCollectionSuspendUseCase =
         AddAlbumToAlbumCollectionSuspendUseCase(collectionsRepository)
+    val getStoredSortingTypeUseCase =
+        GetStoredSortingTypeUseCase(collectionsRepository)
+    val setStoredSortingTypeSuspendUseCase =
+        SetStoredSortingTypeSuspendUseCase(collectionsRepository)
 }

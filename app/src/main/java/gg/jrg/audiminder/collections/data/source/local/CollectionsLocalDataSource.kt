@@ -28,7 +28,6 @@ interface CollectionsLocalDataSource {
     suspend fun updateCollectionCollage(collectionId: Int, imageFilePath: String?): Result<Unit>
     suspend fun getCollectionCollage(collectionId: Int): Result<String?>
     suspend fun updateLastUpdated(collectionId: Int, lastUpdated: Long): Result<Unit>
-    suspend fun getCollectionImagePaths(collectionId: Int): Result<List<AlbumDTO>>
 }
 
 class CollectionsLocalDataSourceImpl @Inject constructor(
@@ -128,11 +127,5 @@ class CollectionsLocalDataSourceImpl @Inject constructor(
             }
         }
 
-    override suspend fun getCollectionImagePaths(collectionId: Int): Result<List<AlbumDTO>> =
-        withContext(ioDispatcher) {
-            return@withContext runCatching {
-                albumCollectionDao.getCollectionWithAlbums(collectionId).albums
-            }
-        }
 
 }

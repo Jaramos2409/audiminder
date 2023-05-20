@@ -56,4 +56,12 @@
     <string name="add_a_new_collection">Add a new collection</string>
     <string name="add_new_collection">Add New Collection</string>
     <string name="give_your_collection_a_name_here">Give your collection a name here.</string>
+    <string name="sort_by">Sort by</string>
+    <string name="alphabetical_a_z">Alphabetical (A-Z)</string>
+    <string name="alphabetical_z_a">Alphabetical (Z-A)</string>
+    <string name="recently_updated">Recently Updated</string>
+    <string name="oldest">Least Recently</string>
+    <string name="largest">Largest to Smallest</string>
+    <string name="smallest">Smallest to Largest</string>
+    <string name="a_checkmark_will_be_displayed_here_if_this_option_is_selected">A checkmark will be displayed here if this option is selected</string>
 </resources>

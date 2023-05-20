@@ -6,8 +6,10 @@ import gg.jrg.audiminder.collections.data.source.local.CollectionsLocalDataSourc
 import gg.jrg.audiminder.collections.domain.model.Album
 import gg.jrg.audiminder.collections.domain.model.AlbumCollection
 import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
+import gg.jrg.audiminder.collections.util.CollectionsSortingType
 import gg.jrg.audiminder.core.data.asDomainModelList
 import gg.jrg.audiminder.core.util.ImageService
+import gg.jrg.audiminder.core.util.ScreenKey
 import gg.jrg.audiminder.core.util.throwIfFailure
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -19,11 +21,12 @@ import java.util.UUID
 import javax.inject.Inject
 
 interface CollectionsRepository {
-    val collectionsWithAlbumsList: StateFlow<List<AlbumCollectionWithAlbums>>
     suspend fun refreshListOfCollections()
     suspend fun insertCollection(albumCollection: AlbumCollection): AlbumCollection
     suspend fun addAlbumToCollection(album: Album, albumCollection: AlbumCollection)
-    suspend fun getCollectionImages(collection: AlbumCollection): List<Album>
+    suspend fun setSortingType(sortingType: CollectionsSortingType, screenKey: ScreenKey)
+    fun getCollectionsWithAlbumsList(screenKey: ScreenKey): StateFlow<List<AlbumCollectionWithAlbums>>
+    fun getStoredSortingType(screenKey: ScreenKey): CollectionsSortingType
 }
 
 class CollectionsRepositoryImpl @Inject constructor(
@@ -35,8 +38,9 @@ class CollectionsRepositoryImpl @Inject constructor(
 
     private val _collectionsWithAlbumsList =
         MutableStateFlow(emptyList<AlbumCollectionWithAlbums>())
-    override val collectionsWithAlbumsList: StateFlow<List<AlbumCollectionWithAlbums>>
-        get() = _collectionsWithAlbumsList
+
+    private val _sortedCollectionsWithAlbumsListsByScreen =
+        mutableMapOf<ScreenKey, MutableStateFlow<List<AlbumCollectionWithAlbums>>>()
 
     override suspend fun refreshListOfCollections() {
         val latestUpdate = collectionsLocalDataSource.getLatestUpdate()
@@ -53,6 +57,13 @@ class CollectionsRepositoryImpl @Inject constructor(
             } else {
                 throw Exception(listOfAllCollectionsResult.exceptionOrNull())
             }
+        }
+
+        _sortedCollectionsWithAlbumsListsByScreen.forEach { (screenKey, sortedListStateFlow) ->
+            val storedSortingType = getStoredSortingType(screenKey)
+            val sortedList =
+                sortCollectionsWithAlbumsList(storedSortingType, _collectionsWithAlbumsList.value)
+            sortedListStateFlow.value = sortedList
         }
     }
 
@@ -88,12 +99,29 @@ class CollectionsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCollectionImages(collection: AlbumCollection): List<Album> =
-        collectionsLocalDataSource
-            .getCollectionImagePaths(collection.collectionId!!)
-            .throwIfFailure()
-            .getOrNull()!!
-            .asDomainModelList()
+    override suspend fun setSortingType(sortingType: CollectionsSortingType, screenKey: ScreenKey) {
+        sharedPreferences
+            .edit()
+            .putString("$screenKey-sortingType", sortingType.name)
+            .apply()
+
+        updateSortedCollectionsList(screenKey, sortingType)
+    }
+
+    override fun getStoredSortingType(screenKey: ScreenKey): CollectionsSortingType {
+        val sortingTypeName = sharedPreferences.getString(
+            "$screenKey-sortingType",
+            CollectionsSortingType.ALPHABETICAL_A_Z.name
+        )
+        return CollectionsSortingType.valueOf(sortingTypeName!!)
+    }
+
+    override fun getCollectionsWithAlbumsList(screenKey: ScreenKey): StateFlow<List<AlbumCollectionWithAlbums>> {
+        val storedSortingType = getStoredSortingType(screenKey)
+        updateSortedCollectionsList(screenKey, storedSortingType)
+
+        return _sortedCollectionsWithAlbumsListsByScreen[screenKey]!!
+    }
 
     private suspend fun saveNewAlbum(album: Album): Result<Unit> = withContext(ioDispatcher) {
         return@withContext runCatching {
@@ -116,6 +144,35 @@ class CollectionsRepositoryImpl @Inject constructor(
 
             collectionsLocalDataSource.insertAlbum(album.asDatabaseModel()).throwIfFailure()
                 .getOrNull()!!
+        }
+    }
+
+    private fun sortCollectionsWithAlbumsList(
+        sortingType: CollectionsSortingType,
+        list: List<AlbumCollectionWithAlbums>
+    ): List<AlbumCollectionWithAlbums> {
+        return when (sortingType) {
+            CollectionsSortingType.ALPHABETICAL_A_Z -> list.sortedBy { it.collection.name }
+            CollectionsSortingType.ALPHABETICAL_Z_A -> list.sortedByDescending { it.collection.name }
+            CollectionsSortingType.RECENTLY_UPDATED -> list.sortedBy { it.collection.lastUpdated }
+            CollectionsSortingType.LEAST_RECENTLY_UPDATED -> list.sortedByDescending { it.collection.lastUpdated }
+            CollectionsSortingType.SMALLEST_TO_LARGEST -> list.sortedBy { it.albums.size }
+            CollectionsSortingType.LARGEST_TO_SMALLEST -> list.sortedByDescending { it.albums.size }
+        }
+    }
+
+    private fun updateSortedCollectionsList(
+        screenKey: ScreenKey,
+        sortingType: CollectionsSortingType
+    ) {
+        val sortedListStateFlow = _sortedCollectionsWithAlbumsListsByScreen[screenKey]
+        val sortedList =
+            sortCollectionsWithAlbumsList(sortingType, _collectionsWithAlbumsList.value)
+        if (sortedListStateFlow != null) {
+            sortedListStateFlow.value = sortedList
+        } else {
+            val newSortedListStateFlow = MutableStateFlow(sortedList)
+            _sortedCollectionsWithAlbumsListsByScreen[screenKey] = newSortedListStateFlow
         }
     }
 
