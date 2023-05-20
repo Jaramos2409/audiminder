@@ -4,6 +4,6 @@ interface DTOMappable<T> {
     fun asDatabaseModel(): T
 }
 
-fun <T, R : DTOMappable<T>> List<R>.asDatabaseModel(): List<T> {
+fun <T, R : DTOMappable<T>> List<R>.asDatabaseModelList(): List<T> {
     return map { it.asDatabaseModel() }
 }

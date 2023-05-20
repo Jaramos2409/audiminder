@@ -5,40 +5,48 @@ import gg.jrg.audiminder.collections.data.dto.AlbumCollectionCrossRefDTO
 import gg.jrg.audiminder.collections.data.source.local.CollectionsLocalDataSource
 import gg.jrg.audiminder.collections.domain.model.Album
 import gg.jrg.audiminder.collections.domain.model.AlbumCollection
+import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
 import gg.jrg.audiminder.core.data.asDomainModelList
 import gg.jrg.audiminder.core.util.ImageService
 import gg.jrg.audiminder.core.util.throwIfFailure
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.util.UUID
 import javax.inject.Inject
 
 interface CollectionsRepository {
-    val collectionsList: StateFlow<List<AlbumCollection>>
+    val collectionsWithAlbumsList: StateFlow<List<AlbumCollectionWithAlbums>>
     suspend fun refreshListOfCollections()
     suspend fun insertCollection(albumCollection: AlbumCollection): AlbumCollection
     suspend fun addAlbumToCollection(album: Album, albumCollection: AlbumCollection)
+    suspend fun getCollectionImages(collection: AlbumCollection): List<Album>
 }
 
 class CollectionsRepositoryImpl @Inject constructor(
     private val collectionsLocalDataSource: CollectionsLocalDataSource,
     private val sharedPreferences: SharedPreferences,
-    private val imageService: ImageService
+    private val imageService: ImageService,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : CollectionsRepository {
 
-    private val _collectionsList = MutableStateFlow(emptyList<AlbumCollection>())
-    override val collectionsList: StateFlow<List<AlbumCollection>>
-        get() = _collectionsList
+    private val _collectionsWithAlbumsList =
+        MutableStateFlow(emptyList<AlbumCollectionWithAlbums>())
+    override val collectionsWithAlbumsList: StateFlow<List<AlbumCollectionWithAlbums>>
+        get() = _collectionsWithAlbumsList
 
     override suspend fun refreshListOfCollections() {
         val latestUpdate = collectionsLocalDataSource.getLatestUpdate()
         val lastFetchTime = sharedPreferences.getLong("lastFetchTime", 0)
 
         if (latestUpdate.isSuccess && latestUpdate.getOrNull()!! > lastFetchTime) {
-            val listOfAllCollectionsResult = collectionsLocalDataSource.getAlbumCollections()
+            val listOfAllCollectionsResult = collectionsLocalDataSource.getCollectionsWithAlbums()
 
             if (listOfAllCollectionsResult.isSuccess) {
-                _collectionsList.value =
+                _collectionsWithAlbumsList.value =
                     listOfAllCollectionsResult.getOrNull()!!.asDomainModelList()
                 sharedPreferences.edit().putLong("lastFetchTime", System.currentTimeMillis())
                     .apply()
@@ -62,14 +70,7 @@ class CollectionsRepositoryImpl @Inject constructor(
                 .getOrNull()!!
 
         if (!checkIfAlbumExistsInDatabaseResult) {
-            if (album.imageFilePath.contains("http")) {
-                imageService.downloadImage(album.imageFilePath)?.let { bitmap ->
-                    album.imageFilePath =
-                        imageService.saveImageToFile(bitmap, UUID.randomUUID().toString())
-                }
-            }
-
-            collectionsLocalDataSource.insertAlbum(album.asDatabaseModel()).throwIfFailure()
+            saveNewAlbum(album).throwIfFailure()
         }
 
         collectionsLocalDataSource.addAlbumToAlbumCollectionInAlbumCollectionCrossRef(
@@ -78,6 +79,44 @@ class CollectionsRepositoryImpl @Inject constructor(
                 albumId = album.albumId
             )
         ).throwIfFailure()
+
+        collectionsLocalDataSource.updateLastUpdated(
+            albumCollection.collectionId,
+            System.currentTimeMillis()
+        ).throwIfFailure().let { _ ->
+            refreshListOfCollections()
+        }
+    }
+
+    override suspend fun getCollectionImages(collection: AlbumCollection): List<Album> =
+        collectionsLocalDataSource
+            .getCollectionImagePaths(collection.collectionId!!)
+            .throwIfFailure()
+            .getOrNull()!!
+            .asDomainModelList()
+
+    private suspend fun saveNewAlbum(album: Album): Result<Unit> = withContext(ioDispatcher) {
+        return@withContext runCatching {
+            if (album.imageFilePath.contains("http")) {
+                imageService.downloadImage(album.imageFilePath)
+                    .throwIfFailure()
+                    .let { downloadResult ->
+                        if (downloadResult.isSuccess) {
+                            val bitmap = downloadResult.getOrNull()!!
+                            album.imageFilePath =
+                                imageService
+                                    .saveImageToFile(bitmap, UUID.randomUUID().toString())
+                                    .throwIfFailure()
+                                    .getOrNull()!!
+                        } else {
+                            Timber.e("There was an issue downloading image for album: $album " + downloadResult.exceptionOrNull())
+                        }
+                    }
+            }
+
+            collectionsLocalDataSource.insertAlbum(album.asDatabaseModel()).throwIfFailure()
+                .getOrNull()!!
+        }
     }
 
 }

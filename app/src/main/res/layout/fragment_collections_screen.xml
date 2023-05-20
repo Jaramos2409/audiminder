@@ -36,18 +36,19 @@
                     android:hint="@string/what_are_you_looking_for"
                     tools:ignore="ContentDescription" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/collections_screen_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="2"
-                    tools:itemCount="6"
-                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    tools:listitem="@layout/item_collection_list_view"
-                    tools:spanCount="2" />
-
             </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/collections_screen_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:spanCount="2"
+                tools:itemCount="6"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_collection_list_view"
+                tools:spanCount="2" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

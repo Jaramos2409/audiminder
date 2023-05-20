@@ -2,6 +2,7 @@ package gg.jrg.audiminder.collections.data.source.local
 
 import gg.jrg.audiminder.collections.data.dto.AlbumCollectionCrossRefDTO
 import gg.jrg.audiminder.collections.data.dto.AlbumCollectionDTO
+import gg.jrg.audiminder.collections.data.dto.AlbumCollectionWithAlbumsDTO
 import gg.jrg.audiminder.collections.data.dto.AlbumDTO
 import gg.jrg.audiminder.collections.data.source.AlbumCollectionCrossRefDao
 import gg.jrg.audiminder.collections.data.source.AlbumCollectionDao
@@ -13,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface CollectionsLocalDataSource {
-    suspend fun getAlbumCollections(): Result<List<AlbumCollectionDTO>?>
+    suspend fun getCollectionsWithAlbums(): Result<List<AlbumCollectionWithAlbumsDTO>>
     suspend fun getLatestUpdate(): Result<Long?>
     suspend fun insertAlbumCollection(albumCollectionDTO: AlbumCollectionDTO): Result<AlbumCollectionDTO>
     suspend fun doesAlbumExistInDatabase(id: String): Result<Boolean>
@@ -21,6 +22,13 @@ interface CollectionsLocalDataSource {
     suspend fun addAlbumToAlbumCollectionInAlbumCollectionCrossRef(
         albumCollectionCrossRefDTO: AlbumCollectionCrossRefDTO
     ): Result<Unit>
+
+    suspend fun hasFourOrMoreAlbums(collectionId: Int): Result<Boolean>
+    suspend fun getRandomFourAlbums(collectionId: Int): Result<List<AlbumDTO>>
+    suspend fun updateCollectionCollage(collectionId: Int, imageFilePath: String?): Result<Unit>
+    suspend fun getCollectionCollage(collectionId: Int): Result<String?>
+    suspend fun updateLastUpdated(collectionId: Int, lastUpdated: Long): Result<Unit>
+    suspend fun getCollectionImagePaths(collectionId: Int): Result<List<AlbumDTO>>
 }
 
 class CollectionsLocalDataSourceImpl @Inject constructor(
@@ -31,10 +39,10 @@ class CollectionsLocalDataSourceImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : CollectionsLocalDataSource {
 
-    override suspend fun getAlbumCollections(): Result<List<AlbumCollectionDTO>?> =
+    override suspend fun getCollectionsWithAlbums(): Result<List<AlbumCollectionWithAlbumsDTO>> =
         withContext(ioDispatcher) {
             return@withContext runCatching {
-                albumCollectionDao.getAlbumCollections()
+                return@runCatching albumCollectionDao.getCollectionsWithAlbums()
             }
         }
 
@@ -77,5 +85,54 @@ class CollectionsLocalDataSourceImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun hasFourOrMoreAlbums(collectionId: Int): Result<Boolean> =
+        withContext(ioDispatcher) {
+            return@withContext runCatching {
+                albumCollectionCrossRefDao.hasFourOrMoreAlbums(collectionId)
+            }
+        }
+
+    override suspend fun getRandomFourAlbums(collectionId: Int): Result<List<AlbumDTO>> =
+        withContext(ioDispatcher) {
+            return@withContext runCatching {
+                val albumIds = albumCollectionCrossRefDao.getRandomFourAlbumIds(collectionId)
+                val albums = mutableListOf<AlbumDTO>()
+                albumIds.forEach { albumId ->
+                    albums.add(albumDao.getAlbumById(albumId)!!)
+                }
+                return@runCatching albums
+            }
+        }
+
+    override suspend fun updateCollectionCollage(
+        collectionId: Int,
+        imageFilePath: String?
+    ): Result<Unit> = withContext(ioDispatcher) {
+        return@withContext runCatching {
+            albumCollectionDao.updateImageFilePath(collectionId, imageFilePath)
+        }
+    }
+
+    override suspend fun getCollectionCollage(collectionId: Int): Result<String?> =
+        withContext(ioDispatcher) {
+            return@withContext runCatching {
+                albumCollectionDao.getImageFilePath(collectionId)
+            }
+        }
+
+    override suspend fun updateLastUpdated(collectionId: Int, lastUpdated: Long): Result<Unit> =
+        withContext(ioDispatcher) {
+            return@withContext runCatching {
+                albumCollectionDao.updateLastUpdated(collectionId, lastUpdated)
+            }
+        }
+
+    override suspend fun getCollectionImagePaths(collectionId: Int): Result<List<AlbumDTO>> =
+        withContext(ioDispatcher) {
+            return@withContext runCatching {
+                albumCollectionDao.getCollectionWithAlbums(collectionId).albums
+            }
+        }
 
 }

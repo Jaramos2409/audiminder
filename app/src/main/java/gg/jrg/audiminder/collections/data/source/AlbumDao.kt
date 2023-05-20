@@ -15,4 +15,7 @@ interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAlbum(albumDTO: AlbumDTO)
 
+    @Query("SELECT * FROM albums WHERE albumId = :id")
+    fun getAlbumById(id: String): AlbumDTO?
+
 }

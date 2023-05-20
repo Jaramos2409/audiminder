@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import gg.jrg.audiminder.collections.domain.model.AlbumCollection
+import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
 import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.core.util.collectLatestLifecycleFlow
@@ -63,14 +63,17 @@ class AddToExistingCollectionFragment : Fragment(),
         return binding.root
     }
 
-    override fun onAlbumCollectionClick(albumCollection: AlbumCollection) {
-        Timber.i("Album collection clicked: $albumCollection")
-        addToExistingCollectionViewModel.saveAlbumToAlbumCollection(navArgs.album, albumCollection)
+    override fun onAlbumCollectionClick(albumCollectionWithAlbums: AlbumCollectionWithAlbums) {
+        Timber.i("Album collection clicked: $albumCollectionWithAlbums")
+        addToExistingCollectionViewModel.saveAlbumToAlbumCollection(
+            navArgs.album,
+            albumCollectionWithAlbums.collection
+        )
             .invokeOnCompletion {
                 navigationViewModel.navigate(NavEvent.Back)
                 Toast.makeText(
                     requireContext(),
-                    "Added ${navArgs.album.name} to ${albumCollection.name}",
+                    "Added ${navArgs.album.name} to ${albumCollectionWithAlbums.collection.name}",
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -6,11 +6,13 @@ import gg.jrg.audiminder.core.domain.DTOMappable
 data class AlbumCollection(
     val collectionId: Int? = null,
     val name: String,
-    val lastOpened: Long = System.currentTimeMillis()
+    val lastOpened: Long = System.currentTimeMillis(),
+    val imageFilePath: String? = null
 ) : DTOMappable<AlbumCollectionDTO> {
     override fun asDatabaseModel(): AlbumCollectionDTO = AlbumCollectionDTO(
         collectionId = this.collectionId,
         name = this.name,
-        lastOpened = this.lastOpened
+        lastOpened = this.lastOpened,
+        imageFilePath = this.imageFilePath
     )
 }

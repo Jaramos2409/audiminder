@@ -84,11 +84,16 @@ class SpotifyRepositoryImpl @Inject constructor(
 
         if (localProfileImageFilePathResult.isFailure) {
             userData?.images?.forEach { image ->
-                imageService.downloadImage(image.url)?.let { bitmap ->
-                    val filePath =
-                        imageService.saveImageToFile(bitmap, UUID.randomUUID().toString())
-                    spotifyLocalDataSource.setProfileImageFilePath(filePath).throwIfFailure()
-                    _profileImageFilePath.value = filePath
+                imageService.downloadImage(image.url).throwIfFailure().let { downloadImageResult ->
+                    if (downloadImageResult.isSuccess) {
+                        val bitmap = downloadImageResult.getOrNull()!!
+                        val filePath =
+                            imageService.saveImageToFile(bitmap, UUID.randomUUID().toString())
+                                .throwIfFailure().getOrNull()!!
+                        spotifyLocalDataSource.setProfileImageFilePath(filePath).throwIfFailure()
+                        _profileImageFilePath.value = filePath
+                    }
+
                 }
             }
         }
@@ -110,11 +115,13 @@ class SpotifyRepositoryImpl @Inject constructor(
     }
 
     override suspend fun clearProfileImageFilePath() {
-        imageService.deleteImageFile(_profileImageFilePath.value).let { wasDeleted ->
-            if (!wasDeleted) {
-                Timber.w("Image file was not deleted. File path: ${_profileImageFilePath.value}")
+        imageService.deleteImageFile(_profileImageFilePath.value)
+            .throwIfFailure()
+            .let { deleteImageFileResult ->
+                if (deleteImageFileResult.isFailure) {
+                    Timber.w("Image file was not deleted. File path: ${_profileImageFilePath.value}")
+                }
             }
-        }
         spotifyLocalDataSource.clearProfileImageFilePath().throwIfFailure()
         _profileImageFilePath.value = ""
     }

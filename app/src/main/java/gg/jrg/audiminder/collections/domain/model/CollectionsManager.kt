@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 class CollectionsManager(
     private val collectionsUseCases: CollectionsUseCases
-) : StateFlow<List<AlbumCollection>> by collectionsUseCases.getCollectionsStateFlowUseCase() {
+) : StateFlow<List<AlbumCollectionWithAlbums>> by collectionsUseCases.getCollectionsStateFlowUseCase() {
 
     suspend fun refreshListOfCollections() {
         collectionsUseCases.refreshListOfCollectionsSuspendUseCase()

@@ -14,12 +14,14 @@ data class AlbumCollectionDTO(
     @PrimaryKey(autoGenerate = true) var collectionId: Int? = null,
     val name: String,
     val lastOpened: Long = System.currentTimeMillis(),
-    val lastUpdated: Long = System.currentTimeMillis()
+    val lastUpdated: Long = System.currentTimeMillis(),
+    val imageFilePath: String? = null
 ) : DomainMappable<AlbumCollection> {
     override fun asDomainModel(): AlbumCollection = AlbumCollection(
         collectionId = this.collectionId,
         name = this.name,
-        lastOpened = this.lastOpened
+        lastOpened = this.lastOpened,
+        imageFilePath = this.imageFilePath
     )
 }
 
