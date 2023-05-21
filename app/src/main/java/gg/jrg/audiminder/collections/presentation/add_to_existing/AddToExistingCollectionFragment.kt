@@ -18,7 +18,6 @@ import gg.jrg.audiminder.core.presentation.NavigationViewModel
 import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.core.util.collectLatestLifecycleFlow
 import gg.jrg.audiminder.databinding.FragmentAddToExistingCollectionBinding
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AddToExistingCollectionFragment : Fragment() {
@@ -62,20 +61,27 @@ class AddToExistingCollectionFragment : Fragment() {
 
     private fun onAlbumCollectionClick(bindableView: BindableView) {
         val albumCollectionWithAlbums = bindableView as AlbumCollectionWithAlbums
-        Timber.i("Album collection clicked: $albumCollectionWithAlbums")
+
         addToExistingCollectionViewModel.saveAlbumToAlbumCollection(
             navArgs.album,
             albumCollectionWithAlbums.collection
-        )
-            .invokeOnCompletion {
-                navigationViewModel.navigate(NavEvent.Back)
+        ).invokeOnCompletion {
+            if (addToExistingCollectionViewModel.checkIfAlbumIsDuplicate()) {
                 Toast.makeText(
                     requireContext(),
-                    "Added ${navArgs.album.name} to ${albumCollectionWithAlbums.collection.name}",
+                    "Album is already in this collection",
                     Toast.LENGTH_SHORT
                 ).show()
+                return@invokeOnCompletion
             }
-    }
 
+            navigationViewModel.navigate(NavEvent.Back)
+            Toast.makeText(
+                requireContext(),
+                "Added ${navArgs.album.name} to ${albumCollectionWithAlbums.collection.name}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
 }

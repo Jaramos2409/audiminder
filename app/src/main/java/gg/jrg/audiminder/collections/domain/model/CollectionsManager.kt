@@ -41,4 +41,12 @@ class CollectionsManager(
             )
         )
     }
+
+    fun hasAlbumInCollection(album: Album, collection: AlbumCollection): Boolean {
+        return value
+            .firstOrNull { it.collection.collectionId == collection.collectionId }
+            ?.albums?.any { it.albumId == album.albumId }
+            ?: false
+    }
+
 }

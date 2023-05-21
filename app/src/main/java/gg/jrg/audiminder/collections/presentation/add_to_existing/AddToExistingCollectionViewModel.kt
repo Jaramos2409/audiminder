@@ -7,9 +7,11 @@ import gg.jrg.audiminder.collections.domain.model.Album
 import gg.jrg.audiminder.collections.domain.model.AlbumCollection
 import gg.jrg.audiminder.collections.domain.model.CollectionsManager
 import gg.jrg.audiminder.collections.domain.usecase.CollectionsUseCases
+import gg.jrg.audiminder.core.util.CollectionsManagerValidator
 import gg.jrg.audiminder.core.util.ScreenKey
 import gg.jrg.audiminder.core.util.logChanges
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,6 +25,8 @@ class AddToExistingCollectionViewModel @Inject constructor(
         ScreenKey.ADD_TO_EXISTING_SCREEN
     ).apply { logChanges("AddToExistingCollectionViewModel _collectionsList") }
 
+    private val _isAlbumDuplicate = MutableStateFlow(false)
+
     init {
         viewModelScope.launch {
             collectionsList.refreshListOfCollections()
@@ -31,10 +35,24 @@ class AddToExistingCollectionViewModel @Inject constructor(
 
     fun saveAlbumToAlbumCollection(album: Album, albumCollection: AlbumCollection): Job =
         viewModelScope.launch {
+            val validator = CollectionsManagerValidator(collectionsList) {
+                it.hasAlbumInCollection(album, albumCollection)
+            }
+
+            if (validator.validate()) {
+                _isAlbumDuplicate.value = true
+                return@launch
+            }
+
             collectionsList.addAlbumToCollection(
                 album = album,
                 collection = albumCollection
             )
+
+            _isAlbumDuplicate.value = false
         }
 
+    fun checkIfAlbumIsDuplicate(): Boolean {
+        return _isAlbumDuplicate.value
+    }
 }

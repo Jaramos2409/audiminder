@@ -19,5 +19,3 @@ interface AlbumCollectionCrossRefDao {
     suspend fun getRandomFourAlbumIds(collectionId: Int): List<String>
 
 }
-
-
