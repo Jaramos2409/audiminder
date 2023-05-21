@@ -1,0 +1,87 @@
+[versions]
+androidxCoreVersion = "1.10.1"
+appCompatVersion = "1.6.1"
+materialVersion = "1.9.0"
+constraintLayoutVersion = "2.1.4"
+navigationVersion = "2.5.3"
+junitExtVersion = "1.1.5"
+testRunnerVersion = "1.5.2"
+lifecycleVersion = "2.6.1"
+securityCryptoVersion = "1.1.0-alpha06"
+junitVersion = "4.13.2"
+coroutinesVersion = "1.6.4"
+espressoVersion = "3.5.1"
+spotifyWebApiKotlinVersion = "3.8.8"
+timberVersion = "5.0.1"
+recyclerviewVersion = "1.3.0"
+coroutinesAndroidVersion = "1.6.4"
+turbineVersion = "0.12.3"
+mockitoCoreVersion = "5.2.0"
+mockitoKotlinVersion = "4.1.0"
+fragmentTestingVersion = "1.6.0-rc01"
+hiltVersion = "2.46"
+testCoreVersion = "1.5.0"
+testRulesVersion = "1.5.0"
+truthVersion = "1.5.0"
+browserVersion = "1.5.0"
+roomVersion = "2.5.1"
+coilVersion = "2.3.0"
+
+[libraries]
+# AndroidX
+androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCoreVersion" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompatVersion" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayoutVersion" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerviewVersion" }
+browser = { group = "androidx.browser", name = "browser", version.ref = "browserVersion" }
+
+# Material
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+
+# Navigation
+navigationFragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationVersion" }
+navigationUi = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationVersion" }
+navigationTesting = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navigationVersion" }
+
+# Unit testing
+junitExt = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitExtVersion" }
+kotlinxCoroutinesTest = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesVersion" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbineVersion" }
+mockitoCore = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCoreVersion" }
+mockitoKotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlinVersion" }
+fragmentTesting = { group = "androidx.fragment", name = "fragment-testing", version.ref = "fragmentTestingVersion" }
+
+# Instrumentation testing
+espessoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoVersion" }
+mockitoAndroid = { group = "org.mockito", name = "mockito-android", version.ref = "mockitoCoreVersion" }
+testCore = { group = "androidx.test", name = "core", version.ref = "testCoreVersion" }
+testRunner = { group = "androidx.test", name = "runner", version.ref = "testRunnerVersion" }
+testRules = { group = "androidx.test", name = "rules", version.ref = "testRulesVersion" }
+testExtJunit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitExtVersion" }
+truth = { group = "androidx.test.ext", name = "truth", version.ref = "truthVersion" }
+
+# Spotify
+spotifyWebApiKotlin = { group = "com.adamratzman", name = "spotify-api-kotlin-core", version.ref = "spotifyWebApiKotlinVersion" }
+
+# Timber
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timberVersion" }
+
+# Coroutines
+coroutinesAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesAndroidVersion" }
+
+# Hilt
+hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltVersion" }
+hiltCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltVersion" }
+hiltAndroidTesting = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hiltVersion" }
+hiltAndroidCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltVersion" }
+
+# Room
+roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
+roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+roomTesting = { group = "androidx.room", name = "room-testing", version.ref = "roomVersion" }
+
+# Coil
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coilVersion" }
+
+[plugins]
