@@ -11,7 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
-import gg.jrg.audiminder.collections.presentation.CollectionsScreenFragmentDirections
+import gg.jrg.audiminder.collections.presentation.collections.CollectionsScreenFragmentDirections
 import gg.jrg.audiminder.core.util.ActivityStateFlowWrapper
 import gg.jrg.audiminder.core.util.NavEvent
 import gg.jrg.audiminder.core.util.collectLifecycleFlow

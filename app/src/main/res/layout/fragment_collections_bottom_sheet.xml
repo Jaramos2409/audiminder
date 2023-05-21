@@ -5,7 +5,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".collections.presentation.CollectionsBottomSheetFragment">
+        tools:context=".collections.presentation.collections.CollectionsBottomSheetFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.collections.presentation
+package gg.jrg.audiminder.collections.presentation.add_search_result
 
 import android.os.Bundle
 import android.view.LayoutInflater

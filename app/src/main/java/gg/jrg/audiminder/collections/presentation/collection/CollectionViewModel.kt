@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.collections.presentation
+package gg.jrg.audiminder.collections.presentation.collection
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

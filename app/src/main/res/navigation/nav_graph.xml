@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/collectionsScreenFragment"
-        android:name="gg.jrg.audiminder.collections.presentation.CollectionsScreenFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.collections.CollectionsScreenFragment"
         android:label="fragment_collections_screen"
         tools:layout="@layout/fragment_collections_screen">
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/collectionScreenFragment"
-        android:name="gg.jrg.audiminder.collections.presentation.CollectionScreenFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.collection.CollectionScreenFragment"
         android:label="fragment_collection_screen"
         tools:layout="@layout/fragment_collection_screen">
         <action
@@ -87,7 +87,7 @@
     </fragment>
     <dialog
         android:id="@+id/itemInCollectionBottomSheetFragment"
-        android:name="gg.jrg.audiminder.collections.presentation.ItemInCollectionBottomSheetFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.collection.ItemInCollectionBottomSheetFragment"
         android:label="ItemInCollectionBottomSheetFragment" />
     <fragment
         android:id="@+id/settingsScreenFragment"
@@ -110,11 +110,11 @@
     </fragment>
     <dialog
         android:id="@+id/addSearchResultToCollectionBottomSheetFragment"
-        android:name="gg.jrg.audiminder.collections.presentation.AddSearchResultToCollectionBottomSheetFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.add_search_result.AddSearchResultToCollectionBottomSheetFragment"
         android:label="AddSearchResultToCollectionBottomSheetFragment" />
     <fragment
         android:id="@+id/createNewCollectionFragment"
-        android:name="gg.jrg.audiminder.collections.presentation.CreateNewCollectionFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.create_new_collection.CreateNewCollectionFragment"
         android:label="CreateNewCollectionFragment">
         <argument
             android:name="album"
@@ -123,7 +123,7 @@
     </fragment>
     <fragment
         android:id="@+id/addToExistingCollectionFragment"
-        android:name="gg.jrg.audiminder.collections.presentation.AddToExistingCollectionFragment"
+        android:name="gg.jrg.audiminder.collections.presentation.add_to_existing.AddToExistingCollectionFragment"
         android:label="AddToExistingCollectionFragment">
         <argument
             android:name="album"

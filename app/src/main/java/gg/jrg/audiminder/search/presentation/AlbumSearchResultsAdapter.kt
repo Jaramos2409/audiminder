@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import gg.jrg.audiminder.R
 import gg.jrg.audiminder.collections.domain.model.Album
-import gg.jrg.audiminder.collections.presentation.AddSearchResultToCollectionBottomSheetFragment
+import gg.jrg.audiminder.collections.presentation.add_search_result.AddSearchResultToCollectionBottomSheetFragment
 import gg.jrg.audiminder.collections.util.AlbumDiffCallback
 import gg.jrg.audiminder.collections.util.bindTo
 import gg.jrg.audiminder.databinding.ItemSearchViewBinding

@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.collections.presentation
+package gg.jrg.audiminder.collections.presentation.create_new_collection
 
 import android.os.Bundle
 import android.view.LayoutInflater

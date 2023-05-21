@@ -1,4 +1,4 @@
-package gg.jrg.audiminder.collections.presentation
+package gg.jrg.audiminder.collections.presentation.collections
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
