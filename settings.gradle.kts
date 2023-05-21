@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Audiminder"
-include ':app'
+include(":app")
