@@ -7,6 +7,7 @@ import gg.jrg.audiminder.collections.domain.model.Album
 import gg.jrg.audiminder.collections.domain.model.AlbumCollection
 import gg.jrg.audiminder.collections.domain.usecase.AddAlbumToAlbumCollectionInputParameters
 import gg.jrg.audiminder.collections.domain.usecase.CollectionsUseCases
+import gg.jrg.audiminder.core.util.FlowValidator
 import gg.jrg.audiminder.core.util.logChanges
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +24,10 @@ class CreateNewCollectionViewModel @Inject constructor(
     private val _collectionName =
         MutableStateFlow("").apply { logChanges("CreateNewCollectionViewModel _collectionName") }
 
+    private val collectionNameValidator = FlowValidator(_collectionName) { !it.isNullOrBlank() }
+
+    private val _saveSuccessful = MutableStateFlow(false)
+
     fun setAlbum(album: Album) {
         this.album = album
     }
@@ -33,6 +38,11 @@ class CreateNewCollectionViewModel @Inject constructor(
 
     fun saveNewCollection(): Job {
         return viewModelScope.launch {
+            if (!collectionNameValidator.validate()) {
+                _saveSuccessful.value = false
+                return@launch
+            }
+
             collectionsUseCases.saveCollectionSuspendUseCase(
                 AlbumCollection(
                     name = _collectionName.value
@@ -47,10 +57,18 @@ class CreateNewCollectionViewModel @Inject constructor(
                     )
                 }
             }
+
+            _saveSuccessful.value = true
         }
     }
 
     fun setCollectionName(name: String) {
         _collectionName.value = name
     }
+
+    fun checkIfSaveSuccessful(): Boolean {
+        return _saveSuccessful.value
+    }
+
 }
+

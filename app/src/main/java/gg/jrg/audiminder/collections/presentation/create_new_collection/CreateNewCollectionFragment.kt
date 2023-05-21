@@ -41,10 +41,17 @@ class CreateNewCollectionFragment : Fragment() {
 
         binding.createButton.setOnClickListener {
             createNewCollectionViewModel.saveNewCollection().invokeOnCompletion {
-                navigationViewModel.navigate(NavEvent.Back)
-                Toast.makeText(requireContext(), "Collection created!", Toast.LENGTH_SHORT).show()
+                if (createNewCollectionViewModel.checkIfSaveSuccessful()) {
+                    navigationViewModel.navigate(NavEvent.Back)
+                    Toast.makeText(requireContext(), "Collection created!", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Toast.makeText(requireContext(), "Invalid collection name", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
+
 
         binding.giveCollectionANameEditText.addTextChangedListener { changedText ->
             createNewCollectionViewModel.setCollectionName(changedText.toString())
