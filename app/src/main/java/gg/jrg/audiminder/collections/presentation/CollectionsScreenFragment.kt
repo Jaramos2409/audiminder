@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
-import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
+import gg.jrg.audiminder.core.presentation.BindableView
 import gg.jrg.audiminder.core.presentation.GridCollectionsAdapter
 import gg.jrg.audiminder.core.presentation.LinearCollectionsAdapter
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
@@ -81,7 +81,7 @@ class CollectionsScreenFragment : Fragment() {
         collectionsViewModel.refreshListOfCollections()
     }
 
-    private fun onAlbumCollectionClick(albumCollectionWithAlbums: AlbumCollectionWithAlbums) {
+    private fun onAlbumCollectionClick(bindableView: BindableView) {
 
     }
 

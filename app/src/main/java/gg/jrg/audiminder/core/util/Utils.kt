@@ -9,6 +9,11 @@ fun logAndReturnEvaluation(expression: Boolean): Boolean {
     return expression
 }
 
+fun logAndReturnListOfStrings(listOfStrings: List<String>): List<String> {
+    Timber.d("List of strings: $listOfStrings")
+    return listOfStrings
+}
+
 fun <T> Result<T>.throwIfFailure(): Result<T> {
     if (isFailure) {
         throw Exception(exceptionOrNull())

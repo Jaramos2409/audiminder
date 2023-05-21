@@ -3,6 +3,7 @@ package gg.jrg.audiminder.collections.domain.model
 import android.os.Parcelable
 import gg.jrg.audiminder.collections.data.dto.AlbumDTO
 import gg.jrg.audiminder.core.domain.DTOMappable
+import gg.jrg.audiminder.core.presentation.BindableView
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,7 +14,16 @@ data class Album(
     var imageFilePath: String = "",
     val serviceId: Int = 0,
     val serviceSpecificURI: String = ""
-) : Parcelable, DTOMappable<AlbumDTO> {
+) : Parcelable, DTOMappable<AlbumDTO>, BindableView {
+
+    override val title: String
+        get() = name
+
+    override val subtitle: String
+        get() = artist
+
+    override fun getImageFilePaths(): List<String> = listOf(imageFilePath)
+
     override fun asDatabaseModel(): AlbumDTO = AlbumDTO(
         albumId = this.albumId,
         name = this.name,
@@ -22,4 +32,5 @@ data class Album(
         serviceId = this.serviceId,
         serviceSpecificURI = this.serviceSpecificURI
     )
+
 }

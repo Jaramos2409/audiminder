@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
+import gg.jrg.audiminder.core.presentation.BindableView
 import gg.jrg.audiminder.core.presentation.LinearCollectionsAdapter
 import gg.jrg.audiminder.core.presentation.NavigationViewModel
 import gg.jrg.audiminder.core.util.NavEvent
@@ -59,7 +60,8 @@ class AddToExistingCollectionFragment : Fragment() {
         return binding.root
     }
 
-    private fun onAlbumCollectionClick(albumCollectionWithAlbums: AlbumCollectionWithAlbums) {
+    private fun onAlbumCollectionClick(bindableView: BindableView) {
+        val albumCollectionWithAlbums = bindableView as AlbumCollectionWithAlbums
         Timber.i("Album collection clicked: $albumCollectionWithAlbums")
         addToExistingCollectionViewModel.saveAlbumToAlbumCollection(
             navArgs.album,
@@ -74,5 +76,6 @@ class AddToExistingCollectionFragment : Fragment() {
                 ).show()
             }
     }
+
 
 }

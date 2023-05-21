@@ -14,16 +14,14 @@
             android:layout_height="wrap_content"
             android:padding="8dp">
 
-            <ImageView
-                android:id="@+id/collage_or_album_art_in_cardview"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/image_container"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:contentDescription="@string/album_art"
-                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/baseline_album_24" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title_in_cardview"
@@ -32,7 +30,7 @@
                 android:layout_marginStart="@dimen/album_collection_text_margin_start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/collage_or_album_art_in_cardview"
+                app:layout_constraintStart_toEndOf="@id/image_container"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Album Name" />
 
@@ -44,7 +42,7 @@
                 android:layout_marginTop="@dimen/reminder_cardview_text_margin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/collage_or_album_art_in_cardview"
+                app:layout_constraintStart_toEndOf="@id/image_container"
                 app:layout_constraintTop_toBottomOf="@id/title_in_cardview"
                 tools:text="Album Artist" />
 

@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import gg.jrg.audiminder.R
 import gg.jrg.audiminder.collections.domain.model.Album
 import gg.jrg.audiminder.collections.presentation.AddSearchResultToCollectionBottomSheetFragment
 import gg.jrg.audiminder.collections.util.AlbumDiffCallback
+import gg.jrg.audiminder.collections.util.bindTo
 import gg.jrg.audiminder.databinding.ItemSearchViewBinding
 
 class AlbumSearchResultsAdapter(private val parentFragmentManager: FragmentManager) :
@@ -33,10 +34,13 @@ class AlbumSearchResultsAdapter(private val parentFragmentManager: FragmentManag
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(album: Album) {
-            binding.collageOrAlbumArtInCardview.load(album.imageFilePath)
-            binding.titleInCardview.text = album.name
-            binding.subtitleInCardview.text = album.artist
-            binding.collageOrAlbumItemCardview.setOnClickListener {
+            album.bindTo(
+                binding.collageOrAlbumItemCardview,
+                binding.titleInCardview,
+                binding.subtitleInCardview,
+                binding.imageContainer,
+                R.drawable.baseline_album_24
+            ) {
                 AddSearchResultToCollectionBottomSheetFragment()
                     .apply {
                         arguments = Bundle().apply {
