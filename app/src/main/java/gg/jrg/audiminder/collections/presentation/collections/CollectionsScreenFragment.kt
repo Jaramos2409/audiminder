@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import gg.jrg.audiminder.R
+import gg.jrg.audiminder.collections.domain.model.AlbumCollectionWithAlbums
 import gg.jrg.audiminder.core.presentation.BindableView
 import gg.jrg.audiminder.core.presentation.GridCollectionsAdapter
 import gg.jrg.audiminder.core.presentation.LinearCollectionsAdapter
@@ -24,8 +25,18 @@ class CollectionsScreenFragment : Fragment() {
     private lateinit var binding: FragmentCollectionsScreenBinding
     private val collectionsViewModel by viewModels<CollectionsViewModel>()
     private val navigationViewModel by activityViewModels<NavigationViewModel>()
-    private val gridCollectionsAdapter by lazy { GridCollectionsAdapter(::onAlbumCollectionClick) }
-    private val collectionsScreenSearchViewAdapter by lazy { LinearCollectionsAdapter(::onAlbumCollectionClick) }
+    private val gridCollectionsAdapter by lazy {
+        GridCollectionsAdapter(
+            ::onAlbumCollectionClick,
+            ::onAlbumCollectionLongClick
+        )
+    }
+    private val collectionsScreenSearchViewAdapter by lazy {
+        LinearCollectionsAdapter(
+            ::onAlbumCollectionClick,
+            ::onAlbumCollectionLongClick
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,4 +96,19 @@ class CollectionsScreenFragment : Fragment() {
 
     }
 
+    private fun onAlbumCollectionLongClick(bindableView: BindableView) {
+        DeleteCollectionBottomSheetFragment()
+            .apply {
+                arguments = Bundle().apply {
+                    putParcelable(
+                        DeleteCollectionBottomSheetFragment.COLLECTION_KEY,
+                        bindableView as AlbumCollectionWithAlbums
+                    )
+                }
+            }
+            .show(
+                parentFragmentManager,
+                DeleteCollectionBottomSheetFragment.TAG
+            )
+    }
 }

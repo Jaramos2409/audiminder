@@ -18,4 +18,7 @@ interface AlbumCollectionCrossRefDao {
     @Query("SELECT albumId FROM collection_album_join WHERE collectionId = :collectionId ORDER BY RANDOM() LIMIT 4")
     suspend fun getRandomFourAlbumIds(collectionId: Int): List<String>
 
+    @Query("DELETE FROM collection_album_join WHERE collectionId = :collectionId")
+    fun deleteAlbumCollectionCrossRefsByCollectionId(collectionId: Int): Int
+
 }

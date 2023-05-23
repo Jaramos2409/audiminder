@@ -12,6 +12,7 @@ import gg.jrg.audiminder.collections.data.source.TrackDao
 import gg.jrg.audiminder.collections.data.source.local.CollectionsLocalDataSource
 import gg.jrg.audiminder.collections.data.source.local.CollectionsLocalDataSourceImpl
 import gg.jrg.audiminder.collections.domain.usecase.CollectionsUseCases
+import gg.jrg.audiminder.core.data.source.AppDatabase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -34,6 +35,7 @@ object CollectionsModule {
         albumCollectionCrossRefDao: AlbumCollectionCrossRefDao,
         albumDao: AlbumDao,
         trackDao: TrackDao,
+        appDatabase: AppDatabase,
         ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     ): CollectionsLocalDataSource {
         return CollectionsLocalDataSourceImpl(
@@ -41,6 +43,7 @@ object CollectionsModule {
             albumCollectionCrossRefDao,
             albumDao,
             trackDao,
+            appDatabase,
             ioDispatcher
         )
     }

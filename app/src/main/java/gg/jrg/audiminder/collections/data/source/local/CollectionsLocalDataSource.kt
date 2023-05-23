@@ -8,6 +8,7 @@ import gg.jrg.audiminder.collections.data.source.AlbumCollectionCrossRefDao
 import gg.jrg.audiminder.collections.data.source.AlbumCollectionDao
 import gg.jrg.audiminder.collections.data.source.AlbumDao
 import gg.jrg.audiminder.collections.data.source.TrackDao
+import gg.jrg.audiminder.core.data.source.AppDatabase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,12 +23,12 @@ interface CollectionsLocalDataSource {
     suspend fun addAlbumToAlbumCollectionInAlbumCollectionCrossRef(
         albumCollectionCrossRefDTO: AlbumCollectionCrossRefDTO
     ): Result<Unit>
-
     suspend fun hasFourOrMoreAlbums(collectionId: Int): Result<Boolean>
     suspend fun getRandomFourAlbums(collectionId: Int): Result<List<AlbumDTO>>
     suspend fun updateCollectionCollage(collectionId: Int, imageFilePath: String?): Result<Unit>
     suspend fun getCollectionCollage(collectionId: Int): Result<String?>
     suspend fun updateLastUpdated(collectionId: Int, lastUpdated: Long): Result<Unit>
+    suspend fun deleteCollection(albumCollectionDTO: AlbumCollectionDTO): Result<Unit>
 }
 
 class CollectionsLocalDataSourceImpl @Inject constructor(
@@ -35,6 +36,7 @@ class CollectionsLocalDataSourceImpl @Inject constructor(
     private val albumCollectionCrossRefDao: AlbumCollectionCrossRefDao,
     private val albumDao: AlbumDao,
     private val trackDao: TrackDao,
+    private val appDatabase: AppDatabase,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : CollectionsLocalDataSource {
 
@@ -127,5 +129,16 @@ class CollectionsLocalDataSourceImpl @Inject constructor(
             }
         }
 
+    override suspend fun deleteCollection(albumCollectionDTO: AlbumCollectionDTO): Result<Unit> =
+        withContext(ioDispatcher) {
+            return@withContext runCatching {
+                appDatabase.runInTransaction {
+                    albumCollectionCrossRefDao.deleteAlbumCollectionCrossRefsByCollectionId(
+                        albumCollectionDTO.collectionId!!
+                    )
+                    albumCollectionDao.deleteCollection(albumCollectionDTO)
+                }
+            }
+        }
 
 }

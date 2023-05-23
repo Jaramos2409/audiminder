@@ -49,4 +49,8 @@ class CollectionsManager(
             ?: false
     }
 
+    suspend fun deleteAlbumCollection(albumCollection: AlbumCollection) {
+        collectionsUseCases.deleteCollectionSuspendUseCase(albumCollection)
+    }
+
 }

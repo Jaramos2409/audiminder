@@ -9,7 +9,10 @@ import gg.jrg.audiminder.collections.util.AlbumCollectionWithAlbumsDiffCallBack
 import gg.jrg.audiminder.collections.util.bindTo
 import gg.jrg.audiminder.databinding.ItemSearchViewBinding
 
-class LinearCollectionsAdapter(private val clickListener: (BindableView) -> Unit) :
+class LinearCollectionsAdapter(
+    private val clickListener: (BindableView) -> Unit,
+    private val longClickListener: (BindableView) -> Unit
+) :
     FilterableListAdapter<AlbumCollectionWithAlbums, LinearCollectionsAdapter.AlbumCollectionAddToExistingCollectionViewHolder>(
         AlbumCollectionWithAlbumsDiffCallBack(),
         { it.collection.name }
@@ -25,7 +28,11 @@ class LinearCollectionsAdapter(private val clickListener: (BindableView) -> Unit
                 parent,
                 false
             )
-        return AlbumCollectionAddToExistingCollectionViewHolder(binding, clickListener)
+        return AlbumCollectionAddToExistingCollectionViewHolder(
+            binding,
+            clickListener,
+            longClickListener
+        )
     }
 
     override fun onBindViewHolder(
@@ -38,7 +45,8 @@ class LinearCollectionsAdapter(private val clickListener: (BindableView) -> Unit
 
     class AlbumCollectionAddToExistingCollectionViewHolder(
         private val binding: ItemSearchViewBinding,
-        private val clickListener: (BindableView) -> Unit
+        private val clickListener: (BindableView) -> Unit,
+        private val longClickListener: (BindableView) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -49,7 +57,8 @@ class LinearCollectionsAdapter(private val clickListener: (BindableView) -> Unit
                 binding.subtitleInCardview,
                 binding.imageContainer,
                 R.drawable.baseline_album_24,
-                clickListener
+                clickListener,
+                longClickListener
             )
         }
 

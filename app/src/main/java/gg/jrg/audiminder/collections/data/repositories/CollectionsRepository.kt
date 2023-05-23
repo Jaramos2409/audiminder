@@ -21,12 +21,13 @@ import java.util.UUID
 import javax.inject.Inject
 
 interface CollectionsRepository {
-    suspend fun refreshListOfCollections()
+    suspend fun refreshListOfCollections(forceUpdate: Boolean = false)
     suspend fun insertCollection(albumCollection: AlbumCollection): AlbumCollection
     suspend fun addAlbumToCollection(album: Album, albumCollection: AlbumCollection)
     suspend fun setSortingType(sortingType: CollectionsSortingType, screenKey: ScreenKey)
     fun getCollectionsWithAlbumsList(screenKey: ScreenKey): StateFlow<List<AlbumCollectionWithAlbums>>
     fun getStoredSortingType(screenKey: ScreenKey): CollectionsSortingType
+    suspend fun deleteCollection(albumCollection: AlbumCollection)
 }
 
 class CollectionsRepositoryImpl @Inject constructor(
@@ -42,11 +43,11 @@ class CollectionsRepositoryImpl @Inject constructor(
     private val _sortedCollectionsWithAlbumsListsByScreen =
         mutableMapOf<ScreenKey, MutableStateFlow<List<AlbumCollectionWithAlbums>>>()
 
-    override suspend fun refreshListOfCollections() {
+    override suspend fun refreshListOfCollections(forceUpdate: Boolean) {
         val latestUpdate = collectionsLocalDataSource.getLatestUpdate()
         val lastFetchTime = sharedPreferences.getLong("lastFetchTime", 0)
 
-        if (latestUpdate.isSuccess && latestUpdate.getOrNull()!! > lastFetchTime) {
+        if (forceUpdate || latestUpdate.isSuccess && latestUpdate.getOrNull()!! > lastFetchTime) {
             val listOfAllCollectionsResult = collectionsLocalDataSource.getCollectionsWithAlbums()
 
             if (listOfAllCollectionsResult.isSuccess) {
@@ -114,6 +115,14 @@ class CollectionsRepositoryImpl @Inject constructor(
             CollectionsSortingType.ALPHABETICAL_A_Z.name
         )
         return CollectionsSortingType.valueOf(sortingTypeName!!)
+    }
+
+    override suspend fun deleteCollection(albumCollection: AlbumCollection) {
+        collectionsLocalDataSource
+            .deleteCollection(albumCollection.asDatabaseModel())
+            .throwIfFailure()
+
+        refreshListOfCollections(forceUpdate = true)
     }
 
     override fun getCollectionsWithAlbumsList(screenKey: ScreenKey): StateFlow<List<AlbumCollectionWithAlbums>> {

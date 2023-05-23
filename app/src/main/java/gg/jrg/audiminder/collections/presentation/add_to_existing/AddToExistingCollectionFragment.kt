@@ -26,8 +26,18 @@ class AddToExistingCollectionFragment : Fragment() {
     private val navArgs by navArgs<AddToExistingCollectionFragmentArgs>()
     private val addToExistingCollectionViewModel by viewModels<AddToExistingCollectionViewModel>()
     private val navigationViewModel by activityViewModels<NavigationViewModel>()
-    private val linearCollectionsAdapter by lazy { LinearCollectionsAdapter(::onAlbumCollectionClick) }
-    private val addToExistingCollectionSearchViewAdapter by lazy { LinearCollectionsAdapter(::onAlbumCollectionClick) }
+    private val linearCollectionsAdapter by lazy {
+        LinearCollectionsAdapter(
+            ::onAlbumCollectionClick,
+            ::onAlbumCollectionLongClick
+        )
+    }
+    private val addToExistingCollectionSearchViewAdapter by lazy {
+        LinearCollectionsAdapter(
+            ::onAlbumCollectionClick,
+            ::onAlbumCollectionLongClick
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,6 +92,10 @@ class AddToExistingCollectionFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    private fun onAlbumCollectionLongClick(bindableView: BindableView) {
+
     }
 
 }

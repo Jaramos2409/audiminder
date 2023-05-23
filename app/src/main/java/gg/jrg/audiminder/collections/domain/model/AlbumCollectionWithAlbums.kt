@@ -1,14 +1,17 @@
 package gg.jrg.audiminder.collections.domain.model
 
+import android.os.Parcelable
 import gg.jrg.audiminder.collections.data.dto.AlbumCollectionWithAlbumsDTO
 import gg.jrg.audiminder.core.domain.DTOMappable
 import gg.jrg.audiminder.core.domain.asDatabaseModelList
 import gg.jrg.audiminder.core.presentation.BindableView
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class AlbumCollectionWithAlbums(
     val collection: AlbumCollection,
     val albums: List<Album>
-) : DTOMappable<AlbumCollectionWithAlbumsDTO>, BindableView {
+) : DTOMappable<AlbumCollectionWithAlbumsDTO>, BindableView, Parcelable {
 
     override val title: String
         get() = collection.name

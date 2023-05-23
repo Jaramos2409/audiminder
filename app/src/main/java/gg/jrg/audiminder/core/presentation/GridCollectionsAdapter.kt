@@ -9,7 +9,10 @@ import gg.jrg.audiminder.collections.util.AlbumCollectionWithAlbumsDiffCallBack
 import gg.jrg.audiminder.collections.util.bindTo
 import gg.jrg.audiminder.databinding.ItemCollectionListViewBinding
 
-class GridCollectionsAdapter(private val clickListener: (BindableView) -> Unit) :
+class GridCollectionsAdapter(
+    private val clickListener: (BindableView) -> Unit,
+    private val longClickListener: (BindableView) -> Unit
+) :
     FilterableListAdapter<AlbumCollectionWithAlbums, GridCollectionsAdapter.AlbumCollectionCollectionsScreenViewHolder>(
         AlbumCollectionWithAlbumsDiffCallBack(),
         { it.collection.name }
@@ -25,7 +28,7 @@ class GridCollectionsAdapter(private val clickListener: (BindableView) -> Unit) 
                 parent,
                 false
             )
-        return AlbumCollectionCollectionsScreenViewHolder(binding, clickListener)
+        return AlbumCollectionCollectionsScreenViewHolder(binding, clickListener, longClickListener)
     }
 
     override fun onBindViewHolder(
@@ -38,7 +41,8 @@ class GridCollectionsAdapter(private val clickListener: (BindableView) -> Unit) 
 
     class AlbumCollectionCollectionsScreenViewHolder(
         private val binding: ItemCollectionListViewBinding,
-        private val clickListener: (BindableView) -> Unit
+        private val clickListener: (BindableView) -> Unit,
+        private val longClickListener: (BindableView) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -49,7 +53,8 @@ class GridCollectionsAdapter(private val clickListener: (BindableView) -> Unit) 
                 binding.subtitleTextView,
                 binding.imageContainer,
                 R.drawable.baseline_album_24,
-                clickListener
+                clickListener,
+                longClickListener
             )
         }
     }

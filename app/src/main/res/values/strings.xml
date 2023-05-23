@@ -64,4 +64,5 @@
     <string name="largest">Largest to Smallest</string>
     <string name="smallest">Smallest to Largest</string>
     <string name="a_checkmark_will_be_displayed_here_if_this_option_is_selected">A checkmark will be displayed here if this option is selected</string>
+    <string name="delete_collection">Delete collection</string>
 </resources>

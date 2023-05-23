@@ -39,21 +39,22 @@ class AlbumSearchResultsAdapter(private val parentFragmentManager: FragmentManag
                 binding.titleInCardview,
                 binding.subtitleInCardview,
                 binding.imageContainer,
-                R.drawable.baseline_album_24
-            ) {
-                AddSearchResultToCollectionBottomSheetFragment()
-                    .apply {
-                        arguments = Bundle().apply {
-                            putParcelable(
-                                AddSearchResultToCollectionBottomSheetFragment.ALBUM_KEY,
-                                album
-                            )
-                        }
-                    }.show(
-                        parentFragmentManager,
-                        AddSearchResultToCollectionBottomSheetFragment.TAG
-                    )
-            }
+                R.drawable.baseline_album_24,
+                {
+                    AddSearchResultToCollectionBottomSheetFragment()
+                        .apply {
+                            arguments = Bundle().apply {
+                                putParcelable(
+                                    AddSearchResultToCollectionBottomSheetFragment.ALBUM_KEY,
+                                    album
+                                )
+                            }
+                        }.show(
+                            parentFragmentManager,
+                            AddSearchResultToCollectionBottomSheetFragment.TAG
+                        )
+                }
+            )
         }
     }
 

@@ -18,13 +18,19 @@ fun BindableView.bindTo(
     subtitleTextView: MaterialTextView,
     imageContainer: ConstraintLayout,
     defaultImageResId: Int,
-    clickListener: (BindableView) -> Unit
+    clickListener: (BindableView) -> Unit = {},
+    longClickListener: (BindableView) -> Unit = {}
 ) {
     titleTextView.text = title
     subtitleTextView.text = subtitle
 
     cardView.setOnClickListener {
         clickListener(this)
+    }
+
+    cardView.setOnLongClickListener {
+        longClickListener(this)
+        true
     }
 
     imageContainer.apply {

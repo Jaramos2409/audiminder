@@ -18,4 +18,6 @@ class CollectionsUseCases @Inject constructor(
         GetStoredSortingTypeUseCase(collectionsRepository)
     val setStoredSortingTypeSuspendUseCase =
         SetStoredSortingTypeSuspendUseCase(collectionsRepository)
+    val deleteCollectionSuspendUseCase =
+        DeleteCollectionSuspendUseCase(collectionsRepository)
 }

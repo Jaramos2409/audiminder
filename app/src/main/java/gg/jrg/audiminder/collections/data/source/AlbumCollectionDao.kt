@@ -1,6 +1,7 @@
 package gg.jrg.audiminder.collections.data.source
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -33,5 +34,8 @@ interface AlbumCollectionDao {
     @Transaction
     @Query("SELECT * FROM collections WHERE collectionId = :collectionId")
     fun getCollectionWithAlbums(collectionId: Int): AlbumCollectionWithAlbumsDTO
+
+    @Delete
+    fun deleteCollection(albumCollectionDTO: AlbumCollectionDTO): Int
 
 }
